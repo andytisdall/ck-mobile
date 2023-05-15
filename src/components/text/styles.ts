@@ -34,4 +34,12 @@ export default StyleSheet.create({
     color: 'yellow',
     fontWeight: '600',
   },
+
+  sendBtn: {
+    marginTop: 15,
+  },
+
+  btnInactive: {
+    backgroundColor: 'grey',
+  },
 });

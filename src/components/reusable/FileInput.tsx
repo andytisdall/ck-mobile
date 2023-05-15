@@ -5,8 +5,9 @@ const FileInput = ({
   setFile,
   label,
 }: {
-  file: Buffer;
+  file: 
   setFile: React.Dispatch<React.SetStateAction<null>>;
+  label: string;
 }) => {
   const processFile = e => {
     const {files} = e.target;
