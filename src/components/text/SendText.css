@@ -1,19 +1,4 @@
-.send-text {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-top: 1rem;
-}
 
-.sent-success {
-  background-color: rgb(111, 255, 111);
-  margin-top: 3rem;
-  font-size: 2rem;
-  display: block;
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid black
-}
 
 .send-btn {
   margin-top: 1.5rem;
@@ -23,20 +8,10 @@
   width: 25rem;
 }
 
-.send-text-variables {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1rem;
-  align-items: flex-start;
-}
 
 
-.send-text-variables-item {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
+
+
 
 .send-text-variables-radio {
   margin-bottom: 1rem;
@@ -52,16 +27,7 @@
   padding: 1rem
 }
 
-.fridge {
-  display: flex;
-}
 
-.fridge-info {
-  margin-left: 1.5rem;
-  margin-right: .5rem;
-  color: yellow;
-  font-weight: 600;
-}
 
 
 .photo-preview {

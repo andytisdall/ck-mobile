@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {connect} from 'react-redux';
-import {Text, TextInput, View} from 'react-native';
+import {Pressable, Text, TextInput, View} from 'react-native';
 
+import styles from './styles';
 import * as actions from '../../actions';
 import './SendText.css';
 import {townFridges} from './townFridges';
@@ -21,9 +22,9 @@ const SendText = ({
     number: any,
   ) => (dispatch: any) => Promise<void>;
 }) => {
+  const [fridgeMenuOpen, setFridgeMenuOpen] = useState(false);
   const [fridge, setFridge] = useState<number | undefined>();
-  const [mealCount, setMealCount] = useState(25);
-  const [source, setSource] = useState('CK Home Chef Volunteers');
+  const [mealCount, setMealCount] = useState<string | undefined>();
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState(null);
   const [dietary, setDietary] = useState('');
@@ -51,7 +52,7 @@ const SendText = ({
     fridge &&
     `Hello! ${
       townFridges[fridge].name
-    } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by ${source}! The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
+    } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
 
   const getRegion = () => {
     if (fridge) {
@@ -66,84 +67,65 @@ const SendText = ({
   };
 
   const composeText = () => {
-    const btnActive = fridge && message && source && name && mealCount > 0;
+    const btnActive = fridge && message && name && mealCount && parseInt(mealCount) > 0;
 
     return (
-      <View className="send-text">
-        <View className="send-text-variables">
-          <View className="send-text-variables-item">
+      <View style={styles.sendText}>
+        <View style={styles.sendTextVariables}>
+          <View style={styles.sendTextVariablesItem}>
             <Text>Name of Meal:</Text>
             <TextInput value={name} onChangeText={setName} />
           </View>
 
-          <div className="send-text-variables-item">
-            <label htmlFor="mealCount">Number of Meals:</label>
-            <input
-              type="number"
+          <View style={styles.sendTextVariablesItem}>
+            <Text>Number of Meals:</Text>
+            <TextInput
               value={mealCount}
-              name="mealCount"
-              onChange={e => setMealCount(e.target.value)}
-              min={1}
+              onChangeText={setMealCount}
             />
-          </div>
+          </View>
 
-          <div className="send-text-variables-item">
-            <label htmlFor="source">Prepared By:</label>
-            <textarea
-              value={source}
-              name="source"
-              onChange={e => setSource(e.target.value)}
-            />
-          </div>
 
-          <div className="send-text-variables-item">
-            <label htmlFor="dietary">Dietary Information (optional):</label>
-            <textarea
+          <View style={styles.sendTextVariablesItem}>
+            <Text>Dietary Information (optional):</Text>
+            <TextInput
               value={dietary}
-              name="dietary"
-              onChange={e => setDietary(e.target.value)}
+              onChangeText={setDietary}
             />
-          </div>
+          </View>
 
-          <div className="send-text-variables-item">
-            <label htmlFor="fridge">Town Fridge Location:</label>
-            <div className="fridge">
-              <select
-                required
-                name="fridge"
-                value={fridge}
-                onChange={e => setFridge(e.target.value)}>
-                <option value="">Select a Town Fridge</option>
+          <View style={styles.sendTextVariablesItem}>
+            <Text>Town Fridge Location:</Text>
+            <View>
+              <Pressable>{fridge ? townFridges[fridge].name : 'Select a Town Fridge'}</Pressable>
                 {townFridges.map((f, i) => (
-                  <option value={i} key={f.name}>
+                  <Pressable key={f.name} onPress={() => setFridge(i)}>
                     {f.name}
-                  </option>
+                  </Pressable>
                 ))}
-              </select>
 
-              {fridge && (
-                <div>
-                  <span className="fridge-info">Address: </span>
-                  {townFridges[fridge].address}
-                </div>
-              )}
+              {fridge && <View>
+                  <Text style={styles.fridgeInfo}>Address: </Text>
+                  <Text> {townFridges[fridge].address}</Text>
+                  </View>
+                }
 
-              {fridge && (
-                <div>
-                  <span className="fridge-info">Region: </span>
+              {fridge && <View>
+                  <Text style={styles.fridgeInfo}>Region: </Text><Text>
                   {getRegion()}
-                </div>
-              )}
-            </div>
-          </div>
+                  </Text>
+                  </View>
+              }
+            </View>
+          </View>
 
-          <div className="send-text-variables-item">
+          <View style={styles.sendTextVariablesItem}>
             <FileInput
               file={photo}
               setFile={setPhoto}
               label="Photo (optional):"
             />
-          </div>
+          </View>
 
           <button
             className={`send-btn ${btnActive ? '' : 'btn-inactive'}`}

@@ -1,6 +1,13 @@
 import './FileInput.css';
 
-const FileInput = ({file, setFile, label, data}) => {
+const FileInput = ({
+  file,
+  setFile,
+  label,
+}: {
+  file: Buffer;
+  setFile: React.Dispatch<React.SetStateAction<null>>;
+}) => {
   const processFile = e => {
     const {files} = e.target;
     if (files[0]) {
