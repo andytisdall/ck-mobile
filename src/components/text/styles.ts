@@ -1,10 +1,13 @@
-import {StyleSheet} from 'react-native/types';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   sendText: {
     alignItems: 'flex-start',
     flexDirection: 'column',
-    marginTop: '1rem',
+    marginTop: 10,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'blue',
   },
 
   sentSuccess: {

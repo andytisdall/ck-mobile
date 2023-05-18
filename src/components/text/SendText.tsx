@@ -4,10 +4,11 @@ import {Pressable, Text, TextInput, View} from 'react-native';
 
 import styles from './styles';
 import * as actions from '../../actions';
-import './SendText.css';
+// import './SendText.css';
 import {townFridges} from './townFridges';
 // import Loading from '../reusable/Loading';
 import AddPhoto from '../reusable/AddPhoto';
+import {SafeAreaView} from 'react-native-safe-area-context';
 // import useLoading from '../../hooks/useLoading';
 // import TextPreview from './TextPreview';
 
@@ -100,12 +101,14 @@ const SendText = () => {
             <Text>Town Fridge Location:</Text>
             <View>
               <Pressable onPress={() => setFridgeMenuOpen(current => !current)}>
-                {fridge ? townFridges[fridge].name : 'Select a Town Fridge'}
+                <Text>
+                  {fridge ? townFridges[fridge].name : 'Select a Town Fridge'}
+                </Text>
               </Pressable>
               {fridgeMenuOpen &&
                 townFridges.map((f, i) => (
                   <Pressable key={f.name} onPress={() => setFridge(i)}>
-                    {f.name}
+                    <Text>{f.name}</Text>
                   </Pressable>
                 ))}
 
@@ -137,7 +140,7 @@ const SendText = () => {
                 setPreview(true);
               }
             }}>
-            Preview Message
+            <Text>Preview Message</Text>
           </Pressable>
         </View>
       </View>
@@ -166,10 +169,10 @@ const SendText = () => {
   };
 
   return (
-    <div>
-      <h2>Send a Text</h2>
+    <SafeAreaView>
+      <Text>Send a Text</Text>
       {renderContent()}
-    </div>
+    </SafeAreaView>
   );
 };
 

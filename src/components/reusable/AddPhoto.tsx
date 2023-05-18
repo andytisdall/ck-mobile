@@ -3,8 +3,8 @@ import {
   launchImageLibrary,
   ImagePickerResponse,
 } from 'react-native-image-picker';
-import {Pressable, View, Text} from 'react-native/types';
-import {useState} from 'react';
+import {Pressable, View, Text} from 'react-native';
+import React, {useState} from 'react';
 
 interface AddPhotoProps {
   setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
@@ -34,8 +34,12 @@ const AddPhoto = ({setPhoto}: AddPhotoProps) => {
 
   return (
     <View>
-      <Pressable onPress={getPhotoFromLibrary}>Get Photo</Pressable>
-      <Pressable onPress={takePhoto}>Take Photo</Pressable>
+      <Pressable onPress={getPhotoFromLibrary}>
+        <Text>Get Photo</Text>
+      </Pressable>
+      <Pressable onPress={takePhoto}>
+        <Text>Take Photo</Text>
+      </Pressable>
       <Text>{fileName ? fileName : ''}</Text>
     </View>
   );

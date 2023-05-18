@@ -1,59 +1,56 @@
-import heic2any from 'heic2any';
-import {useState, useEffect} from 'react';
+// import heic2any from 'heic2any';
+// import {useState, useEffect} from 'react';
+import {View, Text, Pressable, Image} from 'react-native';
+import React from 'react';
 
-import Loading from '../reusable/Loading';
+import styles from './styles';
+// import Loading from '../reusable/Loading';
 
 const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
-  const [image, setImage] = useState(photo);
+  // const [image, setImage] = useState(photo);
 
-  useEffect(() => {
-    if (photo?.name.toLowerCase().includes('.heic')) {
-      setImage(null);
-      const convert = async () => {
-        const pic = await heic2any({
-          blob: photo,
-          toType: 'image/jpeg',
-          quality: 0.3,
-        });
-        setImage(pic);
-      };
-      convert();
-    }
-  }, [photo]);
+  // useEffect(() => {
+  //   if (photo?.name.toLowerCase().includes('.heic')) {
+  //     setImage(null);
+  //     const convert = async () => {
+  //       const pic = await heic2any({
+  //         blob: photo,
+  //         toType: 'image/jpeg',
+  //         quality: 0.3,
+  //       });
+  //       setImage(pic);
+  //     };
+  //     convert();
+  //   }
+  // }, [photo]);
 
   return (
-    <div>
-      <h3>Confirm Your Message:</h3>
-      <div className="text-preview">{message}</div>
-      {photo && !image && <Loading />}
-      {image && (
-        <img
-          className="photo-preview"
-          src={URL.createObjectURL(image)}
-          alt="preview"
-        />
-      )}
+    <View>
+      <Text>Confirm Your Message:</Text>
+      <Text style={styles.textPreview}>{message}</Text>
+      {/* {photo && !image && <Loading />} */}
+      {photo && <Image style={styles.photoPreview} src={photo} alt="preview" />}
 
-      <div>
-        <p>To: {region}</p>
-      </div>
+      <View>
+        <Text>To: {region}</Text>
+      </View>
 
-      <button
-        className="send-btn"
+      <Pressable
+        style={styles.sendBtn}
         onClick={() => {
           onSubmit();
         }}>
         Send Message
-      </button>
+      </Pressable>
 
-      <button
-        className="send-btn"
+      <Pressable
+        style={styles.sendBtn}
         onClick={() => {
           onCancel();
         }}>
         Go Back to Text Compose
-      </button>
-    </div>
+      </Pressable>
+    </View>
   );
 };
 

@@ -1,6 +1,6 @@
-import { CLEAR_ERROR, ERROR } from './types';
+import {CLEAR_ERROR, ERROR} from './types';
 
-export const setError = (err) => (dispatch) => {
+export const setError = err => dispatch => {
   let message;
   if (err.response?.data) {
     if (err.response.data.error) {
@@ -13,7 +13,7 @@ export const setError = (err) => (dispatch) => {
   }
   console.log(err);
   const timeout = setTimeout(() => {
-    dispatch({ type: CLEAR_ERROR });
+    dispatch({type: CLEAR_ERROR});
   }, 7000);
-  dispatch({ type: ERROR, payload: { message, timeout } });
+  dispatch({type: ERROR, payload: {message, timeout}});
 };
