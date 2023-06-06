@@ -1,7 +1,6 @@
 import {GET_FRIDGES, SEND_TEXT} from '../../actions/types';
 
 const INITIAL_STATE = {
-  feedback: null,
   sent: null,
   townFridges: null,
 };

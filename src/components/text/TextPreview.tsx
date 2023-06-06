@@ -6,7 +6,21 @@ import React from 'react';
 import styles from './styles';
 // import Loading from '../reusable/Loading';
 
-const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
+interface TextPreviewProps {
+  onSubmit: () => void;
+  message: string;
+  region: string;
+  photo: string | undefined;
+  onCancel: () => void;
+}
+
+const TextPreview = ({
+  onSubmit,
+  message,
+  region,
+  photo,
+  onCancel,
+}: TextPreviewProps) => {
   // const [image, setImage] = useState(photo);
 
   // useEffect(() => {
@@ -29,7 +43,13 @@ const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
       <Text>Confirm Your Message:</Text>
       <Text style={styles.textPreview}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
-      {photo && <Image style={styles.photoPreview} src={photo} alt="preview" />}
+      {photo && (
+        <Image
+          style={styles.photoPreview}
+          source={{uri: photo}}
+          alt="preview"
+        />
+      )}
 
       <View>
         <Text>To: {region}</Text>
@@ -37,8 +57,7 @@ const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
 
       <Pressable
         style={styles.sendBtn}
-        onClick={() => {
-          console.log('submit');
+        onPress={() => {
           onSubmit();
         }}>
         <Text>Send Message</Text>
@@ -46,7 +65,7 @@ const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
 
       <Pressable
         style={styles.sendBtn}
-        onClick={() => {
+        onPress={() => {
           onCancel();
         }}>
         <Text>Go Back to Text Compose</Text>

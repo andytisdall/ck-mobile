@@ -11,7 +11,7 @@ const EnterFridge = ({
   townFridges,
 }: {
   fridge: number | undefined;
-  setFridge: React.Dispatch<React.SetStateAction<number | undefined>>;
+  setFridge: (fridgeIndex: number) => void;
   region: string;
   townFridges: townFridgeList;
 }) => {

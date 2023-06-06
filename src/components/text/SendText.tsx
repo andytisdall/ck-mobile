@@ -7,16 +7,15 @@ import {
   sendText as sendTextAction,
   getFridges as getFridgesAction,
 } from '../../actions';
-// import './SendText.css';
-// import Loading from '../reusable/Loading';
-// import AddPhoto from '../reusable/AddPhoto';
-// import useLoading from '../../hooks/useLoading';
+
 import TextPreview from './TextPreview';
 import EnterName from './EnterName';
 import EnterCount from './EnterCount';
 import EnterFridge from './EnterFridge';
 import EnterPhoto from './EnterPhoto';
 import {RootState} from '../../state/Root';
+import useLoading from '../../hooks/useLoading';
+import Loading from '../reusable/Loading';
 
 export type townFridgeList =
   | {
@@ -39,10 +38,8 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState<string | undefined>();
   const [fieldValid, setFieldValid] = useState(false);
-  // const [dietary, setDietary] = useState('');
-  // const [preview, setPreview] = useState(false);
 
-  // const [loading, setLoading] = useLoading();
+  const [loading, setLoading] = useLoading();
 
   useEffect(() => {
     getFridges();
@@ -89,6 +86,8 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
     setName(text);
     if (text) {
       setFieldValid(true);
+    } else {
+      setFieldValid(false);
     }
   };
 
@@ -96,6 +95,17 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
     setMealCount(text);
     if (parseInt(text, 10) > 0) {
       setFieldValid(true);
+    } else {
+      setFieldValid(false);
+    }
+  };
+
+  const validateFridge = (fridgeIndex: number) => {
+    setFridge(fridgeIndex);
+    if (fridgeIndex && townFridges && townFridges[fridgeIndex]) {
+      setFieldValid(true);
+    } else {
+      setFieldValid(false);
     }
   };
 
@@ -110,13 +120,14 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
       case 3:
         return (
           <EnterFridge
-            setFridge={setFridge}
+            setFridge={validateFridge}
             fridge={fridge}
             region={getRegion()}
             townFridges={townFridges}
           />
         );
       case 4:
+        setFieldValid(true);
         return <EnterPhoto photo={photo} setPhoto={setPhoto} />;
       case 5:
         return (
@@ -126,6 +137,9 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
             photo={photo}
             onSubmit={() => {
               if (fridge && townFridges) {
+                if (setLoading !== true && setLoading !== false) {
+                  setLoading(true);
+                }
                 sendText(message, townFridges[fridge].region, photo);
               }
             }}
@@ -133,26 +147,34 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
           />
         );
       default:
-        // setFieldValid(true);
         return <Text>Oops</Text>;
     }
   };
 
   const renderNav = () => {
     const invalidStyle = !fieldValid && styles.btnInactive;
+
+    const nextBtn = (
+      <Pressable
+        style={[styles.btn, invalidStyle]}
+        onPress={() => fieldValid && nextPage()}>
+        <Text style={[styles.btnText]}>Next</Text>
+      </Pressable>
+    );
+
     return (
       <View style={styles.sendTextNav}>
         <Pressable style={styles.btn} onPress={prevPage}>
           <Text style={styles.btnText}>Back</Text>
         </Pressable>
-        <Pressable
-          style={[styles.btn, invalidStyle]}
-          onPress={() => fieldValid && nextPage()}>
-          <Text style={[styles.btnText]}>Next</Text>
-        </Pressable>
+        {page !== 5 && nextBtn}
       </View>
     );
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.sendText}>
@@ -163,7 +185,7 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
 };
 
 const mapStateToProps = (state: RootState) => {
-  return {townFridges: state.text.townFridges};
+  return {townFridges: state.text.townFridges, sent: state.text.sent};
 };
 
 export default connect(mapStateToProps, {

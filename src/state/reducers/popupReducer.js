@@ -12,10 +12,10 @@ const popupReducer = (state = INITIAL_STATE, action) => {
       if (state.timeout) {
         clearTimeout(state.timeout);
       }
-      return {alert: action.payload};
+      return {error: undefined, alert: action.payload, timeout};
     case ERROR:
       const {message, timeout} = action.payload;
-      return {error: message, timeout};
+      return {error: message, timeout, alert: undefined};
     case CLEAR_MESSAGES:
       if (state.timeout) {
         clearTimeout(state.timeout);

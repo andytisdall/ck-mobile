@@ -83,4 +83,19 @@ export default StyleSheet.create({
   btnInactive: {
     backgroundColor: 'grey',
   },
+
+  textPreview: {
+    fontSize: 15,
+    marginBottom: 20,
+    width: '70%',
+    lineHeight: 15,
+    backgroundColor: 'black',
+    padding: 10,
+  },
+
+  photoPreview: {
+    borderStyle: 'none',
+    marginBottom: 10,
+    width: '50%',
+  },
 });
