@@ -1,24 +1,28 @@
 import {compose, createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import ThunkMiddleware from 'redux-thunk-recursion-detect';
-// import clearError from './middlewares/clearError';
-// import errorHandlerMiddleware from './middlewares/errorHandler';
+import clearError from '../middlewares/clearError';
+import errorHandlerMiddleware from '../middlewares/errorHandler';
 import reducers from './reducers';
 import React from 'react';
 
+const initialState = {};
+
+const store = createStore(
+  reducers,
+  initialState,
+  compose(applyMiddleware(clearError, errorHandlerMiddleware, ThunkMiddleware)),
+);
+
 const Root = ({
   children,
-  initialState = {},
 }: {
   children: JSX.Element;
   initialState: {};
 }): JSX.Element => {
-  const store = createStore(
-    reducers,
-    initialState,
-    compose(applyMiddleware(ThunkMiddleware)),
-  );
   return <Provider store={store}>{children}</Provider>;
 };
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export default Root;

@@ -2,33 +2,52 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   sendText: {
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    marginTop: 10,
     height: '100%',
-    width: '100%',
-    backgroundColor: 'blue',
+    justifyContent: 'flex-start',
+  },
+
+  sendTextPage: {
+    height: '40%',
   },
 
   sentSuccess: {
     backgroundColor: 'rgb(111, 255, 111)',
-    marginTop: '3rem',
+    marginTop: 30,
     fontSize: 20,
-    padding: '1rem',
+    padding: 10,
     textAlign: 'center',
     border: '1px solid black',
   },
 
-  sendTextVariables: {
+  sendTextVariablesItem: {
+    marginBottom: 10,
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: 10,
-    alignItems: 'flex-start',
   },
 
-  sendTextVariablesItem: {
-    marginBottom: '1rem',
-    flexDirection: 'column',
+  sendTextLabel: {
+    fontSize: 30,
+  },
+
+  sendTextInput: {
+    height: 10,
+    padding: 20,
+    width: '100%',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    margin: 5,
+    fontSize: 25,
+  },
+
+  fridgeButton: {
+    backgroundColor: 'yellow',
+    padding: 5,
+    marginTop: 5,
+    borderWidth: 1,
+  },
+
+  fridgeOption: {
+    backgroundColor: 'green',
+    borderWidth: 1,
   },
 
   fridgeInfo: {
@@ -36,6 +55,25 @@ export default StyleSheet.create({
     marginRight: 5,
     color: 'yellow',
     fontWeight: '600',
+  },
+
+  sendTextNav: {
+    marginTop: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+
+  btn: {
+    backgroundColor: 'blue',
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    borderRadius: 50,
+  },
+
+  btnText: {
+    color: 'white',
+    fontSize: 25,
   },
 
   sendBtn: {

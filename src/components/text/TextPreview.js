@@ -38,9 +38,10 @@ const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
       <Pressable
         style={styles.sendBtn}
         onClick={() => {
+          console.log('submit');
           onSubmit();
         }}>
-        Send Message
+        <Text>Send Message</Text>
       </Pressable>
 
       <Pressable
@@ -48,7 +49,7 @@ const TextPreview = ({onSubmit, message, region, photo, onCancel}) => {
         onClick={() => {
           onCancel();
         }}>
-        Go Back to Text Compose
+        <Text>Go Back to Text Compose</Text>
       </Pressable>
     </View>
   );

@@ -1,66 +1,63 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, TextInput, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 
 import styles from './styles';
-import * as actions from '../../actions';
+import {
+  sendText as sendTextAction,
+  getFridges as getFridgesAction,
+} from '../../actions';
 // import './SendText.css';
-import {townFridges} from './townFridges';
 // import Loading from '../reusable/Loading';
-import AddPhoto from '../reusable/AddPhoto';
-import {SafeAreaView} from 'react-native-safe-area-context';
+// import AddPhoto from '../reusable/AddPhoto';
 // import useLoading from '../../hooks/useLoading';
-// import TextPreview from './TextPreview';
+import TextPreview from './TextPreview';
+import EnterName from './EnterName';
+import EnterCount from './EnterCount';
+import EnterFridge from './EnterFridge';
+import EnterPhoto from './EnterPhoto';
+import {RootState} from '../../state/Root';
 
-// {
-//   sendText,
-// }: {
-//   sendText: (
-//     message: any,
-//     region: any,
-//     photo: any,
-//     feedbackId: any,
-//     number: any,
-//   ) => (dispatch: any) => Promise<void>;
-// }
+export type townFridgeList =
+  | {
+      name: string;
+      address: string | undefined;
+      region: string;
+    }[]
+  | null;
 
-const SendText = () => {
-  const [fridgeMenuOpen, setFridgeMenuOpen] = useState(false);
+interface sendTextProps {
+  sendText: (message: string, region: string, photo: any) => Promise<void>;
+  getFridges: () => Promise<void>;
+  townFridges: townFridgeList;
+}
+
+const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
+  const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
-  const [mealCount, setMealCount] = useState<string | undefined>();
+  const [mealCount, setMealCount] = useState('');
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState<string | undefined>();
-  const [dietary, setDietary] = useState('');
-  const [preview, setPreview] = useState(false);
+  const [fieldValid, setFieldValid] = useState(false);
+  // const [dietary, setDietary] = useState('');
+  // const [preview, setPreview] = useState(false);
 
   // const [loading, setLoading] = useLoading();
 
-  console.log(photo);
+  useEffect(() => {
+    getFridges();
+  }, [getFridges]);
 
   const getAddress = () => {
-    if (fridge && townFridges[fridge].address) {
+    if (fridge && townFridges && townFridges[fridge].address) {
       return `, at ${townFridges[fridge].address},`;
     } else {
       return '';
     }
   };
 
-  const getDietaryInfo = () => {
-    if (dietary) {
-      return `This meal is ${dietary}. `;
-    } else {
-      return '';
-    }
-  };
-
-  const message =
-    fridge &&
-    `Hello! ${
-      townFridges[fridge].name
-    } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! The meal today is ${name}. ${getDietaryInfo()}Please respond to this message with any feedback. Enjoy!`;
-
   const getRegion = () => {
-    if (fridge) {
+    if (fridge && townFridges) {
       const {region} = townFridges[fridge];
       if (region === 'EAST_OAKLAND') {
         return 'East Oakland';
@@ -69,111 +66,107 @@ const SendText = () => {
         return 'West Oakland';
       }
     }
+    return '';
   };
 
-  const composeText = () => {
-    const btnActive =
-      fridge && message && name && mealCount && parseInt(mealCount, 10) > 0;
-    const sendButton: Record<string, string | number>[] = [styles.sendBtn];
-    if (!btnActive) {
-      sendButton.push(styles.btnInactive);
+  const message =
+    fridge && townFridges
+      ? `Hello! ${
+          townFridges[fridge].name
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
+      : '';
+
+  const prevPage = () => {
+    setPage(p => p - 1);
+  };
+
+  const nextPage = () => {
+    setFieldValid(false);
+    setPage(p => p + 1);
+  };
+
+  const validateName = (text: string) => {
+    setName(text);
+    if (text) {
+      setFieldValid(true);
     }
+  };
 
-    return (
-      <View style={styles.sendText}>
-        <View style={styles.sendTextVariables}>
-          <View style={styles.sendTextVariablesItem}>
-            <Text>Name of Meal:</Text>
-            <TextInput value={name} onChangeText={setName} />
-          </View>
+  const validateCount = (text: string) => {
+    setMealCount(text);
+    if (parseInt(text, 10) > 0) {
+      setFieldValid(true);
+    }
+  };
 
-          <View style={styles.sendTextVariablesItem}>
-            <Text>Number of Meals:</Text>
-            <TextInput value={mealCount} onChangeText={setMealCount} />
-          </View>
-
-          <View style={styles.sendTextVariablesItem}>
-            <Text>Dietary Information (optional):</Text>
-            <TextInput value={dietary} onChangeText={setDietary} />
-          </View>
-
-          <View style={styles.sendTextVariablesItem}>
-            <Text>Town Fridge Location:</Text>
-            <View>
-              <Pressable onPress={() => setFridgeMenuOpen(current => !current)}>
-                <Text>
-                  {fridge ? townFridges[fridge].name : 'Select a Town Fridge'}
-                </Text>
-              </Pressable>
-              {fridgeMenuOpen &&
-                townFridges.map((f, i) => (
-                  <Pressable key={f.name} onPress={() => setFridge(i)}>
-                    <Text>{f.name}</Text>
-                  </Pressable>
-                ))}
-
-              {fridge && (
-                <View>
-                  <Text style={styles.fridgeInfo}>Address: </Text>
-                  <Text> {townFridges[fridge].address}</Text>
-                </View>
-              )}
-
-              {fridge && (
-                <View>
-                  <Text style={styles.fridgeInfo}>Region: </Text>
-                  <Text>{getRegion()}</Text>
-                </View>
-              )}
-            </View>
-          </View>
-
-          <View style={styles.sendTextVariablesItem}>
-            <Text>Photo (optional):</Text>
-            <AddPhoto setPhoto={setPhoto} />
-          </View>
-
-          <Pressable
-            style={sendButton}
-            onPress={() => {
-              if (btnActive) {
-                setPreview(true);
+  const renderPage = () => {
+    switch (page) {
+      case 1:
+        return <EnterName setName={validateName} name={name} />;
+      case 2:
+        return (
+          <EnterCount setMealCount={validateCount} mealCount={mealCount} />
+        );
+      case 3:
+        return (
+          <EnterFridge
+            setFridge={setFridge}
+            fridge={fridge}
+            region={getRegion()}
+            townFridges={townFridges}
+          />
+        );
+      case 4:
+        return <EnterPhoto photo={photo} setPhoto={setPhoto} />;
+      case 5:
+        return (
+          <TextPreview
+            message={message}
+            region={getRegion()}
+            photo={photo}
+            onSubmit={() => {
+              if (fridge && townFridges) {
+                sendText(message, townFridges[fridge].region, photo);
               }
-            }}>
-            <Text>Preview Message</Text>
-          </Pressable>
-        </View>
+            }}
+            onCancel={() => setPage(1)}
+          />
+        );
+      default:
+        // setFieldValid(true);
+        return <Text>Oops</Text>;
+    }
+  };
+
+  const renderNav = () => {
+    const invalidStyle = !fieldValid && styles.btnInactive;
+    return (
+      <View style={styles.sendTextNav}>
+        <Pressable style={styles.btn} onPress={prevPage}>
+          <Text style={styles.btnText}>Back</Text>
+        </Pressable>
+        <Pressable
+          style={[styles.btn, invalidStyle]}
+          onPress={() => fieldValid && nextPage()}>
+          <Text style={[styles.btnText]}>Next</Text>
+        </Pressable>
       </View>
     );
   };
 
-  const renderContent = () => {
-    // if (loading) {
-    //   return <Loading />;
-    // }
-    if (!preview) {
-      return composeText();
-    }
-    return (
-      <Text>Preview</Text>
-      // <TextPreview
-      //   message={message}
-      //   region={getRegion()}
-      //   photo={photo}
-      //   onSubmit={() => {
-      //     console.log(photo);
-      //   }}
-      //   onCancel={() => setPreview(false)}
-      // />
-    );
-  };
-
   return (
-    <SafeAreaView>
-      <Text>Send a Text</Text>
-      {renderContent()}
-    </SafeAreaView>
+    <View style={styles.sendText}>
+      <View style={styles.sendTextPage}>{renderPage()}</View>
+      {renderNav()}
+    </View>
   );
 };
 
-export default connect(null, actions)(SendText);
+const mapStateToProps = (state: RootState) => {
+  return {townFridges: state.text.townFridges};
+};
+
+export default connect(mapStateToProps, {
+  sendText: sendTextAction,
+  getFridges: getFridgesAction,
+})(SendText);
