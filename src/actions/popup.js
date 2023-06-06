@@ -10,7 +10,7 @@ export const setError = err => dispatch => {
       message = err.response.data;
     }
   } else {
-    message = err.message;
+    message = err.message || err;
   }
   console.log(err);
   const timeout = setTimeout(() => {

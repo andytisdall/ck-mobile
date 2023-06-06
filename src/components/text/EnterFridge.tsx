@@ -17,43 +17,56 @@ const EnterFridge = ({
 }) => {
   const [fridgeMenuOpen, setFridgeMenuOpen] = useState(false);
 
+  const renderFridgeOptions = () => {
+    return (
+      <View style={styles.fridgeOptionsContainer}>
+        {townFridges?.map((f, i) => (
+          <Pressable
+            style={styles.fridgeOption}
+            key={f.name}
+            onPress={() => {
+              setFridge(i);
+              setFridgeMenuOpen(false);
+            }}>
+            <Text style={styles.fridgeText}>{f.name}</Text>
+          </Pressable>
+        ))}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.sendTextVariablesItem}>
-      <Text>Town Fridge Location:</Text>
-      <View>
+      <Text style={styles.sendTextLabel}>Town Fridge Location:</Text>
+      <View style={styles.fridgeSelect}>
         <Pressable
           style={styles.fridgeButton}
           onPress={() => setFridgeMenuOpen(current => !current)}>
-          <Text>
+          <Text style={styles.fridgeText}>
             {fridge && townFridges
               ? townFridges[fridge].name
               : 'Select a Town Fridge'}
           </Text>
         </Pressable>
-        {fridgeMenuOpen &&
-          townFridges?.map((f, i) => (
-            <Pressable
-              style={styles.fridgeOption}
-              key={f.name}
-              onPress={() => {
-                setFridge(i);
-                setFridgeMenuOpen(false);
-              }}>
-              <Text style={styles.fridgeName}>{f.name}</Text>
-            </Pressable>
-          ))}
+        {fridgeMenuOpen && renderFridgeOptions()}
 
-        {fridge && townFridges && (
-          <View>
-            <Text style={styles.fridgeInfo}>Address: </Text>
-            <Text> {townFridges[fridge].address}</Text>
-          </View>
-        )}
+        {fridge && townFridges && !fridgeMenuOpen && (
+          <View style={styles.fridgeInfo}>
+            <View>
+              {!!townFridges[fridge].address && (
+                <>
+                  <Text style={styles.fridgeInfoLabel}>Address: </Text>
 
-        {fridge && (
-          <View>
-            <Text style={styles.fridgeInfo}>Region: </Text>
-            <Text>{region}</Text>
+                  <Text style={styles.fridgeInfoValue}>
+                    {townFridges[fridge].address}
+                  </Text>
+                </>
+              )}
+            </View>
+            <View>
+              <Text style={styles.fridgeInfoLabel}>Region: </Text>
+              <Text style={styles.fridgeInfoValue}>{region}</Text>
+            </View>
           </View>
         )}
       </View>

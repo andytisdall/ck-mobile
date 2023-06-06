@@ -17,7 +17,7 @@ const EnterPhoto = ({
 
   return (
     <View style={styles.sendTextVariablesItem}>
-      <Text>Photo (optional):</Text>
+      <Text style={styles.sendTextLabel}>Photo (optional):</Text>
       <AddPhoto setPhoto={setPhoto} />
       {photo ? renderPhoto() : null}
     </View>

@@ -6,6 +6,8 @@ import {
 import {Pressable, View, Text} from 'react-native';
 import React, {useState} from 'react';
 
+import styles from './styles';
+
 interface AddPhotoProps {
   setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
@@ -34,11 +36,11 @@ const AddPhoto = ({setPhoto}: AddPhotoProps) => {
 
   return (
     <View>
-      <Pressable onPress={getPhotoFromLibrary}>
-        <Text>Get Photo</Text>
+      <Pressable style={styles.btn} onPress={getPhotoFromLibrary}>
+        <Text style={styles.btnText}>Get Photo</Text>
       </Pressable>
-      <Pressable onPress={takePhoto}>
-        <Text>Take Photo</Text>
+      <Pressable style={styles.btn} onPress={takePhoto}>
+        <Text style={styles.btnText}>Take Photo</Text>
       </Pressable>
       <Text>{fileName ? fileName : ''}</Text>
     </View>

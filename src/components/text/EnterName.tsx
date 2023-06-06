@@ -19,6 +19,8 @@ const EnterName = ({
         value={name}
         onChangeText={setName}
         textColor="black"
+        multiline
+        placeholder="Meatloaf with Couscous and Broccoli"
       />
     </View>
   );

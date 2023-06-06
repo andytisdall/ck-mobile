@@ -13,13 +13,14 @@ const EnterCount = ({
 }) => {
   return (
     <View style={styles.sendTextVariablesItem}>
-      <Text>Number of Meals:</Text>
+      <Text style={styles.sendTextLabel}>Number of Meals:</Text>
       <TextInput
-        style={styles.sendTextInput}
+        style={[styles.sendTextInput, styles.sendTextNumberInput]}
         value={mealCount}
         onChangeText={setMealCount}
         keyboardType="numeric"
         textColor="black"
+        placeholder="25"
       />
     </View>
   );

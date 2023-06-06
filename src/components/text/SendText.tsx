@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, View} from 'react-native';
+import {Pressable, Text, View, ScrollView} from 'react-native';
 
 import styles from './styles';
 import {
   sendText as sendTextAction,
   getFridges as getFridgesAction,
+  setError as setErrorAction,
 } from '../../actions';
 
 import TextPreview from './TextPreview';
@@ -28,10 +29,16 @@ export type townFridgeList =
 interface sendTextProps {
   sendText: (message: string, region: string, photo: any) => Promise<void>;
   getFridges: () => Promise<void>;
+  setError: (message: string) => void;
   townFridges: townFridgeList;
 }
 
-const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
+const SendText = ({
+  townFridges,
+  sendText,
+  getFridges,
+  setError,
+}: sendTextProps) => {
   const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');
@@ -136,16 +143,24 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
     const invalidStyle = !fieldValid && styles.btnInactive;
 
     const nextBtn = (
-      <Pressable
-        style={[styles.btn, invalidStyle]}
-        onPress={() => fieldValid && nextPage()}>
-        <Text style={[styles.btnText]}>Next</Text>
-      </Pressable>
+      <View style={styles.sendTextNavRight}>
+        <Pressable
+          style={[styles.sendTextNavBtn, invalidStyle]}
+          onPress={() => {
+            if (fieldValid) {
+              nextPage();
+            } else {
+              setError('You must enter a value to proceed');
+            }
+          }}>
+          <Text style={[styles.sendTextNavBtnText]}>&rarr;</Text>
+        </Pressable>
+      </View>
     );
 
     const backBtn = (
-      <Pressable style={styles.btn} onPress={prevPage}>
-        <Text style={styles.btnText}>Back</Text>
+      <Pressable style={styles.sendTextNavBtn} onPress={prevPage}>
+        <Text style={styles.sendTextNavBtnText}>&larr;</Text>
       </Pressable>
     );
 
@@ -162,10 +177,10 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
   }
 
   return (
-    <View style={styles.sendText}>
+    <ScrollView contentContainerStyle={styles.sendText}>
       <View style={styles.sendTextPage}>{renderPage()}</View>
       {renderNav()}
-    </View>
+    </ScrollView>
   );
 };
 
@@ -176,4 +191,5 @@ const mapStateToProps = (state: RootState) => {
 export default connect(mapStateToProps, {
   sendText: sendTextAction,
   getFridges: getFridgesAction,
+  setError: setErrorAction,
 })(SendText);
