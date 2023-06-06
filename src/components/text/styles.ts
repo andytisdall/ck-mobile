@@ -29,9 +29,8 @@ export default StyleSheet.create({
   },
 
   sendTextInput: {
-    height: 10,
+    height: 20,
     padding: 20,
-    width: '100%',
     borderWidth: 1,
     backgroundColor: 'white',
     margin: 5,
@@ -55,6 +54,10 @@ export default StyleSheet.create({
     marginRight: 5,
     color: 'yellow',
     fontWeight: '600',
+  },
+
+  fridgeName: {
+    color: 'white',
   },
 
   sendTextNav: {
@@ -91,11 +94,11 @@ export default StyleSheet.create({
     lineHeight: 15,
     backgroundColor: 'black',
     padding: 10,
+    color: 'white',
   },
 
   photoPreview: {
-    borderStyle: 'none',
     marginBottom: 10,
-    width: '50%',
+    height: 200,
   },
 });

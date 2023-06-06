@@ -39,7 +39,7 @@ const EnterFridge = ({
                 setFridge(i);
                 setFridgeMenuOpen(false);
               }}>
-              <Text>{f.name}</Text>
+              <Text style={styles.fridgeName}>{f.name}</Text>
             </Pressable>
           ))}
 

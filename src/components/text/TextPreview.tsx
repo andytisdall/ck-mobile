@@ -37,7 +37,6 @@ const TextPreview = ({
   //     convert();
   //   }
   // }, [photo]);
-
   return (
     <View>
       <Text>Confirm Your Message:</Text>

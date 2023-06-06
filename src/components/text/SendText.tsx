@@ -78,33 +78,13 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
   };
 
   const nextPage = () => {
-    setFieldValid(false);
     setPage(p => p + 1);
   };
 
-  const validateName = (text: string) => {
-    setName(text);
-    if (text) {
+  const validateField = (criteria: boolean) => {
+    if (!fieldValid && criteria) {
       setFieldValid(true);
-    } else {
-      setFieldValid(false);
-    }
-  };
-
-  const validateCount = (text: string) => {
-    setMealCount(text);
-    if (parseInt(text, 10) > 0) {
-      setFieldValid(true);
-    } else {
-      setFieldValid(false);
-    }
-  };
-
-  const validateFridge = (fridgeIndex: number) => {
-    setFridge(fridgeIndex);
-    if (fridgeIndex && townFridges && townFridges[fridgeIndex]) {
-      setFieldValid(true);
-    } else {
+    } else if (fieldValid && !criteria) {
       setFieldValid(false);
     }
   };
@@ -112,22 +92,23 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
   const renderPage = () => {
     switch (page) {
       case 1:
-        return <EnterName setName={validateName} name={name} />;
+        validateField(!!name);
+        return <EnterName setName={setName} name={name} />;
       case 2:
-        return (
-          <EnterCount setMealCount={validateCount} mealCount={mealCount} />
-        );
+        validateField(parseInt(mealCount, 10) > 0);
+        return <EnterCount setMealCount={setMealCount} mealCount={mealCount} />;
       case 3:
+        validateField(!!fridge && !!townFridges && !!townFridges[fridge]);
         return (
           <EnterFridge
-            setFridge={validateFridge}
+            setFridge={setFridge}
             fridge={fridge}
             region={getRegion()}
             townFridges={townFridges}
           />
         );
       case 4:
-        setFieldValid(true);
+        validateField(true);
         return <EnterPhoto photo={photo} setPhoto={setPhoto} />;
       case 5:
         return (
@@ -162,11 +143,15 @@ const SendText = ({townFridges, sendText, getFridges}: sendTextProps) => {
       </Pressable>
     );
 
+    const backBtn = (
+      <Pressable style={styles.btn} onPress={prevPage}>
+        <Text style={styles.btnText}>Back</Text>
+      </Pressable>
+    );
+
     return (
       <View style={styles.sendTextNav}>
-        <Pressable style={styles.btn} onPress={prevPage}>
-          <Text style={styles.btnText}>Back</Text>
-        </Pressable>
+        {page !== 1 && backBtn}
         {page !== 5 && nextBtn}
       </View>
     );

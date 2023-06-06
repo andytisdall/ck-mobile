@@ -18,6 +18,7 @@ const EnterName = ({
         style={styles.sendTextInput}
         value={name}
         onChangeText={setName}
+        textColor="black"
       />
     </View>
   );

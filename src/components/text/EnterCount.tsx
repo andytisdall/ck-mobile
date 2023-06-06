@@ -19,6 +19,7 @@ const EnterCount = ({
         value={mealCount}
         onChangeText={setMealCount}
         keyboardType="numeric"
+        textColor="black"
       />
     </View>
   );

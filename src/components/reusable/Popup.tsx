@@ -7,8 +7,8 @@ import {RootState} from '../../state/Root';
 
 interface PopupProps {
   popup: {
-    alert?: string;
-    error: string;
+    alert?: any;
+    error: any;
   };
 }
 
@@ -16,15 +16,15 @@ const Popup = ({popup}: PopupProps) => {
   const renderMessage = () => {
     if (popup.error) {
       return (
-        <View style={styles.popup}>
+        <View style={[styles.popup, styles.error]}>
           <Text>{popup.error}</Text>
         </View>
       );
     }
     if (popup.alert) {
       return (
-        <View style={styles.popup}>
-          <Text>{popup.error}</Text>
+        <View style={[styles.popup, styles.alert]}>
+          <Text>{popup.alert}</Text>
         </View>
       );
     }

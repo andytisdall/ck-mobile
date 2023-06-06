@@ -5,6 +5,11 @@ export default StyleSheet.create({
     padding: 10,
     borderWidth: 2,
     textAlign: 'center',
+  },
+  error: {
     backgroundColor: 'red',
+  },
+  alert: {
+    backgroundColor: 'green',
   },
 });
