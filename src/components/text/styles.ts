@@ -15,7 +15,6 @@ export default StyleSheet.create({
   },
 
   sendTextVariablesItem: {
-    height: '100%',
     marginBottom: 10,
     flexDirection: 'column',
     justifyContent: 'center',
@@ -130,7 +129,9 @@ export default StyleSheet.create({
   },
 
   photoPreview: {
-    marginBottom: 10,
-    height: 200,
+    height: 300,
+    // width: '80%',
+    marginVertical: 20,
   },
+  photoPreviewPhoto: {flex: 1, resizeMode: 'contain'},
 });

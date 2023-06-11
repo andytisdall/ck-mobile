@@ -15,14 +15,28 @@ export default StyleSheet.create({
   alert: {
     backgroundColor: 'green',
   },
+  photo: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
   btn: {
-    backgroundColor: 'blue',
-    borderRadius: 25,
+    backgroundColor: 'rgb(250,120,170)',
+    borderRadius: 50,
     borderWidth: 1,
-    padding: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 30,
+    margin: 10,
+    width: '50%',
   },
 
   btnText: {
-    fontSize: 20,
+    fontSize: 30,
+    textAlign: 'center',
   },
+  photoPreview: {
+    height: 300,
+    width: '80%',
+    marginVertical: 20,
+  },
+  photoPreviewPhoto: {flex: 1, resizeMode: 'contain'},
 });

@@ -43,11 +43,13 @@ const TextPreview = ({
       <Text style={styles.textPreview}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
       {photo && (
-        <Image
-          style={styles.photoPreview}
-          source={{uri: photo}}
-          alt="preview"
-        />
+        <View style={styles.photoPreview}>
+          <Image
+            style={styles.photoPreviewPhoto}
+            source={{uri: photo}}
+            alt="preview"
+          />
+        </View>
       )}
 
       <View>

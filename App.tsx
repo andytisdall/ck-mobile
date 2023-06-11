@@ -9,9 +9,10 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView, View} from 'react-native';
 
 import SendText from './src/components/text/SendText';
+import TextSuccess from './src/components/text/Text-Success';
 import Popup from './src/components/reusable/Popup';
 import Root from './src/state/Root';
 import styles from './src/baseStyles';
@@ -21,20 +22,16 @@ import styles from './src/baseStyles';
 
 const Stack = createNativeStackNavigator();
 
-const BaseComponent = ({children}: {children: React.ReactNode}) => {
+export const BaseComponent = ({children}: {children: React.ReactNode}) => {
   return (
-    <SafeAreaView style={styles.app}>
-      <Popup />
-      {children}
-    </SafeAreaView>
+    <View style={styles.app}>
+      <ScrollView style={styles.scrollView}>
+        <Popup />
+        {children}
+      </ScrollView>
+    </View>
   );
 };
-
-const RenderBaseComponent = () => (
-  <BaseComponent>
-    <SendText />
-  </BaseComponent>
-);
 
 function App(): JSX.Element {
   return (
@@ -42,7 +39,8 @@ function App(): JSX.Element {
       <PaperProvider>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Text" component={RenderBaseComponent} />
+            <Stack.Screen name="Text" component={SendText} />
+            <Stack.Screen name="Text-Success" component={TextSuccess} />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

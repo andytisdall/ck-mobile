@@ -18,7 +18,7 @@ const EnterCount = ({
         style={[styles.sendTextInput, styles.sendTextNumberInput]}
         value={mealCount}
         onChangeText={setMealCount}
-        keyboardType="numeric"
+        inputMode="tel"
         textColor="black"
         placeholder="25"
       />

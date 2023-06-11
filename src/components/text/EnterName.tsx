@@ -7,9 +7,11 @@ import styles from './styles';
 const EnterName = ({
   name,
   setName,
+  next,
 }: {
   name: string;
   setName: (text: string) => void;
+  next: () => void;
 }) => {
   return (
     <View style={styles.sendTextVariablesItem}>
@@ -21,6 +23,10 @@ const EnterName = ({
         textColor="black"
         multiline
         placeholder="Meatloaf with Couscous and Broccoli"
+        inputMode="search"
+        onSubmitEditing={next}
+        blurOnSubmit
+        returnKeyType="next"
       />
     </View>
   );

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, View, ScrollView} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 
 import styles from './styles';
 import {
@@ -17,6 +17,8 @@ import EnterPhoto from './EnterPhoto';
 import {RootState} from '../../state/Root';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
+import {SentMessage} from './Text-Success';
+import {BaseComponent} from '../../../App';
 
 export type townFridgeList =
   | {
@@ -31,6 +33,8 @@ interface sendTextProps {
   getFridges: () => Promise<void>;
   setError: (message: string) => void;
   townFridges: townFridgeList;
+  sent: SentMessage | null;
+  navigation: {navigate: (name: string) => void};
 }
 
 const SendText = ({
@@ -38,6 +42,8 @@ const SendText = ({
   sendText,
   getFridges,
   setError,
+  sent,
+  navigation,
 }: sendTextProps) => {
   const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
@@ -51,6 +57,12 @@ const SendText = ({
   useEffect(() => {
     getFridges();
   }, [getFridges]);
+
+  useEffect(() => {
+    if (sent) {
+      navigation.navigate('Text-Success');
+    }
+  }, [sent, navigation]);
 
   const getAddress = () => {
     if (fridge && townFridges && townFridges[fridge].address) {
@@ -100,7 +112,7 @@ const SendText = ({
     switch (page) {
       case 1:
         validateField(!!name);
-        return <EnterName setName={setName} name={name} />;
+        return <EnterName setName={setName} name={name} next={nextPage} />;
       case 2:
         validateField(parseInt(mealCount, 10) > 0);
         return <EnterCount setMealCount={setMealCount} mealCount={mealCount} />;
@@ -177,10 +189,10 @@ const SendText = ({
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.sendText}>
+    <BaseComponent>
       <View style={styles.sendTextPage}>{renderPage()}</View>
       {renderNav()}
-    </ScrollView>
+    </BaseComponent>
   );
 };
 
