@@ -69,9 +69,6 @@ const SendText = ({
 
   useEffect(() => {
     if (sent) {
-      if (setLoading !== true && setLoading !== false) {
-        setLoading(false);
-      }
       clearState();
       navigation.push('Text-Success');
     }
@@ -152,9 +149,7 @@ const SendText = ({
             photo={photo}
             onSubmit={() => {
               if (fridge !== undefined && townFridges) {
-                if (setLoading !== true && setLoading !== false) {
-                  setLoading(true);
-                }
+                setLoading(true);
                 sendText(message, townFridges[fridge].region, photo);
               }
             }}
