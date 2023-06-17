@@ -39,7 +39,7 @@ const TextPreview = ({
   // }, [photo]);
   return (
     <View>
-      <Text>Confirm Your Message:</Text>
+      <Text style={styles.textConfirmTitle}>Confirm Your Message:</Text>
       <Text style={styles.textPreview}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
       {photo && (
@@ -52,25 +52,24 @@ const TextPreview = ({
         </View>
       )}
 
-      <View>
-        <Text>To: {region}</Text>
+      <Text style={styles.textConfirmRegion}>Region: {region}</Text>
+      <View style={styles.textConfirmBtns}>
+        <Pressable
+          style={styles.sendBtn}
+          onPress={() => {
+            onSubmit();
+          }}>
+          <Text style={styles.sendBtnText}>Send Message</Text>
+        </Pressable>
+
+        <Pressable
+          style={[styles.sendBtn, styles.cancel]}
+          onPress={() => {
+            onCancel();
+          }}>
+          <Text style={styles.sendBtnText}>Start Over</Text>
+        </Pressable>
       </View>
-
-      <Pressable
-        style={styles.sendBtn}
-        onPress={() => {
-          onSubmit();
-        }}>
-        <Text>Send Message</Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.sendBtn}
-        onPress={() => {
-          onCancel();
-        }}>
-        <Text>Go Back to Text Compose</Text>
-      </Pressable>
     </View>
   );
 };

@@ -111,7 +111,20 @@ export default StyleSheet.create({
   },
 
   sendBtn: {
-    marginTop: 15,
+    alignItems: 'center',
+    margin: 15,
+    backgroundColor: 'yellow',
+    padding: 30,
+    borderRadius: 50,
+    borderWidth: 1,
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 3},
+    shadowOpacity: 0.3,
+  },
+
+  sendBtnText: {
+    fontSize: 30,
+    fontWeight: '600',
   },
 
   btnInactive: {
@@ -119,19 +132,30 @@ export default StyleSheet.create({
   },
 
   textPreview: {
-    fontSize: 15,
-    marginBottom: 20,
-    width: '70%',
-    lineHeight: 15,
-    backgroundColor: 'black',
-    padding: 10,
-    color: 'white',
+    fontSize: 20,
+    padding: 5,
   },
 
   photoPreview: {
     height: 300,
-    // width: '80%',
-    marginVertical: 20,
+    marginVertical: 30,
+    borderColor: 'red',
+    borderWidth: 1,
   },
   photoPreviewPhoto: {flex: 1, resizeMode: 'contain'},
+  textConfirmTitle: {
+    fontSize: 30,
+    marginBottom: 30,
+    textDecorationLine: 'underline',
+  },
+  textConfirmRegion: {
+    fontSize: 20,
+  },
+  textConfirmBtns: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  cancel: {
+    backgroundColor: 'rgb(200, 100, 100)',
+  },
 });

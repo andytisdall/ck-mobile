@@ -35,6 +35,11 @@ const AddPhoto = ({setPhoto, photoUri}: AddPhotoProps) => {
   const renderPhoto = () => {
     return (
       <View style={styles.photoPreview}>
+        <Pressable
+          style={styles.photoDelete}
+          onPress={() => setPhoto(undefined)}>
+          <Text style={styles.photoDeleteText}>X</Text>
+        </Pressable>
         <Image
           style={styles.photoPreviewPhoto}
           source={{uri: photoUri}}

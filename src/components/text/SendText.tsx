@@ -34,7 +34,7 @@ interface sendTextProps {
   setError: (message: string) => void;
   townFridges: townFridgeList;
   sent: SentMessage | null;
-  navigation: {navigate: (name: string) => void};
+  navigation: {push: (name: string) => void};
 }
 
 const SendText = ({
@@ -54,18 +54,31 @@ const SendText = ({
 
   const [loading, setLoading] = useLoading();
 
+  const clearState = () => {
+    setPage(1);
+    setFridge(undefined);
+    setMealCount('');
+    setName('');
+    setPhoto(undefined);
+    setFieldValid(false);
+  };
+
   useEffect(() => {
     getFridges();
   }, [getFridges]);
 
   useEffect(() => {
     if (sent) {
-      navigation.navigate('Text-Success');
+      if (setLoading !== true && setLoading !== false) {
+        setLoading(false);
+      }
+      clearState();
+      navigation.push('Text-Success');
     }
-  }, [sent, navigation]);
+  }, [sent, navigation, setLoading]);
 
   const getAddress = () => {
-    if (fridge && townFridges && townFridges[fridge].address) {
+    if (fridge !== undefined && townFridges && townFridges[fridge].address) {
       return `, at ${townFridges[fridge].address},`;
     } else {
       return '';
@@ -73,7 +86,7 @@ const SendText = ({
   };
 
   const getRegion = () => {
-    if (fridge && townFridges) {
+    if (fridge !== undefined && townFridges) {
       const {region} = townFridges[fridge];
       if (region === 'EAST_OAKLAND') {
         return 'East Oakland';
@@ -86,10 +99,10 @@ const SendText = ({
   };
 
   const message =
-    fridge && townFridges
+    fridge !== undefined && townFridges
       ? `Hello! ${
           townFridges[fridge].name
-        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! Please take only what you need, and leave the rest to share. The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
       : '';
 
   const prevPage = () => {
@@ -117,7 +130,9 @@ const SendText = ({
         validateField(parseInt(mealCount, 10) > 0);
         return <EnterCount setMealCount={setMealCount} mealCount={mealCount} />;
       case 3:
-        validateField(!!fridge && !!townFridges && !!townFridges[fridge]);
+        validateField(
+          fridge !== undefined && !!townFridges && !!townFridges[fridge],
+        );
         return (
           <EnterFridge
             setFridge={setFridge}
@@ -136,14 +151,14 @@ const SendText = ({
             region={getRegion()}
             photo={photo}
             onSubmit={() => {
-              if (fridge && townFridges) {
+              if (fridge !== undefined && townFridges) {
                 if (setLoading !== true && setLoading !== false) {
                   setLoading(true);
                 }
                 sendText(message, townFridges[fridge].region, photo);
               }
             }}
-            onCancel={() => setPage(1)}
+            onCancel={clearState}
           />
         );
       default:

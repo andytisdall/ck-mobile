@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import {Pressable, View, Text, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {RootState} from '../../state/Root';
 import styles from './styles';
@@ -15,15 +15,12 @@ export type SentMessage = {
 
 interface TextSuccessProps {
   message: SentMessage;
-  navigation: {navigate: (name: string) => void};
+  navigation: {pop: () => void};
   clearText: () => {type: string};
 }
 
 const TextSuccess = ({message, navigation, clearText}: TextSuccessProps) => {
-  useEffect(() => () => {
-    clearText();
-  });
-
+  console.log(message.photoUrl);
   return (
     <BaseComponent>
       <View>
@@ -32,17 +29,24 @@ const TextSuccess = ({message, navigation, clearText}: TextSuccessProps) => {
           <Text>You have successfully sent this text:</Text>
           <Text>Region: {message.region}</Text>
           <Text>{message.message}</Text>
-          {message.photoUrl && (
-            <Image
-              source={{uri: message.photoUrl}}
-              alt="attached"
-              style={styles.photoPreview}
-            />
+          {!!message.photoUrl && (
+            <View style={styles.photoPreview}>
+              <Image
+                source={{uri: message.photoUrl}}
+                alt="attached"
+                style={styles.photoPreviewPhoto}
+              />
+            </View>
           )}
         </View>
 
-        <Pressable onPress={() => navigation.navigate('Text')}>
-          Back to Text Home
+        <Pressable
+          style={[styles.sendBtn, styles.cancel]}
+          onPress={() => {
+            clearText();
+            navigation.pop();
+          }}>
+          <Text>Back to Text Home</Text>
         </Pressable>
       </View>
     </BaseComponent>

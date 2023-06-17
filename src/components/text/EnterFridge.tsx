@@ -20,7 +20,7 @@ const EnterFridge = ({
   const renderFridgeOptions = () => {
     return (
       <View style={styles.fridgeOptionsContainer}>
-        {townFridges?.map((f, i) => (
+        {townFridges?.sort().map((f, i) => (
           <Pressable
             style={styles.fridgeOption}
             key={f.name}
@@ -43,14 +43,14 @@ const EnterFridge = ({
           style={styles.fridgeButton}
           onPress={() => setFridgeMenuOpen(current => !current)}>
           <Text style={styles.fridgeText}>
-            {fridge && townFridges
+            {fridge !== undefined && townFridges
               ? townFridges[fridge].name
               : 'Select a Town Fridge'}
           </Text>
         </Pressable>
         {fridgeMenuOpen && renderFridgeOptions()}
 
-        {fridge && townFridges && !fridgeMenuOpen && (
+        {fridge !== undefined && townFridges && !fridgeMenuOpen && (
           <View style={styles.fridgeInfo}>
             <View>
               {!!townFridges[fridge].address && (
