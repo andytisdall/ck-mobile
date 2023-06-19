@@ -17,8 +17,9 @@ import EnterPhoto from './EnterPhoto';
 import {RootState} from '../../state/Root';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
-import {SentMessage} from './Text-Success';
+import {SentMessage} from './TextSuccess';
 import {BaseComponent} from '../../../App';
+import {PhotoFile} from '../reusable/AddPhoto';
 
 export type townFridgeList =
   | {
@@ -49,7 +50,7 @@ const SendText = ({
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');
   const [name, setName] = useState('');
-  const [photo, setPhoto] = useState<string | undefined>();
+  const [photo, setPhoto] = useState<PhotoFile | undefined>();
   const [fieldValid, setFieldValid] = useState(false);
 
   const [loading, setLoading] = useLoading();
@@ -69,7 +70,6 @@ const SendText = ({
 
   useEffect(() => {
     if (sent) {
-      clearState();
       navigation.push('Text-Success');
     }
   }, [sent, navigation, setLoading]);
@@ -107,7 +107,9 @@ const SendText = ({
   };
 
   const nextPage = () => {
-    setPage(p => p + 1);
+    if (fieldValid) {
+      setPage(p => p + 1);
+    }
   };
 
   const validateField = (criteria: boolean) => {
@@ -125,7 +127,13 @@ const SendText = ({
         return <EnterName setName={setName} name={name} next={nextPage} />;
       case 2:
         validateField(parseInt(mealCount, 10) > 0);
-        return <EnterCount setMealCount={setMealCount} mealCount={mealCount} />;
+        return (
+          <EnterCount
+            next={nextPage}
+            setMealCount={setMealCount}
+            mealCount={mealCount}
+          />
+        );
       case 3:
         validateField(
           fridge !== undefined && !!townFridges && !!townFridges[fridge],
@@ -165,19 +173,17 @@ const SendText = ({
     const invalidStyle = !fieldValid && styles.btnInactive;
 
     const nextBtn = (
-      <View style={styles.sendTextNavRight}>
-        <Pressable
-          style={[styles.sendTextNavBtn, invalidStyle]}
-          onPress={() => {
-            if (fieldValid) {
-              nextPage();
-            } else {
-              setError('You must enter a value to proceed');
-            }
-          }}>
-          <Text style={[styles.sendTextNavBtnText]}>&rarr;</Text>
-        </Pressable>
-      </View>
+      <Pressable
+        style={[styles.sendTextNavBtn, invalidStyle]}
+        onPress={() => {
+          if (fieldValid) {
+            nextPage();
+          } else {
+            setError('You must enter a value to proceed');
+          }
+        }}>
+        <Text style={[styles.sendTextNavBtnText]}>&rarr;</Text>
+      </Pressable>
     );
 
     const backBtn = (
@@ -186,8 +192,10 @@ const SendText = ({
       </Pressable>
     );
 
+    const firstPageStyle = page === 1 ? styles.sendTextNavEnd : {};
+
     return (
-      <View style={styles.sendTextNav}>
+      <View style={[styles.sendTextNav, firstPageStyle]}>
         {page !== 1 && backBtn}
         {page !== 5 && nextBtn}
       </View>
@@ -200,8 +208,10 @@ const SendText = ({
 
   return (
     <BaseComponent>
-      <View style={styles.sendTextPage}>{renderPage()}</View>
-      {renderNav()}
+      <View style={styles.sendText}>
+        <View style={styles.sendTextPage}>{renderPage()}</View>
+        {renderNav()}
+      </View>
     </BaseComponent>
   );
 };

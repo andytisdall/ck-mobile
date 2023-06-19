@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import React from 'react';
 
-import styles from './styles';
+import styles, {placeholderColor} from './styles';
 
 const EnterName = ({
   name,
@@ -23,10 +23,12 @@ const EnterName = ({
         textColor="black"
         multiline
         placeholder="Meatloaf with Couscous and Broccoli"
+        placeholderTextColor={placeholderColor}
         inputMode="search"
         onSubmitEditing={next}
         blurOnSubmit
         returnKeyType="next"
+        autoFocus
       />
     </View>
   );

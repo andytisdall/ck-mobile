@@ -4,13 +4,15 @@ import {View, Text, Pressable, Image} from 'react-native';
 import React from 'react';
 
 import styles from './styles';
+import photoStyles from '../reusable/styles';
+import {PhotoFile} from '../reusable/AddPhoto';
 // import Loading from '../reusable/Loading';
 
 interface TextPreviewProps {
   onSubmit: () => void;
   message: string;
   region: string;
-  photo: string | undefined;
+  photo: PhotoFile | undefined;
   onCancel: () => void;
 }
 
@@ -43,10 +45,10 @@ const TextPreview = ({
       <Text style={styles.textPreview}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
       {photo && (
-        <View style={styles.photoPreview}>
+        <View style={photoStyles.photoPreview}>
           <Image
-            style={styles.photoPreviewPhoto}
-            source={{uri: photo}}
+            style={photoStyles.photoPreviewPhoto}
+            source={{uri: photo.uri}}
             alt="preview"
           />
         </View>

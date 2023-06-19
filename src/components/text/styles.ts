@@ -1,9 +1,14 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  sendText: {},
+  sendText: {
+    paddingBottom: 75,
+    paddingTop: 40,
+  },
 
-  sendTextPage: {},
+  sendTextPage: {
+    paddingTop: 30,
+  },
 
   sentSuccess: {
     backgroundColor: 'rgb(111, 255, 111)',
@@ -89,11 +94,12 @@ export default StyleSheet.create({
 
   sendTextNav: {
     flexDirection: 'row',
-    width: '100%',
+    // width: '100%',
+    justifyContent: 'space-between',
   },
 
-  sendTextNavRight: {
-    marginLeft: 'auto',
+  sendTextNavEnd: {
+    justifyContent: 'flex-end',
   },
 
   sendTextNavBtn: {
@@ -134,15 +140,12 @@ export default StyleSheet.create({
   textPreview: {
     fontSize: 20,
     padding: 5,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    paddingVertical: 10,
+    marginVertical: 25,
   },
 
-  photoPreview: {
-    height: 300,
-    marginVertical: 30,
-    borderColor: 'red',
-    borderWidth: 1,
-  },
-  photoPreviewPhoto: {flex: 1, resizeMode: 'contain'},
   textConfirmTitle: {
     fontSize: 30,
     marginBottom: 30,
@@ -159,3 +162,5 @@ export default StyleSheet.create({
     backgroundColor: 'rgb(200, 100, 100)',
   },
 });
+
+export const placeholderColor = 'rgba(80,120,200, .6)';

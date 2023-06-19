@@ -7,6 +7,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     alignItems: 'center',
+    position: 'absolute',
   },
   error: {
     backgroundColor: 'red',

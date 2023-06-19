@@ -3,20 +3,32 @@ import {
   launchImageLibrary,
   ImagePickerResponse,
 } from 'react-native-image-picker';
-import {Pressable, View, Text, Image} from 'react-native';
+import {Pressable, View, Text, Image, Platform} from 'react-native';
 import React from 'react';
 
 import styles from './styles';
 
 interface AddPhotoProps {
-  setPhoto: React.Dispatch<React.SetStateAction<string | undefined>>;
-  photoUri: string | undefined;
+  setPhoto: React.Dispatch<React.SetStateAction<PhotoFile | undefined>>;
+  photoFile: PhotoFile | undefined;
 }
 
-const AddPhoto = ({setPhoto, photoUri}: AddPhotoProps) => {
-  const setLocalPhoto = (photo: ImagePickerResponse) => {
-    if (!photo.didCancel && !photo.errorCode && photo.assets) {
-      setPhoto(photo.assets[0].uri);
+export interface PhotoFile {
+  name?: string;
+  type?: string;
+  uri?: string;
+}
+
+const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
+  const setLocalPhoto = (response: ImagePickerResponse) => {
+    if (!response.didCancel && !response.errorCode && response.assets) {
+      const photo = response.assets[0];
+      setPhoto({
+        name: photo.fileName,
+        type: photo.type,
+        uri:
+          Platform.OS === 'ios' ? photo.uri?.replace('file://', '') : photo.uri,
+      });
     }
   };
 
@@ -42,7 +54,7 @@ const AddPhoto = ({setPhoto, photoUri}: AddPhotoProps) => {
         </Pressable>
         <Image
           style={styles.photoPreviewPhoto}
-          source={{uri: photoUri}}
+          source={{uri: photoFile?.uri}}
           alt="preview"
         />
       </View>
@@ -57,7 +69,7 @@ const AddPhoto = ({setPhoto, photoUri}: AddPhotoProps) => {
       <Pressable style={styles.btn} onPress={takePhoto}>
         <Text style={styles.btnText}>Take Photo</Text>
       </Pressable>
-      {!!photoUri && renderPhoto()}
+      {!!photoFile && renderPhoto()}
     </View>
   );
 };

@@ -2,14 +2,16 @@ import {View, Text} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import React from 'react';
 
-import styles from './styles';
+import styles, {placeholderColor} from './styles';
 
 const EnterCount = ({
   mealCount,
   setMealCount,
+  next,
 }: {
   mealCount: string;
   setMealCount: (text: string) => void;
+  next: () => void;
 }) => {
   return (
     <View style={styles.sendTextVariablesItem}>
@@ -21,6 +23,10 @@ const EnterCount = ({
         inputMode="tel"
         textColor="black"
         placeholder="25"
+        placeholderTextColor={placeholderColor}
+        onSubmitEditing={next}
+        autoFocus
+        returnKeyType="next"
       />
     </View>
   );

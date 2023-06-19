@@ -9,10 +9,10 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
-import {ScrollView, View} from 'react-native';
+import {ScrollView, SafeAreaView} from 'react-native';
 
 import SendText from './src/components/text/SendText';
-import TextSuccess from './src/components/text/Text-Success';
+import TextSuccess from './src/components/text/TextSuccess';
 import Popup from './src/components/reusable/Popup';
 import Root from './src/state/Root';
 import styles from './src/baseStyles';
@@ -24,12 +24,12 @@ const Stack = createNativeStackNavigator();
 
 export const BaseComponent = ({children}: {children: React.ReactNode}) => {
   return (
-    <View style={styles.app}>
+    <SafeAreaView style={styles.app}>
       <ScrollView style={styles.scrollView}>
         <Popup />
         {children}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
