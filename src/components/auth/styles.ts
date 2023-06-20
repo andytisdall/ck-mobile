@@ -5,14 +5,19 @@ export default StyleSheet.create({
     color: 'white',
     fontSize: 30,
     marginBottom: 10,
+    textAlign: 'center',
   },
   signinButton: {
-    backgroundColor: 'yellow',
-    borderWidth: 1,
-    borderRadius: 25,
+    backgroundColor: 'purple',
+    borderWidth: 2,
+    borderRadius: 50,
+    padding: 20,
+    alignSelf: 'center',
   },
   authInput: {
     backgroundColor: 'white',
   },
-  signinFields: {},
+  signinFields: {
+    // alignItems: 'center',
+  },
 });

@@ -3,11 +3,12 @@ import {useSelector} from 'react-redux';
 
 import {RootState} from '../state/Root';
 
-const useLoading: () => [
-  boolean,
-  React.Dispatch<React.SetStateAction<boolean>>,
-] = () => {
-  const [loading, setLoading] = useState(false);
+const useLoading: (
+  initialState: boolean,
+) => [boolean, React.Dispatch<React.SetStateAction<boolean>>] = (
+  initialState = false,
+) => {
+  const [loading, setLoading] = useState(initialState);
 
   const error = useSelector((state: RootState) => state.popup.error);
 

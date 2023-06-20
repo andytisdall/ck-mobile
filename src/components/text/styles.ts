@@ -4,6 +4,9 @@ export default StyleSheet.create({
   sendText: {
     paddingBottom: 75,
     paddingTop: 40,
+    paddingHorizontal: 30,
+    backgroundColor: 'rgb(50, 40, 156)',
+    flex: 1,
   },
 
   sendTextPage: {
@@ -27,7 +30,7 @@ export default StyleSheet.create({
 
   sendTextLabel: {
     fontSize: 40,
-    color: 'rgb(70,70,70)',
+    color: 'rgb(270,270,270)',
     marginHorizontal: 25,
     letterSpacing: 1.5,
   },
@@ -37,6 +40,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     margin: 20,
     fontSize: 25,
+    padding: 5,
   },
 
   sendTextNumberInput: {
@@ -103,17 +107,19 @@ export default StyleSheet.create({
   },
 
   sendTextNavBtn: {
-    backgroundColor: 'rgb(50, 100, 200)',
-    paddingVertical: 20,
+    backgroundColor: 'rgb(247, 233, 109)',
+    // paddingVertical: 20,
     borderRadius: 50,
     width: 100,
     borderWidth: 1,
   },
 
   sendTextNavBtnText: {
-    color: 'white',
-    fontSize: 25,
+    color: 'black',
+    fontSize: 35,
     textAlign: 'center',
+    textAlignVertical: 'center',
+    marginBottom: '10',
   },
 
   sendBtn: {
@@ -160,6 +166,11 @@ export default StyleSheet.create({
   },
   cancel: {
     backgroundColor: 'rgb(200, 100, 100)',
+  },
+  picker: {
+    borderWidth: 1,
+    height: 400,
+    backgroundColor: 'white',
   },
 });
 

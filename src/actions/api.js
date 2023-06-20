@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 // const baseURL = 'https://portal.ckoakland.org/api';
@@ -10,17 +11,17 @@ const instance = axios.create({
   },
 });
 
-// instance.interceptors.request.use(
-//   config => {
-//     const token = localStorage.getItem('ck-token');
-//     if (token) {
-//       config.headers.Authorization = token;
-//     }
-//     return config;
-//   },
-//   err => {
-//     return Promise.reject(err);
-//   },
-// );
+instance.interceptors.request.use(
+  async config => {
+    const token = await AsyncStorage.getItem('ck-token');
+    if (token) {
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  },
+);
 
 export default instance;

@@ -26,8 +26,8 @@ const EnterName = ({
         placeholderTextColor={placeholderColor}
         inputMode="search"
         onSubmitEditing={next}
-        blurOnSubmit
         returnKeyType="next"
+        blurOnSubmit
         autoFocus
       />
     </View>

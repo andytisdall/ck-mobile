@@ -18,7 +18,6 @@ import {RootState} from '../../state/Root';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 import {SentMessage} from './TextSuccess';
-import {BaseComponent} from '../../../App';
 import {PhotoFile} from '../reusable/AddPhoto';
 
 export type townFridgeList =
@@ -31,7 +30,6 @@ export type townFridgeList =
 
 interface sendTextProps {
   sendText: (message: string, region: string, photo: any) => Promise<void>;
-  getFridges: () => Promise<void>;
   setError: (message: string) => void;
   townFridges: townFridgeList;
   sent: SentMessage | null;
@@ -41,7 +39,7 @@ interface sendTextProps {
 const SendText = ({
   townFridges,
   sendText,
-  getFridges,
+  // getFridges,
   setError,
   sent,
   navigation,
@@ -54,7 +52,6 @@ const SendText = ({
   const [fieldValid, setFieldValid] = useState(false);
 
   const [loading, setLoading] = useLoading();
-
   const clearState = () => {
     setPage(1);
     setFridge(undefined);
@@ -63,10 +60,6 @@ const SendText = ({
     setPhoto(undefined);
     setFieldValid(false);
   };
-
-  useEffect(() => {
-    getFridges();
-  }, [getFridges]);
 
   useEffect(() => {
     if (sent) {
@@ -207,12 +200,10 @@ const SendText = ({
   }
 
   return (
-    <BaseComponent>
-      <View style={styles.sendText}>
-        <View style={styles.sendTextPage}>{renderPage()}</View>
-        {renderNav()}
-      </View>
-    </BaseComponent>
+    <View style={styles.sendText}>
+      <View style={styles.sendTextPage}>{renderPage()}</View>
+      {renderNav()}
+    </View>
   );
 };
 
