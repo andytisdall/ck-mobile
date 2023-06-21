@@ -1,6 +1,17 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  appTitleContainer: {
+    paddingVertical: 30,
+  },
+  appTitle: {
+    fontSize: 50,
+    textAlign: 'center',
+  },
+  appSubTitle: {
+    fontSize: 35,
+    textAlign: 'center',
+  },
   popup: {
     padding: 10,
     borderWidth: 2,

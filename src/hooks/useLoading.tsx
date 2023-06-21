@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../state/Root';
 
 const useLoading: (
-  initialState: boolean,
+  initialState?: boolean,
 ) => [boolean, React.Dispatch<React.SetStateAction<boolean>>] = (
   initialState = false,
 ) => {

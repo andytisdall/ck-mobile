@@ -9,9 +9,10 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
-import {ScrollView, SafeAreaView} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 
+import Home from './src/components/Home';
 import SendText from './src/components/text/SendText';
 import TextSuccess from './src/components/text/TextSuccess';
 import Popup from './src/components/reusable/Popup';
@@ -29,18 +30,30 @@ const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
 };
 
+const placeHolderBackBtn = () => <></>;
+
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (
     <SafeAreaView style={styles.app}>
       <NavigationContainer>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <Stack.Navigator>
-            {!user && <Stack.Screen name="SignIn" component={SignIn} />}
-            <Stack.Screen name="Text" component={SendText} />
-            <Stack.Screen name="Text-Success" component={TextSuccess} />
-          </Stack.Navigator>
-          <Popup />
-        </ScrollView>
+        <Stack.Navigator>
+          {!user ? (
+            <Stack.Screen name="SignIn" component={SignIn} />
+          ) : (
+            <>
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Text" component={SendText} />
+              <Stack.Screen
+                name="Text-Success"
+                component={TextSuccess}
+                options={{
+                  headerLeft: placeHolderBackBtn,
+                }}
+              />
+            </>
+          )}
+        </Stack.Navigator>
+        <Popup />
       </NavigationContainer>
     </SafeAreaView>
   );

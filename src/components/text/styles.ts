@@ -1,9 +1,12 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  scrollView: {
+    minHeight: '100%',
+  },
+
   sendText: {
     paddingBottom: 75,
-    paddingTop: 40,
     paddingHorizontal: 30,
     backgroundColor: 'rgb(50, 40, 156)',
     flex: 1,
@@ -59,23 +62,6 @@ export default StyleSheet.create({
     width: '100%',
   },
 
-  fridgeOptionsContainer: {
-    borderRightWidth: 1,
-    borderLeftWidth: 1,
-    width: '100%',
-  },
-
-  fridgeOption: {
-    backgroundColor: 'rgb(200,200,200)',
-    borderBottomWidth: 1,
-    padding: 10,
-  },
-
-  fridgeText: {
-    fontSize: 30,
-    color: 'black',
-  },
-
   fridgeInfo: {
     marginTop: 50,
     padding: 20,
@@ -84,7 +70,7 @@ export default StyleSheet.create({
   },
 
   fridgeInfoLabel: {
-    color: 'rgb(60,60,60)',
+    color: 'rgb(160,160,260)',
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 20,
@@ -94,6 +80,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 30,
     marginBottom: 40,
+    color: 'rgb(200, 200, 250)',
   },
 
   sendTextNav: {
@@ -148,17 +135,21 @@ export default StyleSheet.create({
     padding: 5,
     borderBottomWidth: 1,
     borderTopWidth: 1,
+    borderColor: 'rgb(150,150,200)',
     paddingVertical: 10,
     marginVertical: 25,
+    color: 'rgb(200,200,250)',
   },
 
   textConfirmTitle: {
     fontSize: 30,
     marginBottom: 30,
     textDecorationLine: 'underline',
+    color: 'white',
   },
   textConfirmRegion: {
     fontSize: 20,
+    color: 'white',
   },
   textConfirmBtns: {
     alignItems: 'center',
@@ -171,6 +162,19 @@ export default StyleSheet.create({
     borderWidth: 1,
     height: 400,
     backgroundColor: 'white',
+  },
+  backBtn: {
+    borderWidth: 2,
+    borderRadius: 50,
+    backgroundColor: 'rgb(220,220,250)',
+    width: '50%',
+    alignSelf: 'center',
+    marginTop: 20,
+    padding: 20,
+  },
+  backBtnText: {
+    textAlign: 'center',
+    fontSize: 15,
   },
 });
 

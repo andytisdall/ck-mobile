@@ -9,6 +9,7 @@ import {signIn as signInAction, getUser as getUserAction} from '../../actions';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 import {RootState} from '../../state/Root';
+import Title from '../reusable/Title';
 
 const SignIn = ({
   signIn,
@@ -55,6 +56,7 @@ const SignIn = ({
 
   return (
     <View>
+      <Title />
       <View style={styles.signinFields}>
         <TextInput
           style={styles.authInput}

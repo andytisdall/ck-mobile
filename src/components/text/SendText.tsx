@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, View} from 'react-native';
+import {Pressable, Text, View, ScrollView} from 'react-native';
 
 import styles from './styles';
 import {
@@ -39,7 +39,6 @@ interface sendTextProps {
 const SendText = ({
   townFridges,
   sendText,
-  // getFridges,
   setError,
   sent,
   navigation,
@@ -200,10 +199,12 @@ const SendText = ({
   }
 
   return (
-    <View style={styles.sendText}>
-      <View style={styles.sendTextPage}>{renderPage()}</View>
-      {renderNav()}
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.sendText}>
+        <View style={styles.sendTextPage}>{renderPage()}</View>
+        {renderNav()}
+      </View>
+    </ScrollView>
   );
 };
 

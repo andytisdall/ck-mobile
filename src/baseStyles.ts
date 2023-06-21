@@ -4,7 +4,4 @@ export default StyleSheet.create({
   app: {
     flex: 1,
   },
-  scrollView: {
-    minHeight: '100%',
-  },
 });
