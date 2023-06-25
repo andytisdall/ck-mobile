@@ -1,11 +1,12 @@
 import {connect} from 'react-redux';
 import {Pressable, View, Text, Image, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 import {RootState} from '../../state/Root';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
 import {clearText as clearTextAction} from '../../actions';
+import Loading from '../reusable/Loading';
 
 export type SentMessage = {
   message: string;
@@ -25,6 +26,8 @@ const regionNames = {
 };
 
 const TextSuccess = ({message, navigation, clearText}: TextSuccessProps) => {
+  const [photoLoading, setPhotoLoading] = useState(true);
+
   if (message) {
     return (
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -42,8 +45,10 @@ const TextSuccess = ({message, navigation, clearText}: TextSuccessProps) => {
             </Text>
             {!!message.photoUrl && (
               <View style={photoStyles.photoPreview}>
+                {photoLoading && <Loading />}
                 <Image
                   source={{uri: message.photoUrl}}
+                  onLoad={() => setPhotoLoading(false)}
                   alt="attached"
                   style={photoStyles.photoPreviewPhoto}
                 />

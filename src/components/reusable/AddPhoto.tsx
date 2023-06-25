@@ -4,9 +4,10 @@ import {
   ImagePickerResponse,
 } from 'react-native-image-picker';
 import {Pressable, View, Text, Image, Platform} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
 import styles from './styles';
+import Loading from './Loading';
 
 interface AddPhotoProps {
   setPhoto: React.Dispatch<React.SetStateAction<PhotoFile | undefined>>;
@@ -20,6 +21,8 @@ export interface PhotoFile {
 }
 
 const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
+  const [photoLoading, setPhotoLoading] = useState(false);
+
   const setLocalPhoto = (response: ImagePickerResponse) => {
     if (!response.didCancel && !response.errorCode && response.assets) {
       const photo = response.assets[0];
@@ -29,6 +32,7 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
         uri:
           Platform.OS === 'ios' ? photo.uri?.replace('file://', '') : photo.uri,
       });
+      setPhotoLoading(true);
     }
   };
 
@@ -52,10 +56,12 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
           onPress={() => setPhoto(undefined)}>
           <Text style={styles.photoDeleteText}>X</Text>
         </Pressable>
+        {photoLoading && <Loading />}
         <Image
           style={styles.photoPreviewPhoto}
           source={{uri: photoFile?.uri}}
           alt="preview"
+          onLoad={() => setPhotoLoading(false)}
         />
       </View>
     );

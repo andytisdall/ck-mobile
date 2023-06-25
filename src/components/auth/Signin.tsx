@@ -1,6 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput as NativeTextInput,
+} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -26,6 +31,8 @@ const SignIn = ({
   const [password, setPassword] = useState('');
 
   const [loading, setLoading] = useLoading(true);
+
+  const passwordFieldRef = useRef<NativeTextInput | null>(null);
 
   useEffect(() => {
     const checkForUser = async () => {
@@ -66,6 +73,12 @@ const SignIn = ({
           placeholder="Username"
           blurOnSubmit
           returnKeyType="next"
+          onSubmitEditing={() => {
+            if (passwordFieldRef.current) {
+              passwordFieldRef.current.focus();
+            }
+          }}
+          autoFocus
         />
         <TextInput
           style={styles.authInput}
@@ -75,6 +88,9 @@ const SignIn = ({
           placeholder="Password"
           blurOnSubmit
           returnKeyType="next"
+          ref={passwordFieldRef}
+          onSubmitEditing={handleSubmit}
+          secureTextEntry
         />
         <Text>{!!user && user.username}</Text>
         <Pressable style={styles.signinButton} onPress={handleSubmit}>

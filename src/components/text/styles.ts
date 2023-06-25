@@ -8,11 +8,8 @@ export default StyleSheet.create({
   sendText: {
     paddingBottom: 75,
     paddingHorizontal: 30,
-    backgroundColor: 'rgb(50, 40, 156)',
+    backgroundColor: 'rgb(120, 70, 30)',
     flex: 1,
-  },
-
-  sendTextPage: {
     paddingTop: 30,
   },
 

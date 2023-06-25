@@ -2,15 +2,17 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   appTitleContainer: {
-    paddingVertical: 30,
+    paddingVertical: 20,
   },
   appTitle: {
-    fontSize: 50,
+    fontSize: 40,
     textAlign: 'center',
   },
   appSubTitle: {
-    fontSize: 35,
+    paddingTop: 10,
+    fontSize: 30,
     textAlign: 'center',
+    fontWeight: '600',
   },
   popup: {
     padding: 10,
@@ -30,23 +32,28 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   btn: {
-    backgroundColor: 'rgb(250,120,170)',
+    backgroundColor: 'rgb(100,70,20)',
     borderRadius: 50,
-    borderWidth: 1,
+    borderWidth: 2,
     paddingHorizontal: 10,
     paddingVertical: 20,
     margin: 10,
     width: '50%',
+    shadowColor: 'black',
+    shadowOffset: {width: -2, height: 3},
+    shadowOpacity: 0.3,
   },
-
   btnText: {
     fontSize: 25,
     textAlign: 'center',
+    color: 'white',
   },
   photoPreview: {
     height: 330,
     width: '80%',
     marginVertical: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   photoDelete: {
     height: 35,

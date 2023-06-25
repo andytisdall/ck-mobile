@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, useWindowDimensions} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {townFridgeList} from './SendText';
 // import {Picker} from '@react-native-picker/picker';
@@ -22,6 +22,9 @@ const EnterFridge = ({
   getFridges: () => Promise<void>;
 }) => {
   const [fridgeMenuOpen, setFridgeMenuOpen] = useState(false);
+
+  const {height} = useWindowDimensions();
+
   useEffect(() => {
     getFridges();
   }, [getFridges]);
@@ -65,6 +68,7 @@ const EnterFridge = ({
           setValue={setFridge}
           listMode="SCROLLVIEW"
           placeholder="Select a Town Fridge"
+          maxHeight={Math.round(height) / 2}
         />
 
         {fridge !== undefined && townFridges && (

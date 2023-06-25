@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import {Pressable, Text, View, ScrollView} from 'react-native';
 
@@ -8,7 +8,7 @@ import {
   getFridges as getFridgesAction,
   setError as setErrorAction,
 } from '../../actions';
-
+import Arrow from '../../assets/right-arrow.svg';
 import TextPreview from './TextPreview';
 import EnterName from './EnterName';
 import EnterCount from './EnterCount';
@@ -51,6 +51,16 @@ const SendText = ({
   const [fieldValid, setFieldValid] = useState(false);
 
   const [loading, setLoading] = useLoading();
+
+  const scrollRef = useRef<ScrollView | null>(null);
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
+
   const clearState = () => {
     setPage(1);
     setFridge(undefined);
@@ -142,6 +152,7 @@ const SendText = ({
         validateField(true);
         return <EnterPhoto photo={photo} setPhoto={setPhoto} />;
       case 5:
+        scrollToTop();
         return (
           <TextPreview
             message={message}
@@ -180,7 +191,8 @@ const SendText = ({
 
     const backBtn = (
       <Pressable style={styles.sendTextNavBtn} onPress={prevPage}>
-        <Text style={styles.sendTextNavBtnText}>&larr;</Text>
+        {/* <Text style={styles.sendTextNavBtnText}>&larr;</Text> */}
+        <Arrow />
       </Pressable>
     );
 
@@ -199,9 +211,9 @@ const SendText = ({
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <ScrollView contentContainerStyle={styles.scrollView} ref={scrollRef}>
       <View style={styles.sendText}>
-        <View style={styles.sendTextPage}>{renderPage()}</View>
+        <View>{renderPage()}</View>
         {renderNav()}
       </View>
     </ScrollView>
