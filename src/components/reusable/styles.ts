@@ -66,5 +66,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
   photoDeleteText: {color: 'red', fontSize: 20},
-  photoPreviewPhoto: {flex: 1, resizeMode: 'contain'},
+  photoPreviewPhoto: {
+    flex: 1,
+    resizeMode: 'contain',
+    width: '100%',
+  },
 });

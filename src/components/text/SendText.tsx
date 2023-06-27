@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, View, ScrollView} from 'react-native';
+import {Pressable, Text, View, ScrollView, Platform} from 'react-native';
 
 import styles from './styles';
 import {
@@ -160,8 +160,12 @@ const SendText = ({
             photo={photo}
             onSubmit={() => {
               if (fridge !== undefined && townFridges) {
+                const photoToSend = {...photo};
+                if (photo && Platform.OS === 'ios') {
+                  photoToSend.uri = photo.uri?.replace('file://', '');
+                }
                 setLoading(true);
-                sendText(message, townFridges[fridge].region, photo);
+                sendText(message, townFridges[fridge].region, photoToSend);
               }
             }}
             onCancel={clearState}
@@ -185,14 +189,13 @@ const SendText = ({
             setError('You must enter a value to proceed');
           }
         }}>
-        <Text style={[styles.sendTextNavBtnText]}>&rarr;</Text>
+        <Arrow />
       </Pressable>
     );
 
     const backBtn = (
       <Pressable style={styles.sendTextNavBtn} onPress={prevPage}>
-        {/* <Text style={styles.sendTextNavBtnText}>&larr;</Text> */}
-        <Arrow />
+        <Arrow style={[styles.leftArrow]} />
       </Pressable>
     );
 
@@ -213,7 +216,7 @@ const SendText = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollView} ref={scrollRef}>
       <View style={styles.sendText}>
-        <View>{renderPage()}</View>
+        {renderPage()}
         {renderNav()}
       </View>
     </ScrollView>

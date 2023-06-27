@@ -29,10 +29,6 @@ const EnterFridge = ({
     getFridges();
   }, [getFridges]);
 
-  // useEffect(() => {
-  //   menuRef.current?.focus();
-  // });
-
   const renderFridgeOptions = () => {
     if (townFridges) {
       const options = townFridges.sort().map((f, i) => {
@@ -50,16 +46,6 @@ const EnterFridge = ({
     <View style={styles.sendTextVariablesItem}>
       <Text style={styles.sendTextLabel}>Town Fridge Location:</Text>
       <View style={styles.fridgeSelect}>
-        {/*   <Pressable
-          style={styles.fridgeButton}
-          onPress={() => setFridgeMenuOpen(current => !current)}>
-          <Text style={styles.fridgeText}>
-            {fridge !== undefined && townFridges
-              ? townFridges[fridge].name
-              : 'Select a Town Fridge'}
-          </Text>
-        </Pressable>
-        {fridgeMenuOpen && renderFridgeOptions()} */}
         <DropDownPicker
           open={fridgeMenuOpen}
           value={fridge === undefined ? null : fridge}
@@ -69,6 +55,7 @@ const EnterFridge = ({
           listMode="SCROLLVIEW"
           placeholder="Select a Town Fridge"
           maxHeight={Math.round(height) / 2}
+          zIndex={100}
         />
 
         {fridge !== undefined && townFridges && (

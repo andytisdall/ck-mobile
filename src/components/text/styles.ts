@@ -4,7 +4,6 @@ export default StyleSheet.create({
   scrollView: {
     minHeight: '100%',
   },
-
   sendText: {
     paddingBottom: 75,
     paddingHorizontal: 30,
@@ -12,7 +11,6 @@ export default StyleSheet.create({
     flex: 1,
     paddingTop: 30,
   },
-
   sentSuccess: {
     backgroundColor: 'rgb(111, 255, 111)',
     marginTop: 30,
@@ -21,20 +19,18 @@ export default StyleSheet.create({
     textAlign: 'center',
     border: '1px solid black',
   },
-
   sendTextVariablesItem: {
     marginBottom: 10,
     flexDirection: 'column',
     justifyContent: 'center',
+    zIndex: 100,
   },
-
   sendTextLabel: {
     fontSize: 40,
     color: 'rgb(270,270,270)',
     marginHorizontal: 25,
     letterSpacing: 1.5,
   },
-
   sendTextInput: {
     borderWidth: 1,
     backgroundColor: 'white',
@@ -42,15 +38,12 @@ export default StyleSheet.create({
     fontSize: 25,
     padding: 5,
   },
-
   sendTextNumberInput: {
     width: 100,
   },
-
   fridgeSelect: {
     margin: 20,
   },
-
   fridgeButton: {
     backgroundColor: 'white',
     padding: 10,
@@ -58,54 +51,43 @@ export default StyleSheet.create({
     borderWidth: 1,
     width: '100%',
   },
-
   fridgeInfo: {
     marginTop: 50,
     padding: 20,
     borderColor: 'rgb(150, 100, 50)',
     borderWidth: 3,
   },
-
   fridgeInfoLabel: {
     color: 'rgb(160,160,260)',
     fontSize: 20,
     fontWeight: '600',
     marginBottom: 20,
   },
-
   fridgeInfoValue: {
     textAlign: 'center',
     fontSize: 30,
     marginBottom: 40,
     color: 'rgb(200, 200, 250)',
   },
-
   sendTextNav: {
+    marginTop: 20,
     flexDirection: 'row',
-    // width: '100%',
     justifyContent: 'space-between',
   },
-
   sendTextNavEnd: {
     justifyContent: 'flex-end',
   },
-
   sendTextNavBtn: {
     backgroundColor: 'rgb(247, 233, 109)',
-    // paddingVertical: 20,
+    paddingVertical: 15,
     borderRadius: 50,
     width: 100,
     borderWidth: 1,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-
-  sendTextNavBtnText: {
-    color: 'black',
-    fontSize: 35,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginBottom: '10',
-  },
-
+  leftArrow: {transform: [{scaleX: -1}]},
   sendBtn: {
     alignItems: 'center',
     margin: 15,
@@ -117,16 +99,13 @@ export default StyleSheet.create({
     shadowOffset: {width: -2, height: 3},
     shadowOpacity: 0.3,
   },
-
   sendBtnText: {
     fontSize: 30,
     fontWeight: '600',
   },
-
   btnInactive: {
     backgroundColor: 'grey',
   },
-
   textPreview: {
     fontSize: 20,
     padding: 5,
@@ -137,7 +116,6 @@ export default StyleSheet.create({
     marginVertical: 25,
     color: 'rgb(200,200,250)',
   },
-
   textConfirmTitle: {
     fontSize: 30,
     marginBottom: 30,

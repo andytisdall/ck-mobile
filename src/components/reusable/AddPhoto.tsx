@@ -3,7 +3,7 @@ import {
   launchImageLibrary,
   ImagePickerResponse,
 } from 'react-native-image-picker';
-import {Pressable, View, Text, Image, Platform} from 'react-native';
+import {Pressable, View, Text, Image} from 'react-native';
 import React, {useState} from 'react';
 
 import styles from './styles';
@@ -29,8 +29,7 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
       setPhoto({
         name: photo.fileName,
         type: photo.type,
-        uri:
-          Platform.OS === 'ios' ? photo.uri?.replace('file://', '') : photo.uri,
+        uri: photo.uri,
       });
       setPhotoLoading(true);
     }
