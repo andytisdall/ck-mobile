@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
 import {SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import Home from './src/components/Home';
 import SendText from './src/components/text/SendText';
@@ -31,6 +32,11 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const placeHolderBackBtn = () => <></>;
+
+GoogleSignin.configure({
+  iosClientId:
+    '385802469502-ahjvbdemirgu21ur31n80og3c67k1i7f.apps.googleusercontent.com',
+});
 
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (

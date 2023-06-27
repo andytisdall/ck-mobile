@@ -17,10 +17,23 @@ export const signOut = () => async dispatch => {
   dispatch({type: SIGN_OUT});
 };
 
+export const googleSignIn =
+  ({user}) =>
+  async dispatch => {
+    const {data} = await server.post('/google-signin/mobile', {
+      email: user.email,
+      familyName: user.familyName,
+      givenName: user.givenName,
+      googleId: user.id,
+    });
+    await AsyncStorage.setItem('ck-token', data.token);
+    dispatch({type: SIGN_IN, payload: data.user});
+  };
+
 export const getUser = () => async dispatch => {
   const token = await AsyncStorage.getItem('ck-token');
   if (token) {
-    const response = await server.get('/user', {});
+    const response = await server.get('/user');
     if (response.data?.username) {
       dispatch({
         type: 'SIGN_IN',

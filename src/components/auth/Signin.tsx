@@ -8,9 +8,19 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import statusCodes along with GoogleSignin
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  User,
+} from '@react-native-google-signin/google-signin';
 
 import styles from './styles';
-import {signIn as signInAction, getUser as getUserAction} from '../../actions';
+import {
+  signIn as signInAction,
+  getUser as getUserAction,
+  googleSignIn as googleSignInAction,
+} from '../../actions';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 import {RootState} from '../../state/Root';
@@ -21,8 +31,10 @@ const SignIn = ({
   user,
   navigation,
   getUser,
+  googleSignIn,
 }: {
   signIn: (username: string, password: string) => void;
+  googleSignIn: (userInfo: User) => () => Promise<void>;
   user: {username: string};
   navigation: {push: (name: string) => void};
   getUser: () => Promise<void>;
@@ -57,6 +69,13 @@ const SignIn = ({
     signIn(username, password);
   };
 
+  const submitGoogleSignIn = async () => {
+    setLoading(true);
+    await GoogleSignin.hasPlayServices();
+    const userInfo = await GoogleSignin.signIn();
+    googleSignIn(userInfo);
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -78,7 +97,6 @@ const SignIn = ({
               passwordFieldRef.current.focus();
             }
           }}
-          autoFocus
         />
         <TextInput
           style={styles.authInput}
@@ -97,6 +115,7 @@ const SignIn = ({
           <Text style={styles.signinTitle}>Sign In</Text>
         </Pressable>
       </View>
+      <GoogleSigninButton onPress={submitGoogleSignIn} />
     </View>
   );
 };
@@ -108,4 +127,5 @@ const mapStateToProps = (state: RootState) => {
 export default connect(mapStateToProps, {
   signIn: signInAction,
   getUser: getUserAction,
+  googleSignIn: googleSignInAction,
 })(SignIn);
