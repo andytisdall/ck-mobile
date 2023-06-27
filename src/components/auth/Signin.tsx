@@ -81,41 +81,52 @@ const SignIn = ({
   }
 
   return (
-    <View>
+    <View style={styles.signin}>
       <Title />
-      <View style={styles.signinFields}>
-        <TextInput
-          style={styles.authInput}
-          value={username}
-          onChangeText={setUsername}
-          textColor="black"
-          placeholder="Username"
-          blurOnSubmit
-          returnKeyType="next"
-          onSubmitEditing={() => {
-            if (passwordFieldRef.current) {
-              passwordFieldRef.current.focus();
-            }
-          }}
-        />
-        <TextInput
-          style={styles.authInput}
-          value={password}
-          onChangeText={setPassword}
-          textColor="black"
-          placeholder="Password"
-          blurOnSubmit
-          returnKeyType="next"
-          ref={passwordFieldRef}
-          onSubmitEditing={handleSubmit}
-          secureTextEntry
-        />
-        <Text>{!!user && user.username}</Text>
-        <Pressable style={styles.signinButton} onPress={handleSubmit}>
-          <Text style={styles.signinTitle}>Sign In</Text>
-        </Pressable>
+      <View style={styles.CKSignin}>
+        <Text style={styles.signinText}>Sign in with your CK username</Text>
+
+        <View style={styles.signinFields}>
+          <TextInput
+            style={styles.authInput}
+            value={username}
+            onChangeText={setUsername}
+            textColor="black"
+            placeholder="Username"
+            blurOnSubmit
+            returnKeyType="next"
+            onSubmitEditing={() => {
+              if (passwordFieldRef.current) {
+                passwordFieldRef.current.focus();
+              }
+            }}
+          />
+          <TextInput
+            style={styles.authInput}
+            value={password}
+            onChangeText={setPassword}
+            textColor="black"
+            placeholder="Password"
+            blurOnSubmit
+            returnKeyType="next"
+            ref={passwordFieldRef}
+            onSubmitEditing={handleSubmit}
+            secureTextEntry
+          />
+          <Text>{!!user && user.username}</Text>
+          <Pressable style={styles.signinBtn} onPress={handleSubmit}>
+            <Text style={styles.signinBtnText}>Sign In</Text>
+          </Pressable>
+        </View>
       </View>
-      <GoogleSigninButton onPress={submitGoogleSignIn} />
+      <Text style={styles.signinText}>Or</Text>
+      <View style={styles.googleSignIn}>
+        <Text style={styles.signinText}>Sign in with your Google account</Text>
+        <GoogleSigninButton
+          onPress={submitGoogleSignIn}
+          style={styles.googleSignInBtn}
+        />
+      </View>
     </View>
   );
 };
