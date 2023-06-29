@@ -12,3 +12,5 @@ export const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 
 export const UPLOAD_FILES = 'UPLOAD_FILES';
 export const UPLOAD_IN_PROGRESS = 'UPLOAD_IN_PROGRESS';
+
+export const GET_SHIFTS = 'GET_SHIFTS';

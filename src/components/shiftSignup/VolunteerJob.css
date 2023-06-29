@@ -1,0 +1,75 @@
+.job-container {
+  border-bottom: 1px solid grey;
+  margin-bottom: 1rem;
+}
+
+.job-name {
+  cursor: pointer;
+  width: fit-content;
+}
+
+
+.job-name-small {
+  font-size: .8rem;
+  color: purple
+}
+
+
+.job-listing {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid black;
+  padding: .5rem 0;
+}
+
+
+.jobs-list {
+  margin: 1.5rem;
+}
+
+.shift-list {
+  display: flex;
+  flex-direction: column;
+  transition: all .5s;
+  margin-left: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.closed {
+  transform: scaleY(.05) translateY(-60%);
+  margin-bottom: 0;
+}
+
+.job-location {
+  margin: .5rem 0 1rem 4rem;
+  color: purple;
+  font-size: .9rem;
+}
+
+.job-full {
+  margin: .5rem 3rem .5rem 2rem;
+  color: red;
+}
+.job-date {
+  font-size: 1.3rem;
+}
+
+.job-date-full {
+  color: grey;
+}
+
+.job-time {
+  margin-left: 1rem;
+}
+
+.job-name-inactive {
+  margin-left: 3.5rem;
+  color: rgb(69, 69, 69);
+  font-style: italic;
+  cursor: auto;
+}
+
+.job-disabled {
+  margin-left: 2rem;
+  color: rgb(121, 48, 60)
+}

@@ -21,6 +21,13 @@ const Home = ({
       <Title />
       <Pressable
         style={reusableStyles.btn}
+        onPress={() => navigation.push('Signup')}>
+        <Text style={reusableStyles.btnText}>
+          Sign Up for a Town Fridge Delivery
+        </Text>
+      </Pressable>
+      <Pressable
+        style={reusableStyles.btn}
         onPress={() => navigation.push('Text')}>
         <Text style={reusableStyles.btnText}>Send a Text Alert</Text>
       </Pressable>

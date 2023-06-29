@@ -13,6 +13,7 @@ import {SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
+import ShiftSignup from './src/components/shiftSignup/ShiftSignup';
 import Home from './src/components/Home';
 import SendText from './src/components/text/SendText';
 import TextSuccess from './src/components/text/TextSuccess';
@@ -56,6 +57,7 @@ const AppContainer = ({user}: {user: {username: string}}) => {
                   headerLeft: placeHolderBackBtn,
                 }}
               />
+              <Stack.Screen name="Signup" component={ShiftSignup} />
             </>
           )}
         </Stack.Navigator>

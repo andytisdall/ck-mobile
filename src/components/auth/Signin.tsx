@@ -33,8 +33,8 @@ const SignIn = ({
   getUser,
   googleSignIn,
 }: {
-  signIn: (username: string, password: string) => void;
-  googleSignIn: (userInfo: User) => () => Promise<void>;
+  signIn: (username: string, password: string) => Promise<void>;
+  googleSignIn: (userInfo: User) => Promise<void>;
   user: {username: string};
   navigation: {push: (name: string) => void};
   getUser: () => Promise<void>;

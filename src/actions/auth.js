@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import server from './api';
-import {SIGN_IN, SIGN_OUT} from './types';
+import {SIGN_IN, SIGN_OUT, GET_USER_INFO} from './types';
 
 export const signIn = (username, password) => async dispatch => {
   const res = await server.post('/signin', {
@@ -41,4 +41,11 @@ export const getUser = () => async dispatch => {
       });
     }
   }
+};
+
+export const getUserInfo = () => async dispatch => {
+  const res = await server.get('/user/userInfo');
+  // check for active home chef status
+  // and check on the routes too (new middleware)
+  dispatch({type: GET_USER_INFO, payload: res.data});
 };
