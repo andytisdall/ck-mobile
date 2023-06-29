@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {connect} from 'react-redux';
 import {Pressable, Text, View, ScrollView, Platform} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import {RootStackParamList} from '../../../App';
 import styles from './styles';
 import {
   sendText as sendTextAction,
@@ -28,13 +30,13 @@ export type townFridgeList =
     }[]
   | null;
 
-interface sendTextProps {
+interface SendTextProps {
   sendText: (message: string, region: string, photo: any) => Promise<void>;
   setError: (message: string) => void;
   townFridges: townFridgeList;
   sent: SentMessage | null;
-  navigation: {push: (name: string) => void};
 }
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Text'>;
 
 const SendText = ({
   townFridges,
@@ -42,7 +44,7 @@ const SendText = ({
   setError,
   sent,
   navigation,
-}: sendTextProps) => {
+}: SendTextProps & ScreenProps) => {
   const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');
@@ -72,7 +74,7 @@ const SendText = ({
 
   useEffect(() => {
     if (sent) {
-      navigation.push('Text-Success');
+      navigation.navigate('TextSuccess');
     }
   }, [sent, navigation, setLoading]);
 

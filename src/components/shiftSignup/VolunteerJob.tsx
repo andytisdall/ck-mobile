@@ -1,19 +1,14 @@
 import {format} from 'date-fns';
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {
-  View,
-  Text,
-  Pressable,
-  LayoutAnimation,
-  Platform,
-  UIManager,
-} from 'react-native';
+import {View, Text, Pressable, Platform, UIManager} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import Arrow from '../../assets/right-arrow.svg';
+import {RootStackParamList} from '../../../App';
 import styles from './styles';
 import {Job, Shift} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
+import Loading from '../reusable/Loading';
 
 if (
   Platform.OS === 'android' &&
@@ -22,16 +17,24 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Fridge'>;
+
 const VolunteerJob = ({
-  job,
+  jobs,
   shifts,
+  route,
 }: {
-  job: Job;
+  jobs: Job[];
   shifts: Record<string, Shift>;
-}) => {
-  const [expand, setExpand] = useState(false);
+} & ScreenProps) => {
+  const {jobId} = route.params;
+
+  const job = jobs?.find(j => j.id === jobId);
 
   const renderShifts = () => {
+    if (!job) {
+      return;
+    }
     const jobShifts = job.shifts.map(id => shifts[id]);
     // /{`job-date ${shift.open ? '' : 'job-date-full'}`}
     return jobShifts
@@ -39,66 +42,46 @@ const VolunteerJob = ({
       .map(shift => {
         return (
           <View style={styles.shift} key={shift.id}>
-            {shift.open ? (
-              <Pressable style={styles.signupBtn}>
-                <Text style={styles.signupBtnText}>Sign Up</Text>
-              </Pressable>
-            ) : (
-              <Text>full</Text>
-            )}
-            <Text style={styles.jobDate}>
-              {format(new Date(shift.startTime), 'M/d/yy')}
-            </Text>
-            <Text>{format(new Date(shift.startTime), 'eeee')}</Text>
+            <View style={styles.shiftLeft}>
+              {shift.open ? (
+                <Pressable style={styles.signupBtn}>
+                  <Text style={styles.signupBtnText}>Sign Up</Text>
+                </Pressable>
+              ) : (
+                <Text>full</Text>
+              )}
+              <Text style={styles.jobDate}>
+                {format(new Date(shift.startTime), 'M/d/yy')}
+              </Text>
+              <Text>{format(new Date(shift.startTime), 'eeee')}</Text>
+            </View>
+            <Text style={styles.jobNameSmall}>{job.name}</Text>
           </View>
         );
       });
   };
 
-  const expandStyle = expand && styles.arrowRotated;
-  const inactive = !job.active && styles.jobInactive;
+  if (!job) {
+    return <Loading />;
+  }
 
   return (
     <View style={styles.jobContainer}>
       <View style={styles.jobHeader}>
-        {job.active && (
-          <Pressable
-            onPress={() => {
-              setExpand(!expand);
-              LayoutAnimation.configureNext(
-                LayoutAnimation.create(
-                  200,
-                  LayoutAnimation.Types.linear,
-                  LayoutAnimation.Properties.scaleXY,
-                ),
-              );
-            }}
-            style={[styles.arrow, expandStyle]}>
-            <Arrow />
-          </Pressable>
-        )}
-        <Pressable
-          onPress={() => {
-            if (job.active) {
-              setExpand(!expand);
-            }
-          }}>
-          <Text style={[styles.jobName, inactive]}>{job.name}</Text>
-        </Pressable>
+        <Text style={[styles.jobName]}>{job.name}</Text>
         {!job.active && <Text>Out of Service</Text>}
       </View>
       <View style={styles.shiftList}>
-        {expand && (
-          <Text style={styles.location}>Location: {job.location}</Text>
-        )}
-        <View>{expand && renderShifts()}</View>
+        <Text style={styles.location}>Location: {job.location}</Text>
+
+        <View>{renderShifts()}</View>
       </View>
     </View>
   );
 };
 
 const mapStateToProps = (state: RootState) => {
-  return {shifts: state.homeChef.shifts};
+  return {shifts: state.homeChef.shifts, jobs: state.homeChef.jobs};
 };
 
 export default connect(mapStateToProps)(VolunteerJob);

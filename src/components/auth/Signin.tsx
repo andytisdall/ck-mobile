@@ -8,13 +8,14 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import statusCodes along with GoogleSignin
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   GoogleSignin,
   GoogleSigninButton,
   User,
 } from '@react-native-google-signin/google-signin';
 
+import {RootStackParamList} from '../../../App';
 import styles from './styles';
 import {
   signIn as signInAction,
@@ -26,19 +27,22 @@ import Loading from '../reusable/Loading';
 import {RootState} from '../../state/Root';
 import Title from '../reusable/Title';
 
+interface SignInProps {
+  signIn: (username: string, password: string) => Promise<void>;
+  googleSignIn: (userInfo: User) => () => Promise<void>;
+  user: {username: string};
+  getUser: () => Promise<void>;
+}
+
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
+
 const SignIn = ({
   signIn,
   user,
   navigation,
   getUser,
   googleSignIn,
-}: {
-  signIn: (username: string, password: string) => Promise<void>;
-  googleSignIn: (userInfo: User) => Promise<void>;
-  user: {username: string};
-  navigation: {push: (name: string) => void};
-  getUser: () => Promise<void>;
-}) => {
+}: SignInProps & ScreenProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 

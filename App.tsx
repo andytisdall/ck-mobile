@@ -22,11 +22,10 @@ import SignIn from './src/components/auth/Signin';
 import Root from './src/state/Root';
 import styles from './src/baseStyles';
 import {RootState} from './src/state/Root';
+import VolunteerJob from './src/components/shiftSignup/VolunteerJob';
 
 // import { NavigationContainer } from '@react-navigation/native';
 // import { navigationRef } from './RootNavigation';
-
-const Stack = createNativeStackNavigator();
 
 const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
@@ -38,6 +37,17 @@ GoogleSignin.configure({
   iosClientId:
     '385802469502-ahjvbdemirgu21ur31n80og3c67k1i7f.apps.googleusercontent.com',
 });
+
+export type RootStackParamList = {
+  Home: undefined;
+  SignIn: undefined;
+  Text: undefined;
+  Fridge: {jobId: string};
+  Signup: undefined;
+  TextSuccess: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (
@@ -51,13 +61,14 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Text" component={SendText} />
               <Stack.Screen
-                name="Text-Success"
+                name="TextSuccess"
                 component={TextSuccess}
                 options={{
                   headerLeft: placeHolderBackBtn,
                 }}
               />
               <Stack.Screen name="Signup" component={ShiftSignup} />
+              <Stack.Screen name="Fridge" component={VolunteerJob} />
             </>
           )}
         </Stack.Navigator>

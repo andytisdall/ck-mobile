@@ -4,7 +4,7 @@ import moment from 'moment';
 // import {useNavigate} from 'react-router-dom';
 import {Text, Pressable} from 'react-native';
 
-import styles, {colors} from './styles';
+import styles from './styles';
 import TestCal from '../reusable/calendar/TestCal';
 import Loading from '../reusable/Loading';
 import {Shift, Job} from './VolunteerJobsList';
@@ -26,7 +26,7 @@ const HomeChefCalendar = ({
       .filter(sh => {
         const jobIndex = jobs.findIndex(j => j.id === sh.job);
         const job = jobs[jobIndex];
-        return job?.ongoing && job.active;
+        return job?.ongoing && job.active && sh.open;
       })
       .forEach(sh => {
         const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
@@ -43,32 +43,18 @@ const HomeChefCalendar = ({
 
   const getShifts = useCallback(
     (d: string) => {
-      let dayShifts = [];
-
-      if (orderedShifts[d]) {
-        dayShifts = orderedShifts[d].map(sh => {
-          const jobIndex = jobs.findIndex(j => j.id === sh.job);
-          const job = jobs[jobIndex];
-          // const available = sh.open;
-          // const status = available ? '' : 'calendar-shift-disabled';
-          // const link = () => navigate('../shift/' + sh.id);
-          const color = colors[jobIndex];
-          return (
-            <Pressable
-              style={[styles.calendarJob, color.calendarJobColor]}
-              onPress={() => {}}
-              key={sh.id}>
-              <Text
-                style={[styles.calendarJobName, color.calendarJobNameColor]}>
-                {job.name}
-              </Text>
-            </Pressable>
-          );
-        });
-        return dayShifts;
-      }
+      const numShifts = orderedShifts[d] ? orderedShifts[d].length : 0;
+      const inactiveStyle = !numShifts ? styles.calendarLinkInactive : null;
+      return (
+        <Pressable
+          style={[styles.calendarLink, inactiveStyle]}
+          onPress={() => {}}>
+          <Text style={styles.calendarLinkNumber}>{numShifts}</Text>
+          <Text style={styles.calendarLinkText}>Shifts</Text>
+        </Pressable>
+      );
     },
-    [jobs, orderedShifts],
+    [orderedShifts],
   );
 
   if (!jobs || !shifts) {

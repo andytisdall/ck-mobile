@@ -1,9 +1,11 @@
 import {connect} from 'react-redux';
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import {RootStackParamList} from '../../../App';
+import styles from './styles';
 import {RootState} from '../../state/Root';
-import VolunteerJob from './VolunteerJob';
 import Loading from '../reusable/Loading';
 
 export interface Job {
@@ -26,16 +28,32 @@ export interface Shift {
   duration: number;
 }
 
-const VolunteerJobsList = ({jobs}: {jobs: Job[]}) => {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Signup'>;
+
+const VolunteerJobsList = ({
+  jobs,
+  navigation,
+}: {jobs: Job[] | null} & ScreenProps) => {
   const renderJobs = () => {
-    if (!jobs.length) {
+    if (!jobs?.length) {
       return <Text>No jobs could be found.</Text>;
     }
     return jobs
       .filter(job => job.ongoing)
       .sort(a => (a.active ? -1 : 1))
       .map(job => {
-        return <VolunteerJob job={job} key={job.id} />;
+        const style: any[] = [styles.jobName];
+        if (!job.active) {
+          style.push(styles.jobInactive);
+        }
+        return (
+          <Pressable
+            onPress={() => navigation.navigate('Fridge', {jobId: job.id})}
+            style={style}
+            key={job.id}>
+            <Text>{job.name}</Text>
+          </Pressable>
+        );
       });
   };
 

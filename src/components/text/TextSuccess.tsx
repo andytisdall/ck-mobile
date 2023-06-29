@@ -1,7 +1,9 @@
 import {connect} from 'react-redux';
 import {Pressable, View, Text, Image, ScrollView} from 'react-native';
 import React, {useState} from 'react';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import {RootStackParamList} from '../../../App';
 import {RootState} from '../../state/Root';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
@@ -20,12 +22,18 @@ interface TextSuccessProps {
   clearText: () => {type: string};
 }
 
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'TextSuccess'>;
+
 const regionNames = {
   EAST_OAKLAND: 'East Oakland',
   WEST_OAKLAND: 'West Oakland',
 };
 
-const TextSuccess = ({message, navigation, clearText}: TextSuccessProps) => {
+const TextSuccess = ({
+  message,
+  navigation,
+  clearText,
+}: TextSuccessProps & ScreenProps) => {
   const [photoLoading, setPhotoLoading] = useState(true);
 
   if (message) {

@@ -13,21 +13,24 @@ export default StyleSheet.create({
   signupTitle: {fontSize: 25, textAlign: 'center'},
   signupLinks: {
     flexDirection: 'row',
-    marginVertical: 40,
+    marginVertical: 20,
     justifyContent: 'space-around',
   },
   navBtn: {
     borderRadius: 50,
     borderWidth: 1,
-    backgroundColor: 'blue',
-    width: 130,
-    height: 60,
+    backgroundColor: 'rgba(100,100,100, .5)',
+    width: 90,
+    height: 40,
     justifyContent: 'center',
   },
   navBtnText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 15,
     textAlign: 'center',
+  },
+  viewActive: {
+    transform: [{scale: 1.1}],
   },
   jobContainer: {
     borderBottomColor: 'grey',
@@ -40,6 +43,9 @@ export default StyleSheet.create({
   jobName: {
     fontSize: 20,
   },
+  jobNameSmall: {
+    fontSize: 10,
+  },
   arrow: {
     width: 20,
     height: 20,
@@ -51,6 +57,11 @@ export default StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     paddingBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  shiftLeft: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
   shiftList: {
@@ -79,14 +90,13 @@ export default StyleSheet.create({
   arrowRotated: {
     transform: [{rotate: '90deg'}],
   },
-  calendarJob: {
-    borderWidth: 1,
-    marginVertical: 2,
+  calendarLink: {
+    padding: 2,
+    backgroundColor: 'rgba(20, 200, 50, .5)',
   },
-  calendarJobName: {
-    fontSize: 8,
-    padding: 3,
-  },
+  calendarLinkNumber: {fontSize: 20, textAlign: 'center'},
+  calendarLinkText: {fontSize: 12, textAlign: 'center'},
+  calendarLinkInactive: {backgroundColor: 'rgba(200, 70, 70, .5)'},
 });
 
 const colorStyles = [

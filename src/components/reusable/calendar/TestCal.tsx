@@ -7,7 +7,7 @@ import styles from './styles';
 const TestCal = ({
   renderItems,
 }: {
-  renderItems: (day: string) => React.JSX.Element[] | undefined;
+  renderItems: (day: string) => React.JSX.Element;
 }) => {
   // const [month, setMonth] = useState(moment());
   const month = moment();
