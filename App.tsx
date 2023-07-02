@@ -23,6 +23,8 @@ import Root from './src/state/Root';
 import styles from './src/baseStyles';
 import {RootState} from './src/state/Root';
 import VolunteerJob from './src/components/shiftSignup/VolunteerJob';
+import DateDetail from './src/components/shiftSignup/DateDetail';
+import ShiftDetail from './src/components/shiftSignup/ShiftDetail';
 
 // import { NavigationContainer } from '@react-navigation/native';
 // import { navigationRef } from './RootNavigation';
@@ -45,6 +47,8 @@ export type RootStackParamList = {
   Fridge: {jobId: string};
   Signup: undefined;
   TextSuccess: undefined;
+  DateDetail: {shiftIds: string[]; date: string};
+  ShiftDetail: {shiftId: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -69,6 +73,8 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               />
               <Stack.Screen name="Signup" component={ShiftSignup} />
               <Stack.Screen name="Fridge" component={VolunteerJob} />
+              <Stack.Screen name="DateDetail" component={DateDetail} />
+              <Stack.Screen name="ShiftDetail" component={ShiftDetail} />
             </>
           )}
         </Stack.Navigator>

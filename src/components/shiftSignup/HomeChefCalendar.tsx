@@ -1,22 +1,26 @@
 import {connect} from 'react-redux';
 import React, {useMemo, useCallback} from 'react';
 import moment from 'moment';
-// import {useNavigate} from 'react-router-dom';
 import {Text, Pressable} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import styles from './styles';
 import TestCal from '../reusable/calendar/TestCal';
 import Loading from '../reusable/Loading';
 import {Shift, Job} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
+import {RootStackParamList} from '../../../App';
+
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 const HomeChefCalendar = ({
   jobs,
   shifts,
+  navigation,
 }: {
   jobs: Job[];
   shifts: Record<string, Shift>;
-}) => {
+} & ScreenProps) => {
   const orderedShifts = useMemo(() => {
     if (!shifts) {
       return {};
@@ -48,13 +52,20 @@ const HomeChefCalendar = ({
       return (
         <Pressable
           style={[styles.calendarLink, inactiveStyle]}
-          onPress={() => {}}>
+          onPress={() => {
+            if (numShifts) {
+              navigation.navigate('DateDetail', {
+                shiftIds: orderedShifts[d].map(sh => sh.id),
+                date: d,
+              });
+            }
+          }}>
           <Text style={styles.calendarLinkNumber}>{numShifts}</Text>
           <Text style={styles.calendarLinkText}>Shifts</Text>
         </Pressable>
       );
     },
-    [orderedShifts],
+    [orderedShifts, navigation],
   );
 
   if (!jobs || !shifts) {

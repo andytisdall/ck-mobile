@@ -59,7 +59,9 @@ const ShiftSignup = ({
           {viewType === 'list' && (
             <VolunteerJobsList navigation={navigation} route={route} />
           )}
-          {viewType === 'calendar' && <Calendar />}
+          {viewType === 'calendar' && (
+            <Calendar navigation={navigation} route={route} />
+          )}
         </View>
       </>
     );
