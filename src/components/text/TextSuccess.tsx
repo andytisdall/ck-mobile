@@ -7,7 +7,7 @@ import {RootStackParamList} from '../../../App';
 import {RootState} from '../../state/Root';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
-import {clearText as clearTextAction} from '../../actions';
+// import {clearText as clearTextAction} from '../../actions';
 import Loading from '../reusable/Loading';
 
 export type SentMessage = {
@@ -19,7 +19,7 @@ export type SentMessage = {
 interface TextSuccessProps {
   message: SentMessage;
   navigation: {navigate: (name: string) => void; pop: () => void};
-  clearText: () => {type: string};
+  // clearText: () => {type: string};
 }
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'TextSuccess'>;
@@ -32,8 +32,8 @@ const regionNames = {
 const TextSuccess = ({
   message,
   navigation,
-  clearText,
-}: TextSuccessProps & ScreenProps) => {
+}: // clearText,
+TextSuccessProps & ScreenProps) => {
   const [photoLoading, setPhotoLoading] = useState(true);
 
   if (message) {
@@ -67,7 +67,7 @@ const TextSuccess = ({
           <Pressable
             style={[styles.backBtn]}
             onPress={() => {
-              clearText();
+              // clearText();
               navigation.navigate('Home');
             }}>
             <Text style={styles.backBtnText}>Back to Text Home</Text>
@@ -84,6 +84,4 @@ const mapStateToProps = (state: RootState) => {
   return {message: state.text.sent};
 };
 
-export default connect(mapStateToProps, {clearText: clearTextAction})(
-  TextSuccess,
-);
+export default connect(mapStateToProps)(TextSuccess);

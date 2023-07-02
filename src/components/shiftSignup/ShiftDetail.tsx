@@ -13,13 +13,20 @@ import useLoading from '../../hooks/useLoading';
 import {RootStackParamList} from '../../../App';
 import {Job, Shift} from './VolunteerJobsList';
 import styles from './styles';
+import reusableStyles from '../reusable/styles';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ShiftDetail'>;
 
 interface ShiftDetailProps {
   jobs: Job[];
   shifts: Record<string, Shift>;
-  signUpForShift: () => void;
+  signUpForShift: (
+    shiftId: string,
+    mealCount: string,
+    jobId: string,
+    date: string,
+    soup: boolean,
+  ) => void;
 }
 
 const ShiftDetail = ({
@@ -34,12 +41,6 @@ const ShiftDetail = ({
 
   const {shiftId} = route.params;
 
-  const onSubmit = () => {
-    //shiftId, mealCount, job.id, shift.startTime, soup
-    setLoading(true);
-    signUpForShift();
-  };
-
   if (!shifts || !jobs) {
     return <Loading />;
   }
@@ -47,8 +48,13 @@ const ShiftDetail = ({
   const shift = shifts[shiftId];
   const job = jobs.find(j => j.id === shift.job);
 
+  const onSubmit = () => {
+    setLoading(true);
+    signUpForShift(shiftId, mealCount, job!.id, shift.startTime, soup);
+  };
+
   if (!shift.open) {
-    return <p>This shift is not available for signup</p>;
+    return <Text>This shift is not available for signup</Text>;
   }
   if (!job) {
     return (
@@ -59,14 +65,16 @@ const ShiftDetail = ({
   }
 
   return (
-    <ScrollView style={styles.scrollView}>
-      <View>
-        <Text>Signing up for:</Text>
-        <Text>{format(new Date(shift.startTime), 'eeee, M/d/yy')}</Text>
-        <Text>{job.name}</Text>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.homeChef}>
+        <View style={styles.signupField}>
+          <Text>Signing up for:</Text>
+          <Text>{format(new Date(shift.startTime), 'eeee, M/d/yy')}</Text>
+        </View>
+        <Text style={styles.jobName}>{job.name}</Text>
         <Text>{job.location}</Text>
 
-        <View>
+        <View style={styles.signUpDetail}>
           <View>
             <View>
               <View>
@@ -80,7 +88,7 @@ const ShiftDetail = ({
                 onChangeText={setMealCount}
               />
             </View>
-            <View>
+            <View style={styles.signupField}>
               <Checkbox
                 onPress={() => setSoup(!soup)}
                 status={soup ? 'checked' : 'unchecked'}
@@ -92,8 +100,8 @@ const ShiftDetail = ({
           {loading ? (
             <Loading />
           ) : (
-            <Pressable onPress={onSubmit}>
-              <Text>Submit</Text>
+            <Pressable style={reusableStyles.btn} onPress={onSubmit}>
+              <Text style={reusableStyles.btnText}>Submit</Text>
             </Pressable>
           )}
         </View>

@@ -23,6 +23,7 @@ const VolunteerJob = ({
   jobs,
   shifts,
   route,
+  navigation,
 }: {
   jobs: Job[];
   shifts: Record<string, Shift>;
@@ -44,7 +45,11 @@ const VolunteerJob = ({
           <View style={styles.shift} key={shift.id}>
             <View style={styles.shiftLeft}>
               {shift.open ? (
-                <Pressable style={styles.signupBtn}>
+                <Pressable
+                  style={styles.signupBtn}
+                  onPress={() =>
+                    navigation.navigate('ShiftDetail', {shiftId: shift.id})
+                  }>
                   <Text style={styles.signupBtnText}>Sign Up</Text>
                 </Pressable>
               ) : (

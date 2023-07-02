@@ -9,6 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingBottom: 80,
+    borderWidth: 1,
   },
   signupTitle: {fontSize: 25, textAlign: 'center'},
   signupLinks: {
@@ -97,6 +98,14 @@ export default StyleSheet.create({
   calendarLinkNumber: {fontSize: 20, textAlign: 'center'},
   calendarLinkText: {fontSize: 12, textAlign: 'center'},
   calendarLinkInactive: {backgroundColor: 'rgba(200, 70, 70, .5)'},
+  signUpDetail: {
+    marginVertical: 30,
+  },
+  signupField: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 30,
+  },
 });
 
 const colorStyles = [

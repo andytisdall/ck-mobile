@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {Pressable, Text, View, ScrollView, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -42,9 +42,9 @@ const SendText = ({
   townFridges,
   sendText,
   setError,
-  sent,
-  navigation,
-}: SendTextProps & ScreenProps) => {
+}: // sent,
+// navigation,
+SendTextProps & ScreenProps) => {
   const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');
@@ -72,11 +72,11 @@ const SendText = ({
     setFieldValid(false);
   };
 
-  useEffect(() => {
-    if (sent) {
-      navigation.navigate('TextSuccess');
-    }
-  }, [sent, navigation, setLoading]);
+  // useEffect(() => {
+  //   if (sent) {
+  //     navigation.navigate('TextSuccess');
+  //   }
+  // }, [sent, navigation, setLoading]);
 
   const getAddress = () => {
     if (fridge !== undefined && townFridges && townFridges[fridge].address) {

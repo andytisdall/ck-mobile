@@ -42,7 +42,7 @@ const VolunteerJobsList = ({
       .filter(job => job.ongoing)
       .sort(a => (a.active ? -1 : 1))
       .map(job => {
-        const style: any[] = [styles.jobName];
+        const style: any[] = [styles.jobContainer];
         if (!job.active) {
           style.push(styles.jobInactive);
         }
@@ -51,7 +51,7 @@ const VolunteerJobsList = ({
             onPress={() => navigation.navigate('Fridge', {jobId: job.id})}
             style={style}
             key={job.id}>
-            <Text>{job.name}</Text>
+            <Text style={styles.jobName}>{job.name}</Text>
           </Pressable>
         );
       });

@@ -25,9 +25,8 @@ import {RootState} from './src/state/Root';
 import VolunteerJob from './src/components/shiftSignup/VolunteerJob';
 import DateDetail from './src/components/shiftSignup/DateDetail';
 import ShiftDetail from './src/components/shiftSignup/ShiftDetail';
-
-// import { NavigationContainer } from '@react-navigation/native';
-// import { navigationRef } from './RootNavigation';
+import {navigationRef} from './src/RootNavigation';
+import Confirmation from './src/components/shiftSignup/Confirmation';
 
 const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
@@ -49,6 +48,7 @@ export type RootStackParamList = {
   TextSuccess: undefined;
   DateDetail: {shiftIds: string[]; date: string};
   ShiftDetail: {shiftId: string};
+  SignupConfirm: {hoursId: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,7 +56,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (
     <SafeAreaView style={styles.app}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator>
           {!user ? (
             <Stack.Screen name="SignIn" component={SignIn} />
@@ -75,6 +75,7 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               <Stack.Screen name="Fridge" component={VolunteerJob} />
               <Stack.Screen name="DateDetail" component={DateDetail} />
               <Stack.Screen name="ShiftDetail" component={ShiftDetail} />
+              <Stack.Screen name="SignupConfirm" component={Confirmation} />
             </>
           )}
         </Stack.Navigator>
