@@ -27,6 +27,8 @@ import DateDetail from './src/components/shiftSignup/DateDetail';
 import ShiftDetail from './src/components/shiftSignup/ShiftDetail';
 import {navigationRef} from './src/RootNavigation';
 import Confirmation from './src/components/shiftSignup/Confirmation';
+import ChefShifts from './src/components/chef/ChefShifts';
+import EditShift from './src/components/chef/EditShift';
 
 const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
@@ -49,6 +51,8 @@ export type RootStackParamList = {
   DateDetail: {shiftIds: string[]; date: string};
   ShiftDetail: {shiftId: string};
   SignupConfirm: {hoursId: string};
+  Chef: undefined;
+  EditShift: {hoursId: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -76,6 +80,8 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               <Stack.Screen name="DateDetail" component={DateDetail} />
               <Stack.Screen name="ShiftDetail" component={ShiftDetail} />
               <Stack.Screen name="SignupConfirm" component={Confirmation} />
+              <Stack.Screen name="Chef" component={ChefShifts} />
+              <Stack.Screen name="EditShift" component={EditShift} />
             </>
           )}
         </Stack.Navigator>

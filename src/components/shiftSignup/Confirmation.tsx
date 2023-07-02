@@ -16,7 +16,7 @@ import {Job} from './VolunteerJobsList';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignupConfirm'>;
 
-interface Hours {
+export interface Hours {
   id: string;
   mealCount: string;
   time: string;
