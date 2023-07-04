@@ -84,26 +84,20 @@ export default StyleSheet.create({
   },
   leftArrow: {transform: [{scaleX: -1}]},
   sendBtn: {
-    alignItems: 'center',
-    margin: 15,
-    backgroundColor: 'yellow',
-    padding: 30,
-    borderRadius: 50,
-    borderWidth: 1,
+    margin: 10,
+    backgroundColor: 'rgb(150,150,250)',
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 3},
     shadowOpacity: 0.3,
   },
   sendBtnText: {
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: '600',
   },
-  btnInactive: {
-    backgroundColor: 'grey',
-  },
+
   textPreview: {
     fontSize: 20,
-    padding: 5,
+    paddingHorizontal: 5,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: 'rgb(150,150,200)',
@@ -113,8 +107,7 @@ export default StyleSheet.create({
   },
   textConfirmTitle: {
     fontSize: 30,
-    marginBottom: 30,
-    textDecorationLine: 'underline',
+    marginBottom: 10,
     color: 'white',
   },
   textConfirmRegion: {

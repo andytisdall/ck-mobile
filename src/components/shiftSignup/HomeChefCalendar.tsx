@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import React, {useMemo, useCallback} from 'react';
 import moment from 'moment';
-import {Text, Pressable} from 'react-native';
+import {Text, Pressable, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import styles from './styles';
@@ -51,7 +51,6 @@ const HomeChefCalendar = ({
       const inactiveStyle = !numShifts ? styles.calendarLinkInactive : null;
       return (
         <Pressable
-          style={[styles.calendarLink, inactiveStyle]}
           onPress={() => {
             if (numShifts) {
               navigation.navigate('DateDetail', {
@@ -60,8 +59,18 @@ const HomeChefCalendar = ({
               });
             }
           }}>
-          <Text style={styles.calendarLinkNumber}>{numShifts}</Text>
-          <Text style={styles.calendarLinkText}>Shifts</Text>
+          {({pressed}) => {
+            const dateBtnStyle: any[] = [styles.calendarLink, inactiveStyle];
+            if (numShifts && pressed) {
+              dateBtnStyle.push({backgroundColor: 'rgb(100, 250, 200)'});
+            }
+            return (
+              <View style={dateBtnStyle}>
+                <Text style={styles.calendarLinkNumber}>{numShifts}</Text>
+                <Text style={styles.calendarLinkText}>Shifts</Text>
+              </View>
+            );
+          }}
         </Pressable>
       );
     },

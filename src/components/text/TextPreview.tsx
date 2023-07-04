@@ -3,6 +3,7 @@
 import {View, Text, Pressable, Image} from 'react-native';
 import React from 'react';
 
+import Btn from '../reusable/Btn';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
 import {PhotoFile} from '../reusable/AddPhoto';
@@ -56,21 +57,13 @@ const TextPreview = ({
 
       <Text style={styles.textConfirmRegion}>Region: {region}</Text>
       <View style={styles.textConfirmBtns}>
-        <Pressable
-          style={styles.sendBtn}
-          onPress={() => {
-            onSubmit();
-          }}>
+        <Btn style={styles.sendBtn} onPress={onSubmit}>
           <Text style={styles.sendBtnText}>Send Message</Text>
-        </Pressable>
+        </Btn>
 
-        <Pressable
-          style={[styles.sendBtn, styles.cancel]}
-          onPress={() => {
-            onCancel();
-          }}>
+        <Btn style={[styles.sendBtn, styles.cancel]} onPress={onCancel}>
           <Text style={styles.sendBtnText}>Start Over</Text>
-        </Pressable>
+        </Btn>
       </View>
     </View>
   );

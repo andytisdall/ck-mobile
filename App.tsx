@@ -85,7 +85,11 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               <Stack.Screen name="Signup" component={ShiftSignup} />
               <Stack.Screen name="Fridge" component={VolunteerJob} />
               <Stack.Screen name="DateDetail" component={DateDetail} />
-              <Stack.Screen name="ShiftDetail" component={ShiftDetail} />
+              <Stack.Screen
+                name="ShiftDetail"
+                component={ShiftDetail}
+                options={{headerTitle: 'Sign Up for a Delivery'}}
+              />
               <Stack.Screen
                 name="SignupConfirm"
                 component={Confirmation}

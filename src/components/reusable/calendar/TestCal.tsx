@@ -35,12 +35,14 @@ const TestCal = ({
 
       return (
         <View style={styles.calendarDate} key={d}>
-          <View style={styles.calendarDateNumberContainer}>
-            <Text style={styles.calendarDateNumber}>
-              {moment(d, 'YYYY-MM-DD').format('D')}
-            </Text>
+          <View style={styles.calendarDateBackground}>
+            <View style={styles.calendarDateNumberContainer}>
+              <Text style={styles.calendarDateNumber}>
+                {moment(d, 'YYYY-MM-DD').format('D')}
+              </Text>
+            </View>
+            {items}
           </View>
-          <View>{items}</View>
         </View>
       );
     });

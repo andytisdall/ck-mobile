@@ -1,9 +1,10 @@
 import {connect} from 'react-redux';
 import React, {useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, Pressable, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {format} from 'date-fns';
 
+import Btn from '../reusable/Btn';
 import styles from './styles';
 import {
   getHours as getHoursAction,
@@ -61,7 +62,7 @@ const Confirmation = ({
     const job = jobs?.find(j => j.id === hour?.job);
     if (hour && job) {
       return (
-        <View style={[styles.signUpDetail, styles.confirmDetail]}>
+        <View style={[styles.confirmDetail]}>
           <Text>You have successfully signed up for this shift:</Text>
           <View style={[styles.signupDetailInfo, styles.signupFields]}>
             <View style={styles.confirmLine}>
@@ -96,16 +97,16 @@ const Confirmation = ({
 
         {!jobs || !hours ? <Loading /> : renderShiftDetails()}
         <View style={styles.confirmNav}>
-          <Pressable style={styles.navBtn}>
-            <Text onPress={() => navigation.navigate('Signup')}>
-              Sign Up for More Shifts
-            </Text>
-          </Pressable>
-          <Pressable
+          <Btn
+            onPress={() => navigation.navigate('Signup')}
+            style={styles.navBtn}>
+            <Text>Sign Up for More Shifts</Text>
+          </Btn>
+          <Btn
             onPress={() => navigation.navigate('Chef')}
             style={styles.navBtn}>
             <Text>See your future and past shifts</Text>
-          </Pressable>
+          </Btn>
         </View>
       </View>
     </ScrollView>

@@ -11,22 +11,30 @@ export default StyleSheet.create({
     paddingBottom: 80,
     borderWidth: 1,
   },
-  signupTitle: {fontSize: 25, textAlign: 'center'},
-  signupLinks: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    justifyContent: 'center',
+  signupHeader: {
+    alignItems: 'center',
   },
-  switchText: {paddingHorizontal: 20},
+  signupTitle: {fontSize: 25, textAlign: 'center'},
+  switch: {marginVertical: 20, width: '50%'},
+  switchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  switchTitle: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: 'grey',
+    marginBottom: 10,
+  },
+  switchBtn: {flex: 1},
+  switchText: {textAlign: 'center'},
   navBtn: {
-    borderRadius: 50,
-    borderWidth: 1,
     backgroundColor: 'rgba(100,100,200, .5)',
-    padding: 20,
-    justifyContent: 'center',
     marginBottom: 30,
   },
   navBtnText: {
+    padding: 20,
     color: 'white',
     fontSize: 20,
     textAlign: 'center',
@@ -74,9 +82,6 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   signupBtn: {
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 50,
     backgroundColor: 'rgb(150, 80,120)',
     marginRight: 15,
   },
@@ -96,6 +101,8 @@ export default StyleSheet.create({
   calendarLink: {
     padding: 2,
     backgroundColor: 'rgba(20, 200, 50, .5)',
+    flex: 1,
+    paddingTop: 15,
   },
   calendarLinkNumber: {fontSize: 20, textAlign: 'center'},
   calendarLinkText: {fontSize: 12, textAlign: 'center'},
@@ -104,6 +111,9 @@ export default StyleSheet.create({
   signupDetailInfo: {
     paddingHorizontal: 5,
     marginBottom: 25,
+  },
+  signupDetailAddress: {
+    paddingLeft: 55,
   },
   signupField: {
     flexDirection: 'row',
@@ -127,8 +137,6 @@ export default StyleSheet.create({
   shiftDetailHeader: {fontSize: 20, marginLeft: 10},
   submitBtn: {
     backgroundColor: 'rgb(100,100,250)',
-    padding: 15,
-    borderRadius: 50,
     marginTop: 20,
   },
   disabled: {

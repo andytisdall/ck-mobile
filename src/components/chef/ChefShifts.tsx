@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import Btn from '../reusable/Btn';
 import {RootStackParamList} from '../../../App';
 import {Job} from '../shiftSignup/VolunteerJobsList';
 import {Hours} from '../shiftSignup/Confirmation';
@@ -68,9 +69,9 @@ const ChefShifts = ({
     return (
       <View key={hour.id} style={chefStyles.chefRow}>
         <View style={chefStyles.chefSubRow}>
-          <Pressable style={chefStyles.editBtn}>
+          <Btn style={chefStyles.editBtn} onPress={() => {}}>
             <Text>edit</Text>
-          </Pressable>
+          </Btn>
           <Text>
             {format(new Date(hour.time), 'eee, M/d/yy')} - {job.name}
           </Text>
@@ -149,11 +150,11 @@ const ChefShifts = ({
             alt="Home Chef meals ready to go"
             style={chefStyles.chefPhoto}
           />
-          <Pressable
+          <Btn
             style={chefStyles.signupBtn}
             onPress={() => navigation.navigate('Signup')}>
             <Text>Sign Up to Deliver Meals</Text>
-          </Pressable>
+          </Btn>
         </View>
 
         <Pressable

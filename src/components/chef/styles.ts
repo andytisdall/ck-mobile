@@ -34,11 +34,8 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   editBtn: {
-    borderWidth: 1,
-    borderRadius: 50,
     backgroundColor: 'rgb(220,140,140)',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+
     marginRight: 10,
   },
   chefInfo: {
@@ -55,11 +52,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   signupBtn: {
-    borderWidth: 1,
     marginVertical: 20,
-    borderRadius: 50,
-    paddingVertical: 5,
-    paddingHorizontal: 10,
     backgroundColor: 'rgba(250,200, 0, .8)',
   },
 });

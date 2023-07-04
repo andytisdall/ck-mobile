@@ -6,6 +6,7 @@ import {
 import {Pressable, View, Text, Image} from 'react-native';
 import React, {useState} from 'react';
 
+import Btn from './Btn';
 import styles from './styles';
 import Loading from './Loading';
 
@@ -68,12 +69,12 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
 
   return (
     <View style={styles.photo}>
-      <Pressable style={styles.btn} onPress={getPhotoFromLibrary}>
+      <Btn style={styles.btn} onPress={getPhotoFromLibrary}>
         <Text style={styles.btnText}>Get Photo</Text>
-      </Pressable>
-      <Pressable style={styles.btn} onPress={takePhoto}>
+      </Btn>
+      <Btn style={styles.btn} onPress={takePhoto}>
         <Text style={styles.btnText}>Take Photo</Text>
-      </Pressable>
+      </Btn>
       {!!photoFile && renderPhoto()}
     </View>
   );

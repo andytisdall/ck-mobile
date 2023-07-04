@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {View, Text, ScrollView, LayoutAnimation, Switch} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  LayoutAnimation,
+  Switch,
+  Pressable,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../../App';
@@ -51,18 +58,27 @@ const ShiftSignup = ({
     }
     return (
       <>
-        <View style={styles.signupLinks}>
-          {/* <Pressable onPress={() => switchViewType('list')} style={listBtn}> */}
-          <Text style={styles.switchText}>List</Text>
-          {/* </Pressable> */}
-          {/* <Pressable onPress={() => switchViewType('calendar')} style={calBtn}> */}
-          {/* </Pressable> */}
-          <Switch
-            thumbColor={thumbColor}
-            onChange={switchViewType}
-            value={value}
-          />
-          <Text style={styles.switchText}>Calendar</Text>
+        <View style={styles.switch}>
+          <Text style={styles.switchTitle}>View Type</Text>
+          <View style={styles.switchRow}>
+            <Pressable
+              onPress={() => (viewType !== 'list' ? switchViewType() : null)}
+              style={styles.switchBtn}>
+              <Text style={styles.switchText}>Town Fridge List</Text>
+            </Pressable>
+            <Switch
+              thumbColor={thumbColor}
+              onChange={switchViewType}
+              value={value}
+            />
+            <Pressable
+              onPress={() =>
+                viewType !== 'calendar' ? switchViewType() : null
+              }
+              style={styles.switchBtn}>
+              <Text style={styles.switchText}>Calendar</Text>
+            </Pressable>
+          </View>
         </View>
         <View>
           {viewType === 'list' && (
@@ -79,8 +95,10 @@ const ShiftSignup = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.homeChef}>
-        <Text style={styles.signupTitle}>Town Fridge Sign Up</Text>
-        {renderSignup()}
+        <View style={styles.signupHeader}>
+          <Text style={styles.signupTitle}>Town Fridge Sign Up</Text>
+          {renderSignup()}
+        </View>
       </View>
     </ScrollView>
   );

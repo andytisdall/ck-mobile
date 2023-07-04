@@ -2,7 +2,7 @@ import {View, StyleSheet, Pressable} from 'react-native';
 import React, {ReactNode} from 'react';
 
 interface BtnProps {
-  style: Record<string, string | number> | Record<string, string | number>[];
+  style: Record<string, any> | Record<string, any>[];
   children: ReactNode;
   onPress: () => void;
   onError?: () => void;
@@ -21,13 +21,13 @@ const Btn = ({style, children, onPress, disabled, onError}: BtnProps) => {
         }
       }}>
       {({pressed}) => {
-        const btnStyle = [style, styles.btn];
+        const btnStyle = [styles.btn, style];
         let filterStyle: any[] = [styles.filter];
         if (pressed && !disabled) {
           filterStyle.push({backgroundColor: 'rgba(250,250,250,.4)'});
         }
         if (disabled) {
-          filterStyle.push({backgroundColor: 'rgb(100,100,100)'});
+          filterStyle.push({backgroundColor: 'rgb(130,130,130)'});
         }
         return (
           <View style={btnStyle}>
@@ -45,8 +45,9 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   filter: {
-    borderRadius: 50,
-    padding: 10,
+    borderRadius: 500,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     // alignItems: 'center',
     // justifyContent: 'center',
   },

@@ -1,14 +1,7 @@
 import {format} from 'date-fns';
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-  View,
-  Text,
-  Pressable,
-  Platform,
-  UIManager,
-  ScrollView,
-} from 'react-native';
+import {View, Text, Platform, UIManager, ScrollView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../../App';
@@ -16,6 +9,7 @@ import styles from './styles';
 import {Job, Shift} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
+import Btn from '../reusable/Btn';
 
 if (
   Platform.OS === 'android' &&
@@ -52,13 +46,13 @@ const VolunteerJob = ({
           <View style={styles.shift} key={shift.id}>
             <View style={styles.shiftLeft}>
               {shift.open ? (
-                <Pressable
+                <Btn
                   style={styles.signupBtn}
                   onPress={() =>
                     navigation.navigate('ShiftDetail', {shiftId: shift.id})
                   }>
                   <Text style={styles.signupBtnText}>Sign Up</Text>
-                </Pressable>
+                </Btn>
               ) : (
                 <Text style={styles.fullShift}>full</Text>
               )}

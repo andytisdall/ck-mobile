@@ -2,11 +2,12 @@ import {useState} from 'react';
 import {connect} from 'react-redux';
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, ScrollView, Pressable} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {format} from 'date-fns';
 import {TextInput} from 'react-native-paper';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
+import Btn from '../reusable/Btn';
 import {RootState} from '../../state/Root';
 import {signUpForShift as signUpForShiftAction} from '../../actions';
 import Loading from '../reusable/Loading';
@@ -59,8 +60,6 @@ const ShiftDetail = ({
     }
   };
 
-  const disabledStyle = disabled ? styles.disabled : undefined;
-
   if (!shift.open) {
     return <Text>This shift is not available for signup</Text>;
   }
@@ -88,7 +87,7 @@ const ShiftDetail = ({
               <Text>Fridge:</Text>
               <Text style={styles.shiftDetailHeader}>{job.name}</Text>
             </View>
-            <Text>{job.location}</Text>
+            <Text style={styles.signupDetailAddress}>{job.location}</Text>
 
             <View style={styles.signupFields}>
               <View style={styles.signupField}>
@@ -124,11 +123,12 @@ const ShiftDetail = ({
           {loading ? (
             <Loading />
           ) : (
-            <Pressable
-              style={[styles.submitBtn, disabledStyle]}
-              onPress={onSubmit}>
+            <Btn
+              style={[styles.submitBtn]}
+              onPress={onSubmit}
+              disabled={disabled}>
               <Text style={reusableStyles.btnText}>Submit</Text>
-            </Pressable>
+            </Btn>
           )}
         </View>
       </View>
