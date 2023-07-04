@@ -1,9 +1,10 @@
 import {connect} from 'react-redux';
 import React, {useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, ScrollView} from 'react-native';
 import {format} from 'date-fns';
 
+import styles from './styles';
 import {
   getHours as getHoursAction,
   signUpForShift as signUpForShiftAction,
@@ -60,23 +61,23 @@ const Confirmation = ({
     const job = jobs?.find(j => j.id === hour?.job);
     if (hour && job) {
       return (
-        <View>
+        <View style={[styles.signUpDetail, styles.confirmDetail]}>
           <Text>You have successfully signed up for this shift:</Text>
-          <View>
-            <View>
-              <Text>Date:</Text>
+          <View style={[styles.signupDetailInfo, styles.signupFields]}>
+            <View style={styles.confirmLine}>
+              <Text style={styles.confirmLabel}>Date:</Text>
               <Text>{format(new Date(hour.time), 'eeee, M/d/yy')}</Text>
             </View>
-            <View>
-              <Text>Fridge:</Text>
+            <View style={styles.confirmLine}>
+              <Text style={styles.confirmLabel}>Fridge:</Text>
               <Text>{job.name}</Text>
             </View>
-            <View>
-              <Text>Location:</Text>
+            <View style={styles.confirmLine}>
+              <Text style={styles.confirmLabel}>Location:</Text>
               <Text>{job.location}</Text>
             </View>
-            <View>
-              <Text>Number of Meals:</Text>
+            <View style={styles.confirmLine}>
+              <Text style={styles.confirmLabel}>Number of Meals:</Text>
               <Text>{hour.mealCount}</Text>
             </View>
           </View>
@@ -89,18 +90,25 @@ const Confirmation = ({
   };
 
   return (
-    <View>
-      <Text>Home Chef Sign Up Confirmation</Text>
-      {!jobs || !hours ? <Loading /> : renderShiftDetails()}
-      <Pressable>
-        <Text onPress={() => navigation.navigate('Signup')}>
-          Sign Up for More Shifts
-        </Text>
-      </Pressable>
-      <Pressable>
-        <Text>See your future and past shifts</Text>
-      </Pressable>
-    </View>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.homeChef}>
+        <Text style={styles.signupTitle}>Home Chef Sign Up Confirmation</Text>
+
+        {!jobs || !hours ? <Loading /> : renderShiftDetails()}
+        <View style={styles.confirmNav}>
+          <Pressable style={styles.navBtn}>
+            <Text onPress={() => navigation.navigate('Signup')}>
+              Sign Up for More Shifts
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => navigation.navigate('Chef')}
+            style={styles.navBtn}>
+            <Text>See your future and past shifts</Text>
+          </Pressable>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

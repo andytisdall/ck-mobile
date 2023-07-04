@@ -35,6 +35,13 @@ const mapStateToProps = (state: RootState) => {
 };
 
 const placeHolderBackBtn = () => <></>;
+// const backToHome = ({
+//   navigation,
+// }: NativeStackScreenProps<RootStackParamList, 'SignupConfirm'>) => (
+//   <Pressable onPress={() => navigation.navigate('Home')}>
+//     <Text>Home</Text>
+//   </Pressable>
+// );
 
 GoogleSignin.configure({
   iosClientId:
@@ -79,7 +86,13 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               <Stack.Screen name="Fridge" component={VolunteerJob} />
               <Stack.Screen name="DateDetail" component={DateDetail} />
               <Stack.Screen name="ShiftDetail" component={ShiftDetail} />
-              <Stack.Screen name="SignupConfirm" component={Confirmation} />
+              <Stack.Screen
+                name="SignupConfirm"
+                component={Confirmation}
+                options={{
+                  headerLeft: placeHolderBackBtn,
+                }}
+              />
               <Stack.Screen name="Chef" component={ChefShifts} />
               <Stack.Screen name="EditShift" component={EditShift} />
             </>

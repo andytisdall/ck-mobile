@@ -1,7 +1,14 @@
 import {format} from 'date-fns';
 import React from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Pressable, Platform, UIManager} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  Platform,
+  UIManager,
+  ScrollView,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../../App';
@@ -53,7 +60,7 @@ const VolunteerJob = ({
                   <Text style={styles.signupBtnText}>Sign Up</Text>
                 </Pressable>
               ) : (
-                <Text>full</Text>
+                <Text style={styles.fullShift}>full</Text>
               )}
               <Text style={styles.jobDate}>
                 {format(new Date(shift.startTime), 'M/d/yy')}
@@ -71,17 +78,19 @@ const VolunteerJob = ({
   }
 
   return (
-    <View style={styles.jobContainer}>
-      <View style={styles.jobHeader}>
-        <Text style={[styles.jobName]}>{job.name}</Text>
-        {!job.active && <Text>Out of Service</Text>}
-      </View>
-      <View style={styles.shiftList}>
-        <Text style={styles.location}>Location: {job.location}</Text>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.homeChef}>
+        <View style={styles.jobHeader}>
+          <Text style={[styles.jobName]}>{job.name}</Text>
+          {!job.active && <Text>Out of Service</Text>}
+        </View>
+        <View style={styles.shiftList}>
+          <Text style={styles.location}>Location: {job.location}</Text>
 
-        <View>{renderShifts()}</View>
+          <View>{renderShifts()}</View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

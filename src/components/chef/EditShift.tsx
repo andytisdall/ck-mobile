@@ -3,12 +3,16 @@ import {format} from 'date-fns';
 import React, {useState, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, Pressable} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {Checkbox, TextInput} from 'react-native-paper';
 
 import {RootState} from '../../state/Root';
 import {RootStackParamList} from '../../../App';
 import {Hours} from '../shiftSignup/Confirmation';
-import * as actions from '../../actions';
+import {
+  getHours as getHoursAction,
+  editHours as editHoursAction,
+  getShifts as getShiftsAction,
+} from '../../actions';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
 
@@ -63,22 +67,20 @@ const EditShift = ({
       text = 'Check here if you did not make this delivery';
     }
     return (
-      <div className="chef-cancel">
-        <label htmlFor="cancel">{text}</label>
-        <input
-          type="checkbox"
-          id="cancel"
-          value={cancel}
-          onChange={e => setCancel(e.target.checked)}
+      <View>
+        <Text>{text}</Text>
+        <Checkbox
+          onPress={() => setCancel(!cancel)}
+          status={cancel ? 'checked' : 'unchecked'}
         />
-      </div>
+      </View>
     );
   };
 
   const meals = cancel ? 0 : mealCount;
 
   if (!hour) {
-    return <div>This shift cannot be edited.</div>;
+    return <Text>This shift cannot be edited.</Text>;
   }
 
   return (
@@ -89,11 +91,17 @@ const EditShift = ({
       <Text>Number of Meals:</Text>
       <TextInput
         keyboardType="numeric"
-        value={meals}
-        onChange={e => setMealCount(e.target.value)}
+        value={meals.toString()}
+        onChangeText={text => setMealCount(parseInt(text, 10))}
       />
       {renderCancel()}
-      {loading ? <Loading /> : <button onClick={onSubmit}>Submit</button>}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Pressable onPress={onSubmit}>
+          <Text>Submit</Text>
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -102,4 +110,8 @@ const mapStateToProps = (state: RootState) => {
   return {hours: state.homeChef.hours};
 };
 
-export default connect(mapStateToProps, actions)(EditShift);
+export default connect(mapStateToProps, {
+  getHours: getHoursAction,
+  getShifts: getShiftsAction,
+  editHours: editHoursAction,
+})(EditShift);

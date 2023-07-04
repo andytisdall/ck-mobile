@@ -38,6 +38,7 @@ const DateDetail = ({
             navigation.navigate('ShiftDetail', {shiftId: shift.id})
           }>
           <Text style={styles.jobName}>{job?.name}</Text>
+          <Text>{job?.location}</Text>
         </Pressable>
       );
     });

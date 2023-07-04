@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
-import {Pressable, Text, View, ScrollView, Platform} from 'react-native';
+import {Text, View, ScrollView, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../../App';
@@ -21,6 +21,7 @@ import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
 import {SentMessage} from './TextSuccess';
 import {PhotoFile} from '../reusable/AddPhoto';
+import Btn from '../reusable/Btn';
 
 export type townFridgeList =
   | {
@@ -179,26 +180,36 @@ SendTextProps & ScreenProps) => {
   };
 
   const renderNav = () => {
-    const invalidStyle = !fieldValid && styles.btnInactive;
+    // const invalidStyle = !fieldValid && styles.btnInactive;
 
     const nextBtn = (
-      <Pressable
-        style={[styles.sendTextNavBtn, invalidStyle]}
-        onPress={() => {
-          if (fieldValid) {
-            nextPage();
-          } else {
-            setError('You must enter a value to proceed');
-          }
-        }}>
+      // <Pressable
+      //   style={[styles.sendTextNavBtn, invalidStyle]}
+      //   onPress={() => {
+      //     if (fieldValid) {
+      //       nextPage();
+      //     } else {
+      //       setError('You must enter a value to proceed');
+      //     }
+      //   }}>
+      // <View style={styles.sendTextNavBtn}>
+      <Btn
+        onPress={nextPage}
+        onError={() => {
+          setError('You must enter a value to proceed');
+        }}
+        style={styles.sendTextNavBtn}
+        disabled={!fieldValid}>
         <Arrow />
-      </Pressable>
+      </Btn>
+      // </View>
+      // </Pressable>
     );
 
     const backBtn = (
-      <Pressable style={styles.sendTextNavBtn} onPress={prevPage}>
+      <Btn style={styles.sendTextNavBtn} onPress={prevPage}>
         <Arrow style={[styles.leftArrow]} />
-      </Pressable>
+      </Btn>
     );
 
     const firstPageStyle = page === 1 ? styles.sendTextNavEnd : {};

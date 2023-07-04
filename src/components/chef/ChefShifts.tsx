@@ -1,7 +1,14 @@
 import {connect} from 'react-redux';
 import React, {useEffect, useMemo, useState} from 'react';
 import {format} from 'date-fns';
-import {View, Text, Pressable, ScrollView, Image} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  ScrollView,
+  Image,
+  LayoutAnimation,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../../App';
@@ -13,6 +20,9 @@ import {
   getShifts as getShiftsAction,
 } from '../../actions';
 import Loading from '../reusable/Loading';
+import styles from '../shiftSignup/styles';
+import chefStyles from './styles';
+import Arrow from '../../assets/right-arrow.svg';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Chef'>;
 
@@ -32,13 +42,23 @@ const ChefShifts = ({
   user,
   navigation,
 }: ChefShiftsProps & ScreenProps) => {
-  const [upcomingExpand, setUpcomingExpand] = useState(true);
-  const [pastExpand, setPastExpand] = useState(true);
+  const [upcomingExpand, setUpcomingExpand] = useState(false);
+  const [pastExpand, setPastExpand] = useState(false);
 
   useEffect(() => {
     getShifts();
     getHours();
   }, [getHours, getShifts]);
+
+  const animate = () => {
+    LayoutAnimation.configureNext(
+      LayoutAnimation.create(
+        200,
+        LayoutAnimation.Types.linear,
+        LayoutAnimation.Properties.scaleX,
+      ),
+    );
+  };
 
   const renderShift = (hour: Hours) => {
     const job = jobs.find(j => j.id === hour.job);
@@ -46,18 +66,16 @@ const ChefShifts = ({
       return;
     }
     return (
-      <View key={hour.id}>
-        <View>
-          <Text>
-            {format(new Date(hour.time), 'eee, M/D/YY')} - {job.name}
-          </Text>
-        </View>
-        <View>
-          <Text>{hour.mealCount || 0} Meals</Text>
-          <Pressable>
+      <View key={hour.id} style={chefStyles.chefRow}>
+        <View style={chefStyles.chefSubRow}>
+          <Pressable style={chefStyles.editBtn}>
             <Text>edit</Text>
           </Pressable>
+          <Text>
+            {format(new Date(hour.time), 'eee, M/d/yy')} - {job.name}
+          </Text>
         </View>
+        <Text>{hour.mealCount || 0} Meals</Text>
       </View>
     );
   };
@@ -106,34 +124,67 @@ const ChefShifts = ({
     return <Loading />;
   }
 
+  const upcomingArrowStyle = upcomingExpand ? chefStyles.arrowDown : undefined;
+  const pastArrowStyle = pastExpand ? chefStyles.arrowDown : undefined;
+
   return (
-    <ScrollView>
-      <View>
-        {user.firstName ? (
-          <Text>{user.firstName}'s Town Fridge Deliveries</Text>
-        ) : null}
-        {totalMeals && totalMeals > 0 ? (
-          <Text>You have delivered {totalMeals} total meals!</Text>
-        ) : null}
-      </View>
-      <Pressable onPress={() => setUpcomingExpand(!upcomingExpand)}>
-        <Text>&rarr;</Text>
-        <Text>Upcoming Deliveries</Text>
-      </Pressable>
-      <View>{upcomingExpand && renderHours('upcoming')}</View>
-      <Pressable onPress={() => setPastExpand(!pastExpand)}>
-        <Text>&rarr;</Text>
-        <Text>Past Deliveries</Text>
-      </Pressable>
-      <View>{pastExpand && renderHours('past')}</View>
-      <View>
-        <Pressable onPress={() => navigation.navigate('Signup')}>
-          <Text>Sign Up to Deliver Meals</Text>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.homeChef}>
+        <View style={chefStyles.chefHeader}>
+          {user.firstName ? (
+            <Text style={chefStyles.chefHeaderText}>
+              {user.firstName}'s Town Fridge Deliveries
+            </Text>
+          ) : null}
+          {totalMeals && totalMeals > 0 ? (
+            <Text style={chefStyles.chefHeaderSubText}>
+              You have delivered {totalMeals} total meals!
+            </Text>
+          ) : null}
+        </View>
+
+        <View style={chefStyles.chefInfo}>
+          <Image
+            source={require('../../assets/chef-shifts.jpeg')}
+            alt="Home Chef meals ready to go"
+            style={chefStyles.chefPhoto}
+          />
+          <Pressable
+            style={chefStyles.signupBtn}
+            onPress={() => navigation.navigate('Signup')}>
+            <Text>Sign Up to Deliver Meals</Text>
+          </Pressable>
+        </View>
+
+        <Pressable
+          onPress={() => {
+            animate();
+            setUpcomingExpand(!upcomingExpand);
+          }}
+          style={chefStyles.chefListHeader}>
+          <View style={chefStyles.arrow}>
+            <Arrow style={upcomingArrowStyle} />
+          </View>
+          <Text style={chefStyles.chefTitle}>Upcoming Deliveries</Text>
         </Pressable>
-        <Image
-          source={{uri: '/images/home-chef/chef-shifts.jpeg'}}
-          alt="Home Chef meals ready to go"
-        />
+        <View style={chefStyles.chefList}>
+          {upcomingExpand && renderHours('upcoming')}
+        </View>
+
+        <Pressable
+          onPress={() => {
+            animate();
+            setPastExpand(!pastExpand);
+          }}
+          style={chefStyles.chefListHeader}>
+          <View style={chefStyles.arrow}>
+            <Arrow style={pastArrowStyle} />
+          </View>
+          <Text style={chefStyles.chefTitle}>Past Deliveries</Text>
+        </Pressable>
+        <View style={chefStyles.chefList}>
+          {pastExpand && renderHours('past')}
+        </View>
       </View>
     </ScrollView>
   );

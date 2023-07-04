@@ -15,28 +15,30 @@ export default StyleSheet.create({
   signupLinks: {
     flexDirection: 'row',
     marginVertical: 20,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
   },
+  switchText: {paddingHorizontal: 20},
   navBtn: {
     borderRadius: 50,
     borderWidth: 1,
-    backgroundColor: 'rgba(100,100,100, .5)',
-    width: 90,
-    height: 40,
+    backgroundColor: 'rgba(100,100,200, .5)',
+    padding: 20,
     justifyContent: 'center',
+    marginBottom: 30,
   },
   navBtnText: {
     color: 'white',
-    fontSize: 15,
+    fontSize: 20,
     textAlign: 'center',
   },
   viewActive: {
     transform: [{scale: 1.1}],
   },
+  jobList: {paddingHorizontal: 10},
   jobContainer: {
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
-    marginBottom: 20,
+    marginBottom: 30,
   },
   jobHeader: {
     flexDirection: 'row',
@@ -98,13 +100,54 @@ export default StyleSheet.create({
   calendarLinkNumber: {fontSize: 20, textAlign: 'center'},
   calendarLinkText: {fontSize: 12, textAlign: 'center'},
   calendarLinkInactive: {backgroundColor: 'rgba(200, 70, 70, .5)'},
-  signUpDetail: {
-    marginVertical: 30,
+  signupDetail: {alignItems: 'center', paddingHorizontal: 5},
+  signupDetailInfo: {
+    paddingHorizontal: 5,
+    marginBottom: 25,
   },
   signupField: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 30,
+    marginVertical: 15,
+  },
+  signupFields: {borderBottomWidth: 1, borderTopWidth: 1, marginTop: 20},
+  signupFieldText: {paddingLeft: 10},
+  fullShift: {
+    marginHorizontal: 25,
+    paddingRight: 15,
+  },
+  signupSubmitText: {
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  mealCountInput: {width: 75},
+  checkbox: {
+    paddingLeft: 15,
+  },
+  shiftDetailHeader: {fontSize: 20, marginLeft: 10},
+  submitBtn: {
+    backgroundColor: 'rgb(100,100,250)',
+    padding: 15,
+    borderRadius: 50,
+    marginTop: 20,
+  },
+  disabled: {
+    backgroundColor: 'rgba(100,100,100,.5)',
+  },
+  confirmNav: {
+    marginTop: 25,
+    alignItems: 'center',
+  },
+  confirmDetail: {
+    marginVertical: 20,
+  },
+  confirmLabel: {
+    fontWeight: '600',
+    marginRight: 20,
+  },
+  confirmLine: {
+    flexDirection: 'row',
+    marginVertical: 5,
   },
 });
 

@@ -52,12 +52,15 @@ const VolunteerJobsList = ({
             style={style}
             key={job.id}>
             <Text style={styles.jobName}>{job.name}</Text>
+            <Text>{job.location}</Text>
           </Pressable>
         );
       });
   };
 
-  return <View>{jobs ? renderJobs() : <Loading />}</View>;
+  return (
+    <View style={styles.jobList}>{jobs ? renderJobs() : <Loading />}</View>
+  );
 };
 
 const mapStateToProps = (state: RootState) => {

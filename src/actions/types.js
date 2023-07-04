@@ -15,3 +15,4 @@ export const UPLOAD_IN_PROGRESS = 'UPLOAD_IN_PROGRESS';
 export const GET_SHIFTS = 'GET_SHIFTS';
 export const SIGN_UP_FOR_SHIFT = 'SIGN_UP_FOR_SHIFT';
 export const GET_HOURS = 'GET_HOURS';
+export const EDIT_HOURS = 'EDIT_HOURS';

@@ -78,14 +78,9 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sendTextNavBtn: {
-    backgroundColor: 'rgb(247, 233, 109)',
-    paddingVertical: 15,
-    borderRadius: 50,
+    backgroundColor: 'rgb(237, 210, 60)',
     width: 100,
-    borderWidth: 1,
     height: 70,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   leftArrow: {transform: [{scaleX: -1}]},
   sendBtn: {
