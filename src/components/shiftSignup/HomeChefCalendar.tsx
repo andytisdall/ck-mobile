@@ -58,11 +58,12 @@ const HomeChefCalendar = ({
                 date: d,
               });
             }
-          }}>
+          }}
+          style={styles.calendarDate}>
           {({pressed}) => {
             const dateBtnStyle: any[] = [styles.calendarLink, inactiveStyle];
             if (numShifts && pressed) {
-              dateBtnStyle.push({backgroundColor: 'rgb(100, 250, 200)'});
+              dateBtnStyle.push({backgroundColor: 'rgb(100, 150, 200)'});
             }
             return (
               <View style={dateBtnStyle}>

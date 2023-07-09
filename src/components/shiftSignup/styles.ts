@@ -98,6 +98,7 @@ export default StyleSheet.create({
   arrowRotated: {
     transform: [{rotate: '90deg'}],
   },
+  calendarDate: {flex: 1},
   calendarLink: {
     padding: 2,
     backgroundColor: 'rgba(20, 200, 50, .5)',
@@ -130,7 +131,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginBottom: 20,
   },
-  mealCountInput: {width: 75},
+  mealCountInput: {width: 75, backgroundColor: 'white'},
   checkbox: {
     paddingLeft: 15,
   },

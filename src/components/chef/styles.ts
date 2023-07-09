@@ -23,23 +23,23 @@ export default StyleSheet.create({
   chefListHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 10,
+    padding: 20,
+  },
+  chefListContainer: {
+    borderBottomWidth: 1,
   },
   chefList: {
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10,
     paddingBottom: 5,
-    borderBottomWidth: 1,
     marginBottom: 20,
   },
   editBtn: {
     backgroundColor: 'rgb(220,140,140)',
-
     marginRight: 10,
   },
   chefInfo: {
-    // flexDirection: 'row',
     height: 300,
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -55,4 +55,6 @@ export default StyleSheet.create({
     marginVertical: 20,
     backgroundColor: 'rgba(250,200, 0, .8)',
   },
+  mealCountInput: {width: 75, backgroundColor: 'white'},
+  highlight: {backgroundColor: 'rgba(250,250,250, .5)', flex: 1},
 });

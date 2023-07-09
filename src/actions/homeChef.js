@@ -35,7 +35,7 @@ export const editHours =
     const date = hours.time;
 
     const res = await server.patch(`/home-chef/hours/${id}`, {
-      mealCount,
+      mealCount: parseInt(mealCount, 10),
       cancel,
       emailData: {fridge, date},
     });

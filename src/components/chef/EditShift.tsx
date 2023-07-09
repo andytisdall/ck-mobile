@@ -2,9 +2,11 @@ import {connect} from 'react-redux';
 import {format} from 'date-fns';
 import React, {useState, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, Pressable} from 'react-native';
-import {Checkbox, TextInput} from 'react-native-paper';
+import {View, Text, ScrollView} from 'react-native';
+import {TextInput} from 'react-native-paper';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
+import Btn from '../reusable/Btn';
 import {RootState} from '../../state/Root';
 import {RootStackParamList} from '../../../App';
 import {Hours} from '../shiftSignup/Confirmation';
@@ -15,13 +17,15 @@ import {
 } from '../../actions';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
+import styles from '../shiftSignup/styles';
+import chefStyles from './styles';
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'EditShift'>;
 
 interface EditShiftProps {
   hours: Record<string, Hours>;
   getHours: () => void;
-  editHours: (hoursId: string, mealCount: number, cancel: boolean) => void;
+  editHours: (hoursId: string, mealCount: string, cancel: boolean) => void;
   getShifts: () => void;
 }
 
@@ -33,7 +37,7 @@ const EditShift = ({
   route,
 }: EditShiftProps & ScreenProps) => {
   const {hoursId} = route.params;
-  const [mealCount, setMealCount] = useState(0);
+  const [mealCount, setMealCount] = useState('');
   const [cancel, setCancel] = useState(false);
 
   const [loading, setLoading] = useLoading();
@@ -43,7 +47,7 @@ const EditShift = ({
       getHours();
       getShifts();
     } else {
-      setMealCount(parseInt(hours[hoursId]?.mealCount, 10));
+      setMealCount(hours[hoursId]?.mealCount);
     }
   }, [getHours, hours, hoursId, getShifts]);
 
@@ -67,42 +71,66 @@ const EditShift = ({
       text = 'Check here if you did not make this delivery';
     }
     return (
-      <View>
-        <Text>{text}</Text>
-        <Checkbox
-          onPress={() => setCancel(!cancel)}
-          status={cancel ? 'checked' : 'unchecked'}
+      <View style={styles.signupField}>
+        <BouncyCheckbox
+          onPress={(isChecked: boolean) => setCancel(isChecked)}
+          fillColor="rgb(100,100,250)"
+          unfillColor="white"
+          style={styles.checkbox}
         />
+        <Text>{text}</Text>
       </View>
     );
   };
 
   const meals = cancel ? 0 : mealCount;
+  const disabled = !mealCount || parseInt(mealCount, 10) < 1;
 
   if (!hour) {
     return <Text>This shift cannot be edited.</Text>;
   }
 
   return (
-    <View>
-      <Text>Edit Home Chef Delivery Details</Text>
-      <Text>Date: {format(new Date(hour.time), 'M/d/yy')}</Text>
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <View style={styles.homeChef}>
+        <View style={styles.signupDetail}>
+          <Text style={chefStyles.chefTitle}>
+            Edit Home Chef Delivery Details
+          </Text>
+          <View style={styles.signupFields}>
+            <View style={styles.signupField}>
+              <Text>Date:</Text>
+              <Text style={styles.shiftDetailHeader}>
+                {format(new Date(hour.time), 'M/d/yy')}
+              </Text>
+            </View>
+            <View style={styles.signupField}>
+              <TextInput
+                keyboardType="numeric"
+                value={meals.toString()}
+                onChangeText={setMealCount}
+                style={styles.mealCountInput}
+                textColor="black"
+                autoFocus
+              />
+              <Text style={styles.signupFieldText}>Number of Meals</Text>
+            </View>
+            {renderCancel()}
+          </View>
 
-      <Text>Number of Meals:</Text>
-      <TextInput
-        keyboardType="numeric"
-        value={meals.toString()}
-        onChangeText={text => setMealCount(parseInt(text, 10))}
-      />
-      {renderCancel()}
-      {loading ? (
-        <Loading />
-      ) : (
-        <Pressable onPress={onSubmit}>
-          <Text>Submit</Text>
-        </Pressable>
-      )}
-    </View>
+          {loading ? (
+            <Loading />
+          ) : (
+            <Btn
+              onPress={onSubmit}
+              style={styles.submitBtn}
+              disabled={disabled}>
+              <Text>Submit</Text>
+            </Btn>
+          )}
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

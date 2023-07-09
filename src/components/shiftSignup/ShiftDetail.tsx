@@ -98,6 +98,8 @@ const ShiftDetail = ({
                   value={mealCount}
                   onChangeText={setMealCount}
                   style={styles.mealCountInput}
+                  autoFocus
+                  textColor="black"
                 />
                 <View style={styles.signupFieldText}>
                   <Text>Number of Meals You Plan to Deliver</Text>

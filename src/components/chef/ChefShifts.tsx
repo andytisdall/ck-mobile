@@ -69,7 +69,11 @@ const ChefShifts = ({
     return (
       <View key={hour.id} style={chefStyles.chefRow}>
         <View style={chefStyles.chefSubRow}>
-          <Btn style={chefStyles.editBtn} onPress={() => {}}>
+          <Btn
+            style={chefStyles.editBtn}
+            onPress={() => {
+              navigation.navigate('EditShift', {hoursId: hour.id});
+            }}>
             <Text>edit</Text>
           </Btn>
           <Text>
@@ -114,7 +118,7 @@ const ChefShifts = ({
           return renderShift(hour);
         });
       if (renderedList.length) {
-        return <View>{renderedList}</View>;
+        return <View style={chefStyles.chefList}>{renderedList}</View>;
       } else {
         return <Text>No Shifts</Text>;
       }
@@ -161,14 +165,23 @@ const ChefShifts = ({
           onPress={() => {
             animate();
             setUpcomingExpand(!upcomingExpand);
+          }}>
+          {({pressed}) => {
+            const btnStyle: any[] = [chefStyles.chefListHeader];
+            if (pressed) {
+              btnStyle.push(chefStyles.highlight);
+            }
+            return (
+              <View style={btnStyle}>
+                <View style={chefStyles.arrow}>
+                  <Arrow style={upcomingArrowStyle} />
+                </View>
+                <Text style={chefStyles.chefTitle}>Upcoming Deliveries</Text>
+              </View>
+            );
           }}
-          style={chefStyles.chefListHeader}>
-          <View style={chefStyles.arrow}>
-            <Arrow style={upcomingArrowStyle} />
-          </View>
-          <Text style={chefStyles.chefTitle}>Upcoming Deliveries</Text>
         </Pressable>
-        <View style={chefStyles.chefList}>
+        <View style={chefStyles.chefListContainer}>
           {upcomingExpand && renderHours('upcoming')}
         </View>
 
@@ -176,14 +189,23 @@ const ChefShifts = ({
           onPress={() => {
             animate();
             setPastExpand(!pastExpand);
+          }}>
+          {({pressed}) => {
+            const btnStyle: any[] = [chefStyles.chefListHeader];
+            if (pressed) {
+              btnStyle.push(chefStyles.highlight);
+            }
+            return (
+              <View style={btnStyle}>
+                <View style={chefStyles.arrow}>
+                  <Arrow style={pastArrowStyle} />
+                </View>
+                <Text style={chefStyles.chefTitle}>Past Deliveries</Text>
+              </View>
+            );
           }}
-          style={chefStyles.chefListHeader}>
-          <View style={chefStyles.arrow}>
-            <Arrow style={pastArrowStyle} />
-          </View>
-          <Text style={chefStyles.chefTitle}>Past Deliveries</Text>
         </Pressable>
-        <View style={chefStyles.chefList}>
+        <View style={chefStyles.chefListContainer}>
           {pastExpand && renderHours('past')}
         </View>
       </View>

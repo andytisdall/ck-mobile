@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 // const baseURL = 'https://portal.ckoakland.org
-const baseURL = 'http://192.168.0.104:3001/api';
+const baseURL = 'http://192.168.0.109:3001/api';
 
 const instance = axios.create({
   baseURL,

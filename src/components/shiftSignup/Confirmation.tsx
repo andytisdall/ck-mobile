@@ -98,6 +98,11 @@ const Confirmation = ({
         {!jobs || !hours ? <Loading /> : renderShiftDetails()}
         <View style={styles.confirmNav}>
           <Btn
+            onPress={() => navigation.navigate('Home')}
+            style={styles.navBtn}>
+            <Text>Home</Text>
+          </Btn>
+          <Btn
             onPress={() => navigation.navigate('Signup')}
             style={styles.navBtn}>
             <Text>Sign Up for More Shifts</Text>
