@@ -5,7 +5,8 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: 'center',
     backgroundColor: 'rgba(200,120,80, .7)',
-    height: '100%',
+    flex: 1,
+    borderWidth: 1,
   },
   CKSignin: {
     width: '100%',
@@ -37,12 +38,11 @@ export default StyleSheet.create({
   },
   googleSignIn: {
     alignItems: 'center',
-    marginTop: 30,
-    width: '100%',
-  },
-
-  googleSignInBtn: {
     marginTop: 20,
-    borderWidth: 1,
+    height: 70,
+  },
+  googleSignInBtn: {
+    flex: 1,
+    resizeMode: 'contain',
   },
 });

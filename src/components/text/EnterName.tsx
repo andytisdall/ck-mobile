@@ -28,7 +28,6 @@ const EnterName = ({
         onSubmitEditing={next}
         returnKeyType="next"
         blurOnSubmit
-        autoFocus
       />
     </View>
   );

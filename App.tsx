@@ -29,6 +29,8 @@ const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
 };
 
+// 385802469502-io10rqtrh1lqh4vanoppuevn0abqnc0a.apps.googleusercontent.com
+
 GoogleSignin.configure({
   iosClientId:
     '385802469502-ahjvbdemirgu21ur31n80og3c67k1i7f.apps.googleusercontent.com',
@@ -54,7 +56,8 @@ const Main = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-      }}>
+      }}
+      detachInactiveScreens={false}>
       <Tab.Screen
         name="Home"
         component={Home}
