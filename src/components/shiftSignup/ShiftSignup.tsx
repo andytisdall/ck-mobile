@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import styles from './styles';
 import {getShifts as getShiftsAction} from '../../actions';
 import VolunteerJobsList from './VolunteerJobsList';
@@ -18,7 +18,7 @@ import Calendar from './HomeChefCalendar';
 
 type ViewType = 'calendar' | 'list';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Signup'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'ShiftSignup'>;
 
 const ShiftSignup = ({
   getShifts,

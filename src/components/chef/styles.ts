@@ -56,5 +56,4 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(250,200, 0, .8)',
   },
   mealCountInput: {width: 75, backgroundColor: 'white'},
-  highlight: {backgroundColor: 'rgba(250,250,250, .5)', flex: 1},
 });

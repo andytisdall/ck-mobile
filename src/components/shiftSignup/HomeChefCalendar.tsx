@@ -9,9 +9,9 @@ import TestCal from '../reusable/calendar/TestCal';
 import Loading from '../reusable/Loading';
 import {Shift, Job} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Signup'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'ShiftSignup'>;
 
 const HomeChefCalendar = ({
   jobs,

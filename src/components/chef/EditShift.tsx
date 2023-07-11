@@ -8,7 +8,7 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 import Btn from '../reusable/Btn';
 import {RootState} from '../../state/Root';
-import {RootStackParamList} from '../../../App';
+import {ChefStackParamsList} from './Chef';
 import {Hours} from '../shiftSignup/Confirmation';
 import {
   getHours as getHoursAction,
@@ -19,8 +19,9 @@ import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
 import styles from '../shiftSignup/styles';
 import chefStyles from './styles';
+import reusableStyles from '../reusable/styles';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'EditShift'>;
+type ScreenProps = NativeStackScreenProps<ChefStackParamsList, 'EditShift'>;
 
 interface EditShiftProps {
   hours: Record<string, Hours>;
@@ -125,7 +126,7 @@ const EditShift = ({
               onPress={onSubmit}
               style={styles.submitBtn}
               disabled={disabled}>
-              <Text>Submit</Text>
+              <Text style={reusableStyles.btnText}>Submit</Text>
             </Btn>
           )}
         </View>

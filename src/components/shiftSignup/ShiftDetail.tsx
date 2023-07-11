@@ -12,13 +12,13 @@ import {RootState} from '../../state/Root';
 import {signUpForShift as signUpForShiftAction} from '../../actions';
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import {Job, Shift} from './VolunteerJobsList';
 import styles from './styles';
 import reusableStyles from '../reusable/styles';
 import {placeholderColor} from '../text/styles';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'ShiftDetail'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'ShiftDetail'>;
 
 interface ShiftDetailProps {
   jobs: Job[];

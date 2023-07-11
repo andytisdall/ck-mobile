@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Text, View, ScrollView, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../App';
+import {TextStackParamList} from './Text';
 import styles from './styles';
 import {
   sendText as sendTextAction,
@@ -37,15 +37,13 @@ interface SendTextProps {
   townFridges: townFridgeList;
   sent: SentMessage | null;
 }
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Text'>;
+type ScreenProps = NativeStackScreenProps<TextStackParamList, 'SendText'>;
 
 const SendText = ({
   townFridges,
   sendText,
   setError,
-}: // sent,
-// navigation,
-SendTextProps & ScreenProps) => {
+}: SendTextProps & ScreenProps) => {
   const [page, setPage] = useState(1);
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');

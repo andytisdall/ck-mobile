@@ -11,12 +11,15 @@ import {
   signUpForShift as signUpForShiftAction,
   getShifts as getShiftsAction,
 } from '../../actions';
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
 import {Job} from './VolunteerJobsList';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignupConfirm'>;
+type ScreenProps = NativeStackScreenProps<
+  SignupStackParamsList,
+  'SignupConfirm'
+>;
 
 export interface Hours {
   id: string;
@@ -97,11 +100,6 @@ const Confirmation = ({
 
         {!jobs || !hours ? <Loading /> : renderShiftDetails()}
         <View style={styles.confirmNav}>
-          <Btn
-            onPress={() => navigation.navigate('Home')}
-            style={styles.navBtn}>
-            <Text>Home</Text>
-          </Btn>
           <Btn
             onPress={() => navigation.navigate('Signup')}
             style={styles.navBtn}>

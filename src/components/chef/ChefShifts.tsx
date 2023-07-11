@@ -12,7 +12,8 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import Btn from '../reusable/Btn';
-import {RootStackParamList} from '../../../App';
+import {ChefStackParamsList} from './Chef';
+import {RootTabParamsList} from '../../../App';
 import {Job} from '../shiftSignup/VolunteerJobsList';
 import {Hours} from '../shiftSignup/Confirmation';
 import {RootState} from '../../state/Root';
@@ -25,7 +26,10 @@ import styles from '../shiftSignup/styles';
 import chefStyles from './styles';
 import Arrow from '../../assets/right-arrow.svg';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Chef'>;
+type ScreenProps = NativeStackScreenProps<
+  ChefStackParamsList & RootTabParamsList,
+  'ChefShifts'
+>;
 
 interface ChefShiftsProps {
   jobs: Job[];
@@ -169,7 +173,7 @@ const ChefShifts = ({
           {({pressed}) => {
             const btnStyle: any[] = [chefStyles.chefListHeader];
             if (pressed) {
-              btnStyle.push(chefStyles.highlight);
+              btnStyle.push(styles.highlight);
             }
             return (
               <View style={btnStyle}>
@@ -193,7 +197,7 @@ const ChefShifts = ({
           {({pressed}) => {
             const btnStyle: any[] = [chefStyles.chefListHeader];
             if (pressed) {
-              btnStyle.push(chefStyles.highlight);
+              btnStyle.push(styles.highlight);
             }
             return (
               <View style={btnStyle}>

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {View, Text, Platform, UIManager, ScrollView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import styles from './styles';
 import {Job, Shift} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
@@ -18,7 +18,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Fridge'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'Fridge'>;
 
 const VolunteerJob = ({
   jobs,

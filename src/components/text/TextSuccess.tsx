@@ -3,11 +3,10 @@ import {Pressable, View, Text, Image, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../App';
+import {TextStackParamList} from './Text';
 import {RootState} from '../../state/Root';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
-// import {clearText as clearTextAction} from '../../actions';
 import Loading from '../reusable/Loading';
 
 export type SentMessage = {
@@ -19,10 +18,9 @@ export type SentMessage = {
 interface TextSuccessProps {
   message: SentMessage;
   navigation: {navigate: (name: string) => void; pop: () => void};
-  // clearText: () => {type: string};
 }
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'TextSuccess'>;
+type ScreenProps = NativeStackScreenProps<TextStackParamList, 'TextSuccess'>;
 
 const regionNames = {
   EAST_OAKLAND: 'East Oakland',
@@ -67,10 +65,9 @@ TextSuccessProps & ScreenProps) => {
           <Pressable
             style={[styles.backBtn]}
             onPress={() => {
-              // clearText();
-              navigation.navigate('Home');
+              navigation.push('SendText');
             }}>
-            <Text style={styles.backBtnText}>Back to Text Home</Text>
+            <Text style={styles.backBtnText}>Send Another Text Alert</Text>
           </Pressable>
         </View>
       </ScrollView>

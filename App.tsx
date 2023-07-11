@@ -12,36 +12,22 @@ import {PaperProvider} from 'react-native-paper';
 import {SafeAreaView} from 'react-native';
 import {connect} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import ShiftSignup from './src/components/shiftSignup/ShiftSignup';
+import Signup from './src/components/shiftSignup/Signup';
 import Home from './src/components/Home';
-import SendText from './src/components/text/SendText';
-import TextSuccess from './src/components/text/TextSuccess';
 import Popup from './src/components/reusable/Popup';
 import SignIn from './src/components/auth/Signin';
 import Root from './src/state/Root';
 import styles from './src/baseStyles';
 import {RootState} from './src/state/Root';
-import VolunteerJob from './src/components/shiftSignup/VolunteerJob';
-import DateDetail from './src/components/shiftSignup/DateDetail';
-import ShiftDetail from './src/components/shiftSignup/ShiftDetail';
 import {navigationRef} from './src/RootNavigation';
-import Confirmation from './src/components/shiftSignup/Confirmation';
-import ChefShifts from './src/components/chef/ChefShifts';
-import EditShift from './src/components/chef/EditShift';
+import Chef from './src/components/chef/Chef';
+import Text from './src/components/text/Text';
 
 const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
 };
-
-const placeHolderBackBtn = () => <></>;
-// const backToHome = ({
-//   navigation,
-// }: NativeStackScreenProps<RootStackParamList, 'SignupConfirm'>) => (
-//   <Pressable onPress={() => navigation.navigate('Home')}>
-//     <Text>Home</Text>
-//   </Pressable>
-// );
 
 GoogleSignin.configure({
   iosClientId:
@@ -49,57 +35,50 @@ GoogleSignin.configure({
 });
 
 export type RootStackParamList = {
-  Home: undefined;
   SignIn: undefined;
-  Text: undefined;
-  Fridge: {jobId: string};
+  Main: undefined;
+};
+
+export type RootTabParamsList = {
   Signup: undefined;
-  TextSuccess: undefined;
-  DateDetail: {shiftIds: string[]; date: string};
-  ShiftDetail: {shiftId: string};
-  SignupConfirm: {hoursId: string};
+  Home: undefined;
+  Text: undefined;
   Chef: undefined;
-  EditShift: {hoursId: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootTabParamsList>();
+
+const Main = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: true,
+          headerStyle: {height: 50},
+        }}
+      />
+      <Tab.Screen name="Text" component={Text} />
+      <Tab.Screen name="Signup" component={Signup} />
+      <Tab.Screen name="Chef" component={Chef} />
+    </Tab.Navigator>
+  );
+};
 
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (
     <SafeAreaView style={styles.app}>
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
           {!user ? (
             <Stack.Screen name="SignIn" component={SignIn} />
           ) : (
-            <>
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Text" component={SendText} />
-              <Stack.Screen
-                name="TextSuccess"
-                component={TextSuccess}
-                options={{
-                  headerLeft: placeHolderBackBtn,
-                }}
-              />
-              <Stack.Screen name="Signup" component={ShiftSignup} />
-              <Stack.Screen name="Fridge" component={VolunteerJob} />
-              <Stack.Screen name="DateDetail" component={DateDetail} />
-              <Stack.Screen
-                name="ShiftDetail"
-                component={ShiftDetail}
-                options={{headerTitle: 'Sign Up for a Delivery'}}
-              />
-              <Stack.Screen
-                name="SignupConfirm"
-                component={Confirmation}
-                options={{
-                  headerLeft: placeHolderBackBtn,
-                }}
-              />
-              <Stack.Screen name="Chef" component={ChefShifts} />
-              <Stack.Screen name="EditShift" component={EditShift} />
-            </>
+            <Stack.Screen name="Main" component={Main} />
           )}
         </Stack.Navigator>
         <Popup />

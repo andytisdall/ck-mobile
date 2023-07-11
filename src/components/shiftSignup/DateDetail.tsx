@@ -5,12 +5,12 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import styles from './styles';
 import {Shift, Job} from './VolunteerJobsList';
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
 import {format} from 'date-fns';
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'DateDetail'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'DateDetail'>;
 
 const DateDetail = ({
   route,
@@ -33,12 +33,21 @@ const DateDetail = ({
       return (
         <Pressable
           key={shift.id}
-          style={styles.jobContainer}
           onPress={() =>
             navigation.navigate('ShiftDetail', {shiftId: shift.id})
           }>
-          <Text style={styles.jobName}>{job?.name}</Text>
-          <Text>{job?.location}</Text>
+          {({pressed}) => {
+            const btnStyle: any[] = [styles.jobContainer];
+            if (pressed) {
+              btnStyle.push(styles.highlight);
+            }
+            return (
+              <View style={btnStyle}>
+                <Text style={styles.jobName}>{job?.name}</Text>
+                <Text>{job?.location}</Text>
+              </View>
+            );
+          }}
         </Pressable>
       );
     });

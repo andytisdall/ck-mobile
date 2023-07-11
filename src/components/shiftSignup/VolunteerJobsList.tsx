@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import {RootStackParamList} from '../../../App';
+import {SignupStackParamsList} from './Signup';
 import styles from './styles';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
@@ -28,7 +28,7 @@ export interface Shift {
   duration: number;
 }
 
-type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Signup'>;
+type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'ShiftSignup'>;
 
 const VolunteerJobsList = ({
   jobs,
@@ -49,10 +49,19 @@ const VolunteerJobsList = ({
         return (
           <Pressable
             onPress={() => navigation.navigate('Fridge', {jobId: job.id})}
-            style={style}
             key={job.id}>
-            <Text style={styles.jobName}>{job.name}</Text>
-            <Text>{job.location}</Text>
+            {({pressed}) => {
+              const btnStyle: any[] = [style];
+              if (pressed) {
+                btnStyle.push(styles.highlight);
+              }
+              return (
+                <View style={btnStyle}>
+                  <Text style={styles.jobName}>{job.name}</Text>
+                  <Text>{job.location}</Text>
+                </View>
+              );
+            }}
           </Pressable>
         );
       });

@@ -15,7 +15,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   signupTitle: {fontSize: 25, textAlign: 'center'},
-  switch: {marginVertical: 20, width: '50%'},
+  switch: {marginTop: 20, width: '80%'},
   switchRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -25,9 +25,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color: 'grey',
-    marginBottom: 10,
   },
-  switchBtn: {flex: 1},
+  switchBtn: {flex: 1, padding: 20},
   switchText: {textAlign: 'center'},
   navBtn: {
     backgroundColor: 'rgba(100,100,200, .5)',
@@ -46,7 +45,9 @@ export default StyleSheet.create({
   jobContainer: {
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
-    marginBottom: 30,
+    paddingTop: 15,
+    paddingBottom: 5,
+    paddingHorizontal: 10,
   },
   jobHeader: {
     flexDirection: 'row',
@@ -129,7 +130,6 @@ export default StyleSheet.create({
   },
   signupSubmitText: {
     textAlign: 'center',
-    marginBottom: 20,
   },
   mealCountInput: {width: 75, backgroundColor: 'white'},
   checkbox: {
@@ -138,7 +138,7 @@ export default StyleSheet.create({
   shiftDetailHeader: {fontSize: 20, marginLeft: 10},
   submitBtn: {
     backgroundColor: 'rgb(100,100,250)',
-    marginTop: 20,
+    marginTop: 40,
   },
   disabled: {
     backgroundColor: 'rgba(100,100,100,.5)',
@@ -158,6 +158,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 5,
   },
+  highlight: {backgroundColor: 'rgba(250,250,250, .5)', flex: 1},
 });
 
 const colorStyles = [
