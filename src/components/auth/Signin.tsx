@@ -79,7 +79,6 @@ const SignIn = ({
   const submitGoogleSignIn = async () => {
     setLoading(true);
     await GoogleSignin.hasPlayServices();
-
     const userInfo = await GoogleSignin.signIn();
     googleSignIn(userInfo);
   };

@@ -41,9 +41,9 @@ export const editHours =
     });
 
     dispatch({type: EDIT_HOURS, payload: res.data});
-    navigate('Chef', {hoursId: res.data.id});
     const alertMessage = cancel
       ? 'Canceled this delivery'
       : 'Successfully changed the number of meals to ' + mealCount;
     dispatch(setAlert(alertMessage));
+    navigate('ChefShifts');
   };

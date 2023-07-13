@@ -1,6 +1,6 @@
 // import heic2any from 'heic2any';
 // import {useState, useEffect} from 'react';
-import {View, Text, Pressable, Image} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import React from 'react';
 
 import Btn from '../reusable/Btn';
@@ -41,9 +41,9 @@ const TextPreview = ({
   //   }
   // }, [photo]);
   return (
-    <View>
-      <Text style={styles.textConfirmTitle}>Confirm Your Message:</Text>
-      <Text style={styles.textPreview}>{message}</Text>
+    <View style={styles.textPreview}>
+      <Text style={styles.textPreviewTitle}>Confirm Your Message:</Text>
+      <Text style={styles.textPreviewText}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
       {photo && (
         <View style={photoStyles.photoPreview}>
@@ -55,8 +55,8 @@ const TextPreview = ({
         </View>
       )}
 
-      <Text style={styles.textConfirmRegion}>Region: {region}</Text>
-      <View style={styles.textConfirmBtns}>
+      <Text style={styles.textPreviewRegion}>Region: {region}</Text>
+      <View style={styles.textPreviewBtns}>
         <Btn style={styles.sendBtn} onPress={onSubmit}>
           <Text style={styles.sendBtnText}>Send Message</Text>
         </Btn>

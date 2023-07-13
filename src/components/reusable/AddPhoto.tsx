@@ -70,7 +70,7 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
   return (
     <View style={styles.photo}>
       <Btn style={styles.btn} onPress={getPhotoFromLibrary}>
-        <Text style={styles.btnText}>Get Photo</Text>
+        <Text style={styles.btnText}>Select Photo from Your Library</Text>
       </Btn>
       <Btn style={styles.btn} onPress={takePhoto}>
         <Text style={styles.btnText}>Take Photo</Text>

@@ -51,11 +51,15 @@ export type RootTabParamsList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamsList>();
 
+const header = () => {
+  return <Popup />;
+};
+
 const Main = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
+        header,
       }}
       detachInactiveScreens={false}>
       <Tab.Screen
@@ -77,14 +81,16 @@ const AppContainer = ({user}: {user: {username: string}}) => {
   return (
     <SafeAreaView style={styles.app}>
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator
+          screenOptions={{
+            header,
+          }}>
           {!user ? (
             <Stack.Screen name="SignIn" component={SignIn} />
           ) : (
             <Stack.Screen name="Main" component={Main} />
           )}
         </Stack.Navigator>
-        <Popup />
       </NavigationContainer>
     </SafeAreaView>
   );

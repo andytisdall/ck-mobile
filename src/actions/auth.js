@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import server from './api';
 import {SIGN_IN, SIGN_OUT, GET_USER_INFO} from './types';
@@ -13,6 +14,9 @@ export const signIn = (username, password) => async dispatch => {
 };
 
 export const signOut = () => async dispatch => {
+  try {
+    await GoogleSignin.signOut();
+  } catch (err) {}
   await AsyncStorage.removeItem('ck-token');
   dispatch({type: SIGN_OUT});
 };

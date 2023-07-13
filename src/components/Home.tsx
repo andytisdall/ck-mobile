@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(200, 150, 110)',
     alignItems: 'center',
-    paddingVertical: 80,
+    paddingVertical: 25,
     paddingHorizontal: 20,
   },
   homeContent: {

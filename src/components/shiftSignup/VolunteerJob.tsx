@@ -1,4 +1,4 @@
-import {format} from 'date-fns';
+import {format, utcToZonedTime} from 'date-fns-tz';
 import React from 'react';
 import {connect} from 'react-redux';
 import {View, Text, Platform, UIManager, ScrollView} from 'react-native';
@@ -57,9 +57,17 @@ const VolunteerJob = ({
                 <Text style={styles.fullShift}>full</Text>
               )}
               <Text style={styles.jobDate}>
-                {format(new Date(shift.startTime), 'M/d/yy')}
+                {format(
+                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                  'M/d/yy',
+                )}
               </Text>
-              <Text>{format(new Date(shift.startTime), 'eeee')}</Text>
+              <Text>
+                {format(
+                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
+                  'eeee',
+                )}
+              </Text>
             </View>
             <Text style={styles.jobNameSmall}>{job.name}</Text>
           </View>

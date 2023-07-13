@@ -17,14 +17,14 @@ const Popup = ({popup}: PopupProps) => {
     if (popup.error) {
       return (
         <View style={[styles.popup, styles.error]}>
-          <Text>{popup.error}</Text>
+          <Text style={styles.popupText}>{popup.error}</Text>
         </View>
       );
     }
     if (popup.alert) {
       return (
         <View style={[styles.popup, styles.alert]}>
-          <Text>{popup.alert}</Text>
+          <Text style={styles.popupText}>{popup.alert}</Text>
         </View>
       );
     }

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {format} from 'date-fns';
+import {format, utcToZonedTime} from 'date-fns-tz';
 import React, {useState, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView} from 'react-native';
@@ -85,7 +85,7 @@ const EditShift = ({
   };
 
   const meals = cancel ? 0 : mealCount;
-  const disabled = !mealCount || parseInt(mealCount, 10) < 1;
+  const disabled = (!mealCount || parseInt(mealCount, 10) < 1) && !cancel;
 
   if (!hour) {
     return <Text>This shift cannot be edited.</Text>;
@@ -102,7 +102,10 @@ const EditShift = ({
             <View style={styles.signupField}>
               <Text>Date:</Text>
               <Text style={styles.shiftDetailHeader}>
-                {format(new Date(hour.time), 'M/d/yy')}
+                {format(
+                  utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
+                  'M/d/yy',
+                )}
               </Text>
             </View>
             <View style={styles.signupField}>
@@ -118,17 +121,18 @@ const EditShift = ({
             </View>
             {renderCancel()}
           </View>
-
-          {loading ? (
-            <Loading />
-          ) : (
-            <Btn
-              onPress={onSubmit}
-              style={styles.submitBtn}
-              disabled={disabled}>
-              <Text style={reusableStyles.btnText}>Submit</Text>
-            </Btn>
-          )}
+          <View style={styles.submitContainer}>
+            {loading ? (
+              <Loading />
+            ) : (
+              <Btn
+                onPress={onSubmit}
+                style={styles.submitBtn}
+                disabled={disabled}>
+                <Text style={reusableStyles.btnText}>Submit</Text>
+              </Btn>
+            )}
+          </View>
         </View>
       </View>
     </ScrollView>

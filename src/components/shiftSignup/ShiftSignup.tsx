@@ -47,19 +47,13 @@ const ShiftSignup = ({
   const renderSignup = () => {
     // const listBtn: any[] = [styles.navBtn];
     // const calBtn: any[] = [styles.navBtn];
-    let thumbColor = '';
     let value = false;
-    if (viewType === 'list') {
-      thumbColor = 'rgb(180,40,100)';
-    }
     if (viewType === 'calendar') {
-      thumbColor = 'rgb(130,70,130)';
       value = true;
     }
     return (
       <>
         <View style={styles.switch}>
-          <Text style={styles.switchTitle}>View Type</Text>
           <View style={styles.switchRow}>
             <Pressable
               onPress={() => (viewType !== 'list' ? switchViewType() : null)}
@@ -67,9 +61,10 @@ const ShiftSignup = ({
               <Text style={styles.switchText}>Town Fridge List</Text>
             </Pressable>
             <Switch
-              thumbColor={thumbColor}
+              thumbColor="blue"
               onChange={switchViewType}
               value={value}
+              trackColor={{false: 'grey', true: 'grey'}}
             />
             <Pressable
               onPress={() =>

@@ -7,6 +7,7 @@ export default StyleSheet.create({
   },
   calendarWeekdays: {
     flexDirection: 'row',
+    marginBottom: 5,
   },
   calendarWeekday: {
     flex: 1,
@@ -20,6 +21,10 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.291)',
     minHeight: 70,
   },
+  blankDate: {
+    minHeight: 70,
+    flexBasis: '14.285%',
+  },
   calendarDateNumberContainer: {
     // alignItems: 'center',
     // justifyContent: 'center',
@@ -32,5 +37,28 @@ export default StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     padding: 3,
+  },
+  arrow: {
+    height: 30,
+    width: 60,
+    paddingVertical: 5,
+  },
+  arrowHighlight: {
+    backgroundColor: 'rgba(250,250,250,.5)',
+  },
+  header: {alignItems: 'center'},
+  monthHeader: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 25,
+    alignItems: 'center',
+  },
+  btn: {backgroundColor: 'blue'},
+  left: {
+    transform: [{rotateY: '180deg'}],
+  },
+  monthTitle: {
+    fontSize: 15,
+    fontWeight: '600',
   },
 });

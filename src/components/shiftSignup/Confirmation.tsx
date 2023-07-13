@@ -2,7 +2,7 @@ import {connect} from 'react-redux';
 import React, {useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView} from 'react-native';
-import {format} from 'date-fns';
+import {format, utcToZonedTime} from 'date-fns-tz';
 
 import Btn from '../reusable/Btn';
 import styles from './styles';
@@ -11,13 +11,14 @@ import {
   signUpForShift as signUpForShiftAction,
   getShifts as getShiftsAction,
 } from '../../actions';
+import {RootTabParamsList} from '../../../App';
 import {SignupStackParamsList} from './Signup';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
 import {Job} from './VolunteerJobsList';
 
 type ScreenProps = NativeStackScreenProps<
-  SignupStackParamsList,
+  SignupStackParamsList & RootTabParamsList,
   'SignupConfirm'
 >;
 
@@ -70,7 +71,12 @@ const Confirmation = ({
           <View style={[styles.signupDetailInfo, styles.signupFields]}>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Date:</Text>
-              <Text>{format(new Date(hour.time), 'eeee, M/d/yy')}</Text>
+              <Text>
+                {format(
+                  utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
+                  'eeee, M/d/yy',
+                )}
+              </Text>
             </View>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Fridge:</Text>
@@ -101,14 +107,16 @@ const Confirmation = ({
         {!jobs || !hours ? <Loading /> : renderShiftDetails()}
         <View style={styles.confirmNav}>
           <Btn
-            onPress={() => navigation.navigate('Signup')}
+            onPress={() => navigation.navigate('ShiftSignup')}
             style={styles.navBtn}>
-            <Text>Sign Up for More Shifts</Text>
+            <Text style={styles.signupBtnText}>Sign Up for More Shifts</Text>
           </Btn>
           <Btn
             onPress={() => navigation.navigate('Chef')}
             style={styles.navBtn}>
-            <Text>See your future and past shifts</Text>
+            <Text style={styles.signupBtnText}>
+              See your future and past shifts
+            </Text>
           </Btn>
         </View>
       </View>

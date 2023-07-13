@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import React, {useEffect, useMemo, useState} from 'react';
-import {format} from 'date-fns';
+import {format, utcToZonedTime} from 'date-fns-tz';
 import {
   View,
   Text,
@@ -12,8 +12,8 @@ import {
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import Btn from '../reusable/Btn';
-import {ChefStackParamsList} from './Chef';
 import {RootTabParamsList} from '../../../App';
+import {ChefStackParamsList} from './Chef';
 import {Job} from '../shiftSignup/VolunteerJobsList';
 import {Hours} from '../shiftSignup/Confirmation';
 import {RootState} from '../../state/Root';
@@ -81,7 +81,11 @@ const ChefShifts = ({
             <Text>edit</Text>
           </Btn>
           <Text>
-            {format(new Date(hour.time), 'eee, M/d/yy')} - {job.name}
+            {format(
+              utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
+              'eee, M/d/yy',
+            )}{' '}
+            - {job.name}
           </Text>
         </View>
         <Text>{hour.mealCount || 0} Meals</Text>

@@ -38,15 +38,15 @@ TextSuccessProps & ScreenProps) => {
     return (
       <ScrollView contentContainerStyle={styles.scrollView}>
         <View style={styles.sendText}>
-          <Text style={styles.textConfirmTitle}>Success!</Text>
+          <Text style={styles.textPreviewTitle}>Success!</Text>
           <View>
-            <Text style={styles.textConfirmRegion}>
+            <Text style={styles.textPreviewRegion}>
               You have successfully sent this text:
             </Text>
 
-            <Text style={styles.textPreview}>{message.message}</Text>
+            <Text style={styles.textPreviewText}>{message.message}</Text>
 
-            <Text style={styles.textConfirmRegion}>
+            <Text style={styles.textPreviewRegion}>
               Region: {regionNames[message.region]}
             </Text>
             {!!message.photoUrl && (

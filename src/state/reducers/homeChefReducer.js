@@ -35,9 +35,18 @@ const homeChefReducer = (state = INITIAL_STATE, action) => {
     case GET_HOURS:
       return {...state, hours: _.mapKeys(action.payload, i => i.id)};
     case EDIT_HOURS:
-      const hours = state.hours[action.payload.id];
-      const newHours = {...hours, ...action.payload};
-      return {...state, hours: {...state.hours, [newHours.id]: newHours}};
+      let newHours;
+      if (action.payload.cancel) {
+        newHours = {...state.hours};
+        delete newHours[action.payload.id];
+      } else {
+        const hours = state.hours[action.payload.id];
+        newHours = {
+          ...state.hours,
+          [action.payload.id]: {...hours, ...action.payload},
+        };
+      }
+      return {...state, hours: newHours};
     case GET_CAMPAIGN:
       return {...state, campaign: action.payload};
     case GET_FRIDGES:

@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 
+import {colors} from '../shiftSignup/styles';
+
 export default StyleSheet.create({
   chefHeader: {
     paddingVertical: 20,
@@ -36,7 +38,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   editBtn: {
-    backgroundColor: 'rgb(220,140,140)',
+    backgroundColor: colors.med,
     marginRight: 10,
   },
   chefInfo: {
@@ -53,7 +55,7 @@ export default StyleSheet.create({
   },
   signupBtn: {
     marginVertical: 20,
-    backgroundColor: 'rgba(250,200, 0, .8)',
+    backgroundColor: colors.beige,
   },
   mealCountInput: {width: 75, backgroundColor: 'white'},
 });

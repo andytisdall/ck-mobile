@@ -2,7 +2,7 @@ import {CLEAR_MESSAGES, ALERT, ERROR} from './types';
 
 export const setError = err => dispatch => {
   let message;
-  console.log(err.response);
+  // console.log(err.response);
   if (err.response?.data) {
     if (err.response.data.error) {
       message = err.response.data.error;

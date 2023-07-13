@@ -7,7 +7,7 @@ export default StyleSheet.create({
   sendText: {
     paddingBottom: 75,
     paddingHorizontal: 30,
-    backgroundColor: 'rgb(120, 70, 30)',
+    backgroundColor: 'rgb(120, 20, 70)',
     flex: 1,
     paddingTop: 30,
   },
@@ -26,10 +26,11 @@ export default StyleSheet.create({
     zIndex: 100,
   },
   sendTextLabel: {
-    fontSize: 40,
+    fontSize: 30,
     color: 'rgb(270,270,270)',
     marginHorizontal: 25,
     letterSpacing: 1.5,
+    textAlign: 'center',
   },
   sendTextInput: {
     borderWidth: 1,
@@ -37,6 +38,7 @@ export default StyleSheet.create({
     margin: 20,
     fontSize: 25,
     padding: 5,
+    minHeight: 80,
   },
   sendTextNumberInput: {
     width: 100,
@@ -52,21 +54,17 @@ export default StyleSheet.create({
     width: '100%',
   },
   fridgeInfo: {
-    marginTop: 50,
     padding: 20,
-    borderColor: 'rgb(150, 100, 50)',
-    borderWidth: 3,
   },
   fridgeInfoLabel: {
-    color: 'rgb(160,160,260)',
-    fontSize: 20,
+    color: 'rgb(200,200,200)',
+    fontSize: 15,
     fontWeight: '600',
-    marginBottom: 20,
+    marginBottom: 10,
+    marginTop: 25,
   },
   fridgeInfoValue: {
-    textAlign: 'center',
-    fontSize: 30,
-    marginBottom: 40,
+    fontSize: 20,
     color: 'rgb(200, 200, 250)',
   },
   sendTextNav: {
@@ -78,24 +76,26 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   sendTextNavBtn: {
-    backgroundColor: 'rgb(237, 210, 60)',
+    backgroundColor: 'rgb(80, 130, 220)',
     width: 100,
     height: 70,
   },
   leftArrow: {transform: [{scaleX: -1}]},
   sendBtn: {
     margin: 10,
-    backgroundColor: 'rgb(150,150,250)',
+    backgroundColor: 'rgb(150,200,0)',
     shadowColor: 'black',
     shadowOffset: {width: -2, height: 3},
     shadowOpacity: 0.3,
+    width: '60%',
   },
   sendBtnText: {
     fontSize: 20,
     fontWeight: '600',
+    textAlign: 'center',
   },
-
-  textPreview: {
+  textPreview: {alignItems: 'center'},
+  textPreviewText: {
     fontSize: 20,
     paddingHorizontal: 5,
     borderBottomWidth: 1,
@@ -103,23 +103,23 @@ export default StyleSheet.create({
     borderColor: 'rgb(150,150,200)',
     paddingVertical: 10,
     marginVertical: 25,
-    color: 'rgb(200,200,250)',
+    color: 'rgb(220,220,250)',
   },
-  textConfirmTitle: {
+  textPreviewTitle: {
     fontSize: 30,
     marginBottom: 10,
     color: 'white',
   },
-  textConfirmRegion: {
+  textPreviewRegion: {
     fontSize: 20,
     color: 'white',
   },
-  textConfirmBtns: {
+  textPreviewBtns: {
     alignItems: 'center',
     marginVertical: 10,
   },
   cancel: {
-    backgroundColor: 'rgb(200, 100, 100)',
+    backgroundColor: 'rgb(150,150,250)',
   },
   picker: {
     borderWidth: 1,

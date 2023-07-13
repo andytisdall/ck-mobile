@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView} from 'react-native';
-import {format} from 'date-fns';
+import {format, zonedTimeToUtc} from 'date-fns-tz';
 import {TextInput} from 'react-native-paper';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
@@ -79,7 +79,10 @@ const ShiftDetail = ({
             <View style={styles.signupField}>
               <Text>Date:</Text>
               <Text style={styles.shiftDetailHeader}>
-                {format(new Date(shift.startTime), 'eeee, M/d/yy')}
+                {format(
+                  zonedTimeToUtc(shift.startTime, 'America/Los_Angeles'),
+                  'eeee, M/d/yy',
+                )}
               </Text>
             </View>
 
@@ -121,17 +124,18 @@ const ShiftDetail = ({
           <Text style={styles.signupSubmitText}>
             Click submit to sign up for this slot
           </Text>
-
-          {loading ? (
-            <Loading />
-          ) : (
-            <Btn
-              style={[styles.submitBtn]}
-              onPress={onSubmit}
-              disabled={disabled}>
-              <Text style={reusableStyles.btnText}>Submit</Text>
-            </Btn>
-          )}
+          <View style={styles.submitContainer}>
+            {loading ? (
+              <Loading />
+            ) : (
+              <Btn
+                style={[styles.submitBtn]}
+                onPress={onSubmit}
+                disabled={disabled}>
+                <Text style={reusableStyles.btnText}>Submit</Text>
+              </Btn>
+            )}
+          </View>
         </View>
       </View>
     </ScrollView>

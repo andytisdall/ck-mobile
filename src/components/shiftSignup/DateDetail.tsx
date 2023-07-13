@@ -2,13 +2,13 @@ import {View, Text, ScrollView, Pressable} from 'react-native';
 import React from 'react';
 import {connect} from 'react-redux';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {zonedTimeToUtc, format} from 'date-fns-tz';
 
 import styles from './styles';
 import {Shift, Job} from './VolunteerJobsList';
 import {SignupStackParamsList} from './Signup';
 import {RootState} from '../../state/Root';
 import Loading from '../reusable/Loading';
-import {format} from 'date-fns';
 
 type ScreenProps = NativeStackScreenProps<SignupStackParamsList, 'DateDetail'>;
 
@@ -57,7 +57,7 @@ const DateDetail = ({
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.homeChef}>
         <Text style={[styles.jobContainer, styles.signupTitle]}>
-          {format(new Date(date), 'eeee, M/d/yy')}
+          {format(zonedTimeToUtc(date, 'America/Los_Angeles'), 'eeee, M/d/yy')}
         </Text>
         {renderShifts()}
       </View>

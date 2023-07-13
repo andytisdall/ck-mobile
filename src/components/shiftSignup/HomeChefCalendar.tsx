@@ -1,11 +1,12 @@
 import {connect} from 'react-redux';
 import React, {useMemo, useCallback} from 'react';
-import moment from 'moment';
+import {format, utcToZonedTime, zonedTimeToUtc} from 'date-fns-tz';
+import {addDays, subDays} from 'date-fns';
 import {Text, Pressable, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import styles from './styles';
-import TestCal from '../reusable/calendar/TestCal';
+import Calendar from '../reusable/calendar/Calendar';
 import Loading from '../reusable/Loading';
 import {Shift, Job} from './VolunteerJobsList';
 import {RootState} from '../../state/Root';
@@ -33,8 +34,9 @@ const HomeChefCalendar = ({
         return job?.ongoing && job.active && sh.open;
       })
       .forEach(sh => {
-        const formattedTime = moment(sh.startTime, 'YYYY-MM-DD').format(
-          'YYYY-MM-DD',
+        const formattedTime = format(
+          utcToZonedTime(sh.startTime, 'America/Los_Angeles'),
+          'yyyy-MM-dd',
         );
         if (orderedByDate[formattedTime]) {
           orderedByDate[formattedTime].push(sh);
@@ -47,8 +49,15 @@ const HomeChefCalendar = ({
 
   const getShifts = useCallback(
     (d: string) => {
+      const timezoneDate = zonedTimeToUtc(d, 'America/Los_Angeles');
       const numShifts = orderedShifts[d] ? orderedShifts[d].length : 0;
       const inactiveStyle = !numShifts ? styles.calendarLinkInactive : null;
+      if (
+        timezoneDate < subDays(new Date(), 1) ||
+        timezoneDate > addDays(new Date(), 60)
+      ) {
+        return <View />;
+      }
       return (
         <Pressable
           onPress={() => {
@@ -63,7 +72,7 @@ const HomeChefCalendar = ({
           {({pressed}) => {
             const dateBtnStyle: any[] = [styles.calendarLink, inactiveStyle];
             if (numShifts && pressed) {
-              dateBtnStyle.push({backgroundColor: 'rgb(100, 150, 200)'});
+              dateBtnStyle.push(styles.calendarLinkPressed);
             }
             return (
               <View style={dateBtnStyle}>
@@ -82,7 +91,7 @@ const HomeChefCalendar = ({
     return <Loading />;
   }
 
-  return <TestCal renderItems={getShifts} />;
+  return <Calendar renderItems={getShifts} />;
 };
 
 const mapStateToProps = (state: RootState) => {
