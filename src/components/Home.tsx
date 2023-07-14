@@ -2,6 +2,7 @@ import {Text, View, Pressable, StyleSheet, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import React, {useEffect} from 'react';
 
+import {colors} from './shiftSignup/styles';
 import {
   getUserInfo as getUserInfoAction,
   signOut as signOutAction,
@@ -59,7 +60,7 @@ const Home = ({
 const styles = StyleSheet.create({
   home: {
     flex: 1,
-    backgroundColor: 'rgb(200, 150, 110)',
+    backgroundColor: colors.beige,
     alignItems: 'center',
     paddingVertical: 25,
     paddingHorizontal: 20,

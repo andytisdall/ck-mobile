@@ -1,10 +1,12 @@
 import {StyleSheet} from 'react-native';
 
+import {colors} from '../shiftSignup/styles';
+
 export default StyleSheet.create({
   signin: {
     paddingHorizontal: 15,
     alignItems: 'center',
-    backgroundColor: 'rgba(200,120,80, .7)',
+    backgroundColor: colors.beige,
     flex: 1,
     borderWidth: 1,
   },

@@ -42,12 +42,12 @@ export default StyleSheet.create({
     marginRight: 10,
   },
   chefInfo: {
-    height: 300,
     justifyContent: 'space-between',
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'transparent',
   },
+  chefPhotos: {flexDirection: 'row', height: 150},
   chefPhoto: {
     flex: 1,
     height: '100%',

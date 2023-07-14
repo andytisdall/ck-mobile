@@ -157,11 +157,23 @@ const ChefShifts = ({
         </View>
 
         <View style={chefStyles.chefInfo}>
-          <Image
-            source={require('../../assets/chef-shifts.jpeg')}
-            alt="Home Chef meals ready to go"
-            style={chefStyles.chefPhoto}
-          />
+          <View style={chefStyles.chefPhotos}>
+            <Image
+              source={require('../../assets/chef-shifts-1.jpg')}
+              alt="Home Chef meals ready to go"
+              style={chefStyles.chefPhoto}
+            />
+            <Image
+              source={require('../../assets/chef-shifts-2.jpg')}
+              alt="Home Chef meals ready to go"
+              style={chefStyles.chefPhoto}
+            />
+            <Image
+              source={require('../../assets/chef-shifts-3.jpg')}
+              alt="Home Chef meals ready to go"
+              style={chefStyles.chefPhoto}
+            />
+          </View>
           <Btn
             style={chefStyles.signupBtn}
             onPress={() => navigation.navigate('Signup')}>

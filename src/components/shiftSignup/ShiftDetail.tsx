@@ -51,7 +51,8 @@ const ShiftDetail = ({
   const shift = shifts[shiftId];
   const job = jobs.find(j => j.id === shift.job);
 
-  const disabled = !mealCount || parseInt(mealCount, 10) < 1;
+  const disabled =
+    !mealCount || isNaN(parseInt(mealCount, 10)) || parseInt(mealCount, 10) < 1;
 
   const onSubmit = () => {
     if (!disabled) {

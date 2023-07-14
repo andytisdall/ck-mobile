@@ -2,7 +2,9 @@ import React, {useState, useRef} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, ScrollView, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {format} from 'date-fns';
 
+import Disabled from './Disabled';
 import {TextStackParamList} from './Text';
 import styles from './styles';
 import {
@@ -220,8 +222,20 @@ const SendText = ({
     );
   };
 
+  const outsideAllowableHours =
+    parseInt(format(new Date(), 'H'), 10) > 19 ||
+    parseInt(format(new Date(), 'H'), 10) < 8;
+
   if (loading) {
     return <Loading />;
+  }
+
+  if (outsideAllowableHours) {
+    return (
+      <View style={styles.sendText}>
+        <Disabled />
+      </View>
+    );
   }
 
   return (
