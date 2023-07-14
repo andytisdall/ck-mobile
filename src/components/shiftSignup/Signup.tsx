@@ -21,19 +21,28 @@ const Stack = createNativeStackNavigator<SignupStackParamsList>();
 const Signup = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="ShiftSignup" component={ShiftSignup} />
-      <Stack.Screen name="Fridge" component={VolunteerJob} />
+      <Stack.Screen
+        name="ShiftSignup"
+        component={ShiftSignup}
+        options={{title: 'Town Fridge Sign Up'}}
+      />
+      <Stack.Screen
+        name="Fridge"
+        component={VolunteerJob}
+        options={{title: 'Town Fridge Sign Up'}}
+      />
       <Stack.Screen name="DateDetail" component={DateDetail} />
       <Stack.Screen
         name="ShiftDetail"
         component={ShiftDetail}
-        options={{headerTitle: 'Sign Up for a Delivery'}}
+        options={{title: 'Town Fridge Sign Up'}}
       />
       <Stack.Screen
         name="SignupConfirm"
         component={Confirmation}
         options={{
           headerLeft: BlankHeaderLeft,
+          title: 'Town Fridge Sign Up',
         }}
       />
     </Stack.Navigator>

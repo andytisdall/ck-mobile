@@ -30,27 +30,30 @@ const Home = ({
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.home}>
         <Title />
-
-        {/* <Btn style={styles.btnColor} onPress={() => navigation.push('Signup')}>
-          <Text style={styles.btnText}>Sign Up for a Town Fridge Delivery</Text>
-        </Btn>
-        <Btn style={styles.btnColor} onPress={() => navigation.push('Chef')}>
-          <Text style={styles.btnText}>
-            See Your Past and Upcoming Deliveries
-          </Text>
-        </Btn>
-        <Btn onPress={() => navigation.push('Text')} style={styles.btnColor}>
-          <Text style={styles.btnText}>Send a Text Alert</Text>
-        </Btn> */}
-
         <View style={styles.homeContent}>
-          <Text style={styles.homeText}>Signed in as</Text>
-          <Text style={styles.homeText}>
-            {user?.firstName} {user?.lastName}
-          </Text>
-          <Pressable style={styles.signOutBtn} onPress={signOut}>
-            <Text style={styles.signOutBtnText}>Sign Out</Text>
-          </Pressable>
+          <View style={styles.homeInfo}>
+            <Text style={styles.homeTitleText}>
+              Use the navigation buttons at the bottom of the screen to:
+            </Text>
+            <Text style={styles.homeInfoText}>
+              Send a Text Alert about your Town Fridge delivery
+            </Text>
+            <Text style={styles.homeInfoText}>
+              Sign Up for Town Fridge Deliveries
+            </Text>
+            <Text style={styles.homeInfoText}>
+              See and edit your upcoming and past deliveries
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.homeTitleText}>Signed in as</Text>
+            <Text style={styles.homeTitleText}>
+              {user?.firstName} {user?.lastName}
+            </Text>
+            <Pressable style={styles.signOutBtn} onPress={signOut}>
+              <Text style={styles.signOutBtnText}>Sign Out</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -62,18 +65,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.beige,
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 25,
     paddingHorizontal: 20,
   },
   homeContent: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
-  homeText: {
-    fontSize: 25,
+  homeTitleText: {
+    fontSize: 20,
     textAlign: 'center',
-    padding: 10,
   },
   signOutBtn: {
     backgroundColor: 'purple',
@@ -89,6 +92,16 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     minHeight: '100%',
+  },
+  homeInfo: {
+    flex: 1,
+    justifyContent: 'space-around',
+    marginVertical: 20,
+    paddingHorizontal: 10,
+  },
+  homeInfoText: {
+    fontSize: 15,
+    textAlign: 'center',
   },
 });
 

@@ -62,14 +62,7 @@ const Main = () => {
         header,
       }}
       detachInactiveScreens={false}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          headerShown: true,
-          headerStyle: {height: 50},
-        }}
-      />
+      <Tab.Screen name="Home" component={Home} options={{}} />
       <Tab.Screen name="Text" component={Text} />
       <Tab.Screen name="Signup" component={Signup} />
       <Tab.Screen name="Chef" component={Chef} />
@@ -86,7 +79,11 @@ const AppContainer = ({user}: {user: {username: string}}) => {
             header,
           }}>
           {!user ? (
-            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{title: 'Sign in to the CK Home Chef App'}}
+            />
           ) : (
             <Stack.Screen name="Main" component={Main} />
           )}

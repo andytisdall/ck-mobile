@@ -20,6 +20,7 @@ const Text = () => {
         component={SendText}
         options={{
           headerLeft: BlankHeaderLeft,
+          title: 'Send a Town Fridge Delivery Alert',
         }}
       />
       <Stack.Screen
@@ -27,6 +28,7 @@ const Text = () => {
         component={TextSuccess}
         options={{
           headerLeft: BlankHeaderLeft,
+          title: 'You sent a Town Fridge Delivery Alert',
         }}
       />
     </Stack.Navigator>
