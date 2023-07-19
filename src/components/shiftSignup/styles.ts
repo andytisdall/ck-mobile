@@ -84,28 +84,27 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 5,
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
-  shiftLeft: {
+  shiftSignupBtnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    width: '30%',
   },
   shiftList: {
-    margin: 25,
+    padding: 20,
   },
   location: {
     marginBottom: 20,
   },
   signupBtn: {
     backgroundColor: colors.dark,
-    marginRight: 15,
   },
   signupBtnText: {
     color: 'white',
   },
   jobDate: {
     fontSize: 20,
-    marginRight: 15,
+    width: '30%',
   },
   jobInactive: {
     color: 'grey',
@@ -176,7 +175,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginVertical: 5,
   },
-  highlight: {backgroundColor: colors.highlight, flex: 1},
+  highlight: {backgroundColor: colors.highlight},
   invalidDate: {
     backgroundColor: 'rgb(150,150,150)',
   },

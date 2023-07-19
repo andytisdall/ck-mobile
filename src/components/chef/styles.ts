@@ -8,12 +8,13 @@ export default StyleSheet.create({
   },
   chefHeaderText: {fontSize: 30, textAlign: 'center', paddingBottom: 10},
   chefHeaderSubText: {fontSize: 15, textAlign: 'center'},
-
   chefRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 5,
     justifyContent: 'space-between',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
   },
 
   chefSubRow: {flexDirection: 'row', alignItems: 'center'},
@@ -26,9 +27,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-  },
-  chefListContainer: {
-    borderBottomWidth: 1,
   },
   chefList: {
     paddingLeft: 10,

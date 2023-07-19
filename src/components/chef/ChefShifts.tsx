@@ -5,7 +5,7 @@ import {
   View,
   Text,
   Pressable,
-  ScrollView,
+  FlatList,
   Image,
   LayoutAnimation,
 } from 'react-native';
@@ -65,30 +65,30 @@ const ChefShifts = ({
     );
   };
 
-  const renderShift = (hour: Hours) => {
-    const job = jobs.find(j => j.id === hour.job);
+  const renderShift = ({item}: {item: Hours}) => {
+    const job = jobs.find(j => j.id === item.job);
     if (!job) {
-      return;
+      return <View>Job not found</View>;
     }
     return (
-      <View key={hour.id} style={chefStyles.chefRow}>
+      <View key={item.id} style={chefStyles.chefRow}>
         <View style={chefStyles.chefSubRow}>
           <Btn
             style={chefStyles.editBtn}
             onPress={() => {
-              navigation.navigate('EditShift', {hoursId: hour.id});
+              navigation.navigate('EditShift', {hoursId: item.id});
             }}>
             <Text>edit</Text>
           </Btn>
           <Text>
             {format(
-              utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
+              utcToZonedTime(new Date(item.time), 'America/Los_Angeles'),
               'eee, M/d/yy',
             )}{' '}
             - {job.name}
           </Text>
         </View>
-        <Text>{hour.mealCount || 0} Meals</Text>
+        <Text>{item.mealCount || 0} Meals</Text>
       </View>
     );
   };
@@ -120,13 +120,16 @@ const ChefShifts = ({
         hoursArray = sortedHours;
         status = 'Confirmed';
       }
-      const renderedList = hoursArray
-        .filter(h => h.status === status)
-        .map(hour => {
-          return renderShift(hour);
-        });
-      if (renderedList.length) {
-        return <View style={chefStyles.chefList}>{renderedList}</View>;
+      const filteredList = hoursArray.filter(h => h.status === status);
+
+      if (filteredList.length) {
+        return (
+          <FlatList
+            style={chefStyles.chefList}
+            renderItem={renderShift}
+            data={filteredList}
+          />
+        );
       } else {
         return <Text>No Shifts</Text>;
       }
@@ -140,9 +143,9 @@ const ChefShifts = ({
   const upcomingArrowStyle = upcomingExpand ? chefStyles.arrowDown : undefined;
   const pastArrowStyle = pastExpand ? chefStyles.arrowDown : undefined;
 
-  return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      <View style={styles.homeChef}>
+  const header = () => {
+    return (
+      <View>
         <View style={chefStyles.chefHeader}>
           {user.firstName ? (
             <Text style={chefStyles.chefHeaderText}>
@@ -180,7 +183,13 @@ const ChefShifts = ({
             <Text>Sign Up to Deliver Meals</Text>
           </Btn>
         </View>
+      </View>
+    );
+  };
 
+  const upcomingDeliveries = () => {
+    return (
+      <View>
         <Pressable
           onPress={() => {
             animate();
@@ -201,10 +210,14 @@ const ChefShifts = ({
             );
           }}
         </Pressable>
-        <View style={chefStyles.chefListContainer}>
-          {upcomingExpand && renderHours('upcoming')}
-        </View>
+        <View>{upcomingExpand && renderHours('upcoming')}</View>
+      </View>
+    );
+  };
 
+  const pastDeliveries = () => {
+    return (
+      <View>
         <Pressable
           onPress={() => {
             animate();
@@ -225,11 +238,19 @@ const ChefShifts = ({
             );
           }}
         </Pressable>
-        <View style={chefStyles.chefListContainer}>
-          {pastExpand && renderHours('past')}
-        </View>
+        <View>{pastExpand && renderHours('past')}</View>
       </View>
-    </ScrollView>
+    );
+  };
+
+  return (
+    <View style={styles.scrollView}>
+      <FlatList
+        style={styles.homeChef}
+        data={[header(), upcomingDeliveries(), pastDeliveries()]}
+        renderItem={({item}) => item}
+      />
+    </View>
   );
 };
 

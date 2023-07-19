@@ -1,7 +1,7 @@
 import {format, utcToZonedTime} from 'date-fns-tz';
 import React from 'react';
 import {connect} from 'react-redux';
-import {View, Text, Platform, UIManager, ScrollView} from 'react-native';
+import {View, Text, Platform, UIManager, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {SignupStackParamsList} from './Signup';
@@ -37,42 +37,49 @@ const VolunteerJob = ({
     if (!job) {
       return;
     }
-    const jobShifts = job.shifts.map(id => shifts[id]);
-    // /{`job-date ${shift.open ? '' : 'job-date-full'}`}
-    return jobShifts
-      .sort((a, b) => (a.startTime > b.startTime ? 1 : -1))
-      .map(shift => {
-        return (
-          <View style={styles.shift} key={shift.id}>
-            <View style={styles.shiftLeft}>
-              {shift.open ? (
-                <Btn
-                  style={styles.signupBtn}
-                  onPress={() =>
-                    navigation.navigate('ShiftDetail', {shiftId: shift.id})
-                  }>
-                  <Text style={styles.signupBtnText}>Sign Up</Text>
-                </Btn>
-              ) : (
-                <Text style={styles.fullShift}>full</Text>
-              )}
-              <Text style={styles.jobDate}>
-                {format(
-                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                  'M/d/yy',
-                )}
-              </Text>
-              <Text>
-                {format(
-                  utcToZonedTime(shift.startTime, 'America/Los_Angeles'),
-                  'eeee',
-                )}
-              </Text>
-            </View>
-            <Text style={styles.jobNameSmall}>{job.name}</Text>
+    const jobShifts = job.shifts
+      .map(id => shifts[id])
+      .sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
+
+    const renderShift = ({item}: {item: Shift}) => {
+      return (
+        <View style={styles.shift} key={item.id}>
+          <View style={styles.shiftSignupBtnContainer}>
+            {item.open ? (
+              <Btn
+                style={styles.signupBtn}
+                onPress={() =>
+                  navigation.navigate('ShiftDetail', {shiftId: item.id})
+                }>
+                <Text style={styles.signupBtnText}>Sign Up</Text>
+              </Btn>
+            ) : (
+              <Text style={styles.fullShift}>full</Text>
+            )}
           </View>
-        );
-      });
+
+          <Text style={styles.jobDate}>
+            {format(
+              utcToZonedTime(item.startTime, 'America/Los_Angeles'),
+              'M/d/yy',
+            )}
+          </Text>
+          <Text>
+            {format(
+              utcToZonedTime(item.startTime, 'America/Los_Angeles'),
+              'eeee',
+            )}
+          </Text>
+        </View>
+      );
+    };
+    return (
+      <FlatList
+        style={styles.shiftList}
+        data={jobShifts}
+        renderItem={renderShift}
+      />
+    );
   };
 
   if (!job) {
@@ -80,19 +87,19 @@ const VolunteerJob = ({
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <View style={styles.scrollView}>
       <View style={styles.homeChef}>
         <View style={styles.jobHeader}>
           <Text style={[styles.jobName]}>{job.name}</Text>
           {!job.active && <Text>Out of Service</Text>}
         </View>
-        <View style={styles.shiftList}>
+        <View>
           <Text style={styles.location}>Location: {job.location}</Text>
 
-          <View>{renderShifts()}</View>
+          {renderShifts()}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

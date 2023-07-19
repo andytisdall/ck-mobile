@@ -1,5 +1,5 @@
-import {Text, View, Pressable} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {Text, View, Pressable, PanResponder} from 'react-native';
+import React, {useCallback, useState, useRef} from 'react';
 import {format, utcToZonedTime} from 'date-fns-tz';
 import {
   startOfMonth,
@@ -19,6 +19,20 @@ const Calendar = ({
   renderItems: (day: string) => React.JSX.Element;
 }) => {
   const [month, setMonth] = useState(new Date());
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
+      onPanResponderRelease: (event, gesture) => {
+        if (gesture.dx < -20) {
+          setMonth(current => addMonths(current, 1));
+        } else if (gesture.dx > 20) {
+          setMonth(current => subMonths(current, 1));
+        }
+      },
+    }),
+  ).current;
 
   const getDays = useCallback(() => {
     const days = [];
@@ -107,7 +121,7 @@ const Calendar = ({
   };
 
   return (
-    <View>
+    <View {...panResponder.panHandlers}>
       {header()}
       {dayNames()}
       <View style={styles.calendar}>{getDays()}</View>

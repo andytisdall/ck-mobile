@@ -9,6 +9,7 @@ export default StyleSheet.create({
     backgroundColor: colors.beige,
     flex: 1,
     borderWidth: 1,
+    paddingVertical: 25,
   },
   CKSignin: {
     width: '100%',
@@ -19,20 +20,19 @@ export default StyleSheet.create({
   signinBtnText: {
     color: 'white',
     fontSize: 30,
-    marginBottom: 10,
     textAlign: 'center',
+    padding: 5,
   },
   signinBtn: {
     marginTop: 10,
-    backgroundColor: 'rgba(120,60,170,.5)',
-    borderWidth: 1,
-    borderRadius: 50,
-    padding: 20,
-    alignSelf: 'center',
+    backgroundColor: 'rgb(160,60,200)',
+    borderWidth: 2,
   },
   signinText: {fontSize: 20, textAlign: 'center'},
   authInput: {
     backgroundColor: 'white',
+    marginBottom: 10,
+    borderWidth: 1,
   },
   signinFields: {
     marginTop: 20,

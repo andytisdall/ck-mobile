@@ -1,13 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
-import {
-  View,
-  Text,
-  ScrollView,
-  LayoutAnimation,
-  Switch,
-  Pressable,
-} from 'react-native';
+import {View, Text, LayoutAnimation, Switch, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {SignupStackParamsList} from './Signup';
@@ -88,14 +81,14 @@ const ShiftSignup = ({
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
+    <View style={styles.scrollView}>
       <View style={styles.homeChef}>
         <View style={styles.signupHeader}>
           <Text style={styles.signupTitle}>Town Fridge Sign Up</Text>
           {renderSignup()}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

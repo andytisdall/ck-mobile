@@ -14,6 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {GoogleSignin, User} from '@react-native-google-signin/google-signin';
 import {RootTabParamsList} from '../../../App';
 
+import Btn from '../reusable/Btn';
 import reusableStyles from '../reusable/styles';
 import {RootStackParamList} from '../../../App';
 import styles from './styles';
@@ -103,6 +104,7 @@ const SignIn = ({
               placeholder="Username"
               blurOnSubmit
               returnKeyType="next"
+              placeholderTextColor="grey"
               onSubmitEditing={() => {
                 if (passwordFieldRef.current) {
                   passwordFieldRef.current.focus();
@@ -120,11 +122,12 @@ const SignIn = ({
               ref={passwordFieldRef}
               onSubmitEditing={handleSubmit}
               secureTextEntry
+              placeholderTextColor="grey"
             />
             <Text>{!!user && user.username}</Text>
-            <Pressable style={styles.signinBtn} onPress={handleSubmit}>
+            <Btn style={styles.signinBtn} onPress={handleSubmit}>
               <Text style={styles.signinBtnText}>Sign In</Text>
-            </Pressable>
+            </Btn>
           </View>
         </View>
         <Text style={styles.signinText}>Or</Text>

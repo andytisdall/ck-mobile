@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {SignupStackParamsList} from './Signup';
@@ -38,33 +38,36 @@ const VolunteerJobsList = ({
     if (!jobs?.length) {
       return <Text>No jobs could be found.</Text>;
     }
-    return jobs
+    const sortedJobs = jobs
       .filter(job => job.ongoing)
-      .sort(a => (a.active ? -1 : 1))
-      .map(job => {
-        const style: any[] = [styles.jobContainer];
-        if (!job.active) {
-          style.push(styles.jobInactive);
-        }
-        return (
-          <Pressable
-            onPress={() => navigation.navigate('Fridge', {jobId: job.id})}
-            key={job.id}>
-            {({pressed}) => {
-              const btnStyle: any[] = [style];
-              if (pressed) {
-                btnStyle.push(styles.highlight);
-              }
-              return (
-                <View style={btnStyle}>
-                  <Text style={styles.jobName}>{job.name}</Text>
-                  <Text>{job.location}</Text>
-                </View>
-              );
-            }}
-          </Pressable>
-        );
-      });
+      .sort(a => (a.active ? -1 : 1));
+
+    const renderJob = ({item}: {item: Job}) => {
+      const style: any[] = [styles.jobContainer];
+      if (!item.active) {
+        style.push(styles.jobInactive);
+      }
+      return (
+        <Pressable
+          onPress={() => navigation.navigate('Fridge', {jobId: item.id})}
+          key={item.id}>
+          {({pressed}) => {
+            const btnStyle: any[] = [style];
+            if (pressed) {
+              btnStyle.push(styles.highlight);
+            }
+            return (
+              <View style={btnStyle}>
+                <Text style={styles.jobName}>{item.name}</Text>
+                <Text>{item.location}</Text>
+              </View>
+            );
+          }}
+        </Pressable>
+      );
+    };
+
+    return <FlatList data={sortedJobs} renderItem={renderJob} />;
   };
 
   return (

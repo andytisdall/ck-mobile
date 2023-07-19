@@ -1,11 +1,13 @@
-import {Text, View, Pressable, StyleSheet, ScrollView} from 'react-native';
+import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
 import React, {useEffect} from 'react';
 
+import Btn from './reusable/Btn';
 import {colors} from './shiftSignup/styles';
 import {
   getUserInfo as getUserInfoAction,
   signOut as signOutAction,
+  setError as setErrorAction,
 } from '../actions';
 import Title from './reusable/Title';
 import {RootState} from '../state/Root';
@@ -14,17 +16,30 @@ const Home = ({
   user,
   signOut,
   getUserInfo,
+  setError,
 }: {
   navigation: {push: (name: string) => void};
-  user: {username: string; firstName?: string; lastName?: string};
+  user: {
+    username: string;
+    firstName?: string;
+    lastName?: string;
+    homeChefStatus?: string;
+  };
   signOut: () => void;
   getUserInfo: () => void;
+  setError: (err: any) => void;
 }) => {
   useEffect(() => {
     if (!user.firstName) {
       getUserInfo();
     }
-  }, [user, getUserInfo]);
+    if (user.homeChefStatus && user.homeChefStatus !== 'Active') {
+      signOut();
+      setError(
+        'You must be an active home chef to use this app. Please complete the onboarding process at portal.ckoakland.org',
+      );
+    }
+  }, [user, getUserInfo, signOut, setError]);
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
@@ -32,27 +47,32 @@ const Home = ({
         <Title />
         <View style={styles.homeContent}>
           <View style={styles.homeInfo}>
-            <Text style={styles.homeTitleText}>
-              Use the navigation buttons at the bottom of the screen to:
-            </Text>
-            <Text style={styles.homeInfoText}>
-              Send a Text Alert about your Town Fridge delivery
-            </Text>
-            <Text style={styles.homeInfoText}>
-              Sign Up for Town Fridge Deliveries
-            </Text>
-            <Text style={styles.homeInfoText}>
-              See and edit your upcoming and past deliveries
-            </Text>
+            <View style={styles.homeInfoTitle}>
+              <Text style={styles.homeTitleText}>Welcome to the App!</Text>
+              <Text style={styles.homeTitleText}>
+                Use the navigation buttons at the bottom of the screen to:
+              </Text>
+            </View>
+            <View style={styles.homeInfoItems}>
+              <Text style={styles.homeInfoText}>
+                Send a Text Alert about your Town Fridge delivery
+              </Text>
+              <Text style={styles.homeInfoText}>
+                Sign Up for Town Fridge Deliveries
+              </Text>
+              <Text style={styles.homeInfoText}>
+                See and edit your upcoming and past deliveries
+              </Text>
+            </View>
           </View>
           <View>
             <Text style={styles.homeTitleText}>Signed in as</Text>
             <Text style={styles.homeTitleText}>
               {user?.firstName} {user?.lastName}
             </Text>
-            <Pressable style={styles.signOutBtn} onPress={signOut}>
+            <Btn style={styles.signOutBtn} onPress={signOut}>
               <Text style={styles.signOutBtnText}>Sign Out</Text>
-            </Pressable>
+            </Btn>
           </View>
         </View>
       </View>
@@ -75,20 +95,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   homeTitleText: {
-    fontSize: 20,
+    fontSize: 22,
     textAlign: 'center',
   },
   signOutBtn: {
     backgroundColor: 'purple',
-    borderRadius: 50,
-    borderWidth: 1,
-    padding: 15,
+
     marginTop: 10,
     alignSelf: 'center',
   },
   signOutBtnText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 18,
+    padding: 10,
   },
   scrollView: {
     minHeight: '100%',
@@ -97,11 +117,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     marginVertical: 20,
+    padding: 15,
+    borderWidth: 1,
+    backgroundColor: 'white',
+  },
+  homeInfoItems: {
+    flex: 1,
+    justifyContent: 'space-around',
     paddingHorizontal: 10,
   },
   homeInfoText: {
-    fontSize: 15,
-    textAlign: 'center',
+    fontSize: 18,
+    textAlign: 'left',
+  },
+  homeInfoTitle: {
+    flex: 1,
   },
 });
 
@@ -112,4 +142,5 @@ const mapStateToProps = (state: RootState) => {
 export default connect(mapStateToProps, {
   signOut: signOutAction,
   getUserInfo: getUserInfoAction,
+  setError: setErrorAction,
 })(Home);

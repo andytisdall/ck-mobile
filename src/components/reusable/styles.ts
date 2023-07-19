@@ -57,7 +57,7 @@ export default StyleSheet.create({
   },
   photoPreview: {
     height: 330,
-    width: '80%',
+    width: '100%',
     marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',

@@ -17,6 +17,7 @@ export const signOut = () => async dispatch => {
   try {
     await GoogleSignin.signOut();
   } catch (err) {}
+
   await AsyncStorage.removeItem('ck-token');
   dispatch({type: SIGN_OUT});
 };
