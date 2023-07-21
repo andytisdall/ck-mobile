@@ -79,9 +79,13 @@ const SignIn = ({
 
   const submitGoogleSignIn = async () => {
     setLoading(true);
-    await GoogleSignin.hasPlayServices();
-    const userInfo = await GoogleSignin.signIn();
-    googleSignIn(userInfo);
+    try {
+      await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+      const userInfo = await GoogleSignin.signIn();
+      googleSignIn(userInfo);
+    } catch (err) {
+      setLoading(false);
+    }
   };
 
   if (loading) {
@@ -132,11 +136,6 @@ const SignIn = ({
         </View>
         <Text style={styles.signinText}>Or</Text>
         <View style={styles.googleSignIn}>
-          {/* <Text style={styles.signinText}>Sign in with your Google account</Text> */}
-          {/* <GoogleSigninButton
-          onPress={submitGoogleSignIn}
-          style={styles.googleSignInBtn}
-        /> */}
           <Pressable onPress={submitGoogleSignIn}>
             {({pressed}) => {
               const googleImg = pressed
