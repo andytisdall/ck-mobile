@@ -43,23 +43,28 @@ const VolunteerJobsList = ({
       .sort(a => (a.active ? -1 : 1));
 
     const renderJob = ({item}: {item: Job}) => {
-      const style: any[] = [styles.jobContainer];
+      const nameStyle: any[] = [styles.jobName];
       if (!item.active) {
-        style.push(styles.jobInactive);
+        nameStyle.push(styles.jobInactiveText);
       }
       return (
         <Pressable
           onPress={() => navigation.navigate('Fridge', {jobId: item.id})}
-          key={item.id}>
+          key={item.id}
+          disabled={!item.active}>
           {({pressed}) => {
-            const btnStyle: any[] = [style];
+            const btnStyle: any[] = [styles.jobContainer];
             if (pressed) {
               btnStyle.push(styles.highlight);
             }
             return (
               <View style={btnStyle}>
-                <Text style={styles.jobName}>{item.name}</Text>
-                <Text>{item.location}</Text>
+                <Text style={nameStyle}>{item.name}</Text>
+                {item.active ? (
+                  <Text>{item.location}</Text>
+                ) : (
+                  <Text style={styles.jobInactiveText}>Out of Service</Text>
+                )}
               </View>
             );
           }}

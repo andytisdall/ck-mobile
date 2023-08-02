@@ -22,6 +22,7 @@ import {
   signIn as signInAction,
   getUser as getUserAction,
   googleSignIn as googleSignInAction,
+  setError as setErrorAction,
 } from '../../actions';
 import useLoading from '../../hooks/useLoading';
 import Loading from '../reusable/Loading';
@@ -33,6 +34,7 @@ interface SignInProps {
   googleSignIn: (userInfo: User) => () => Promise<void>;
   user: {username: string};
   getUser: () => Promise<void>;
+  setError: (message: string) => void;
 }
 
 type ScreenProps = NativeStackScreenProps<
@@ -46,6 +48,7 @@ const SignIn = ({
   navigation,
   getUser,
   googleSignIn,
+  setError,
 }: SignInProps & ScreenProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -84,6 +87,7 @@ const SignIn = ({
       const userInfo = await GoogleSignin.signIn();
       googleSignIn(userInfo);
     } catch (err) {
+      setError('Google signin failed');
       setLoading(false);
     }
   };
@@ -164,4 +168,5 @@ export default connect(mapStateToProps, {
   signIn: signInAction,
   getUser: getUserAction,
   googleSignIn: googleSignInAction,
+  setError: setErrorAction,
 })(SignIn);

@@ -18,31 +18,37 @@ export type SignupStackParamsList = {
 
 const Stack = createNativeStackNavigator<SignupStackParamsList>();
 
+const signupScreenOptions = {title: 'Town Fridge Sign Up'};
+
 const Signup = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="ShiftSignup"
         component={ShiftSignup}
-        options={{title: 'Town Fridge Sign Up'}}
+        options={signupScreenOptions}
       />
       <Stack.Screen
         name="Fridge"
         component={VolunteerJob}
-        options={{title: 'Town Fridge Sign Up'}}
+        options={signupScreenOptions}
       />
-      <Stack.Screen name="DateDetail" component={DateDetail} />
+      <Stack.Screen
+        name="DateDetail"
+        component={DateDetail}
+        options={signupScreenOptions}
+      />
       <Stack.Screen
         name="ShiftDetail"
         component={ShiftDetail}
-        options={{title: 'Town Fridge Sign Up'}}
+        options={signupScreenOptions}
       />
       <Stack.Screen
         name="SignupConfirm"
         component={Confirmation}
         options={{
           headerLeft: BlankHeaderLeft,
-          title: 'Town Fridge Sign Up',
+          ...signupScreenOptions,
         }}
       />
     </Stack.Navigator>

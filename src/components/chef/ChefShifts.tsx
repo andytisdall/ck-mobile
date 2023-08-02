@@ -131,7 +131,7 @@ const ChefShifts = ({
           />
         );
       } else {
-        return <Text>No Shifts</Text>;
+        return <Text style={chefStyles.chefNoShifts}>No Deliveries Found</Text>;
       }
     }
   };

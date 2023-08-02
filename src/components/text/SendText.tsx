@@ -180,19 +180,7 @@ const SendText = ({
   };
 
   const renderNav = () => {
-    // const invalidStyle = !fieldValid && styles.btnInactive;
-
     const nextBtn = (
-      // <Pressable
-      //   style={[styles.sendTextNavBtn, invalidStyle]}
-      //   onPress={() => {
-      //     if (fieldValid) {
-      //       nextPage();
-      //     } else {
-      //       setError('You must enter a value to proceed');
-      //     }
-      //   }}>
-      // <View style={styles.sendTextNavBtn}>
       <Btn
         onPress={nextPage}
         onError={() => {
@@ -202,8 +190,6 @@ const SendText = ({
         disabled={!fieldValid}>
         <Arrow />
       </Btn>
-      // </View>
-      // </Pressable>
     );
 
     const backBtn = (

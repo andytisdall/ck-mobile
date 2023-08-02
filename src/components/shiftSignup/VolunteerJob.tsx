@@ -1,5 +1,5 @@
 import {format, utcToZonedTime} from 'date-fns-tz';
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import {connect} from 'react-redux';
 import {View, Text, Platform, UIManager, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -33,15 +33,8 @@ const VolunteerJob = ({
 
   const job = jobs?.find(j => j.id === jobId);
 
-  const renderShifts = () => {
-    if (!job) {
-      return;
-    }
-    const jobShifts = job.shifts
-      .map(id => shifts[id])
-      .sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
-
-    const renderShift = ({item}: {item: Shift}) => {
+  const renderShift = useCallback(
+    ({item}: {item: Shift}) => {
       return (
         <View style={styles.shift} key={item.id}>
           <View style={styles.shiftSignupBtnContainer}>
@@ -72,7 +65,18 @@ const VolunteerJob = ({
           </Text>
         </View>
       );
-    };
+    },
+    [navigation],
+  );
+
+  const renderShifts = useMemo(() => {
+    if (!job) {
+      return;
+    }
+    const jobShifts = job.shifts
+      .map(id => shifts[id])
+      .sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
+
     return (
       <FlatList
         style={styles.shiftList}
@@ -80,7 +84,7 @@ const VolunteerJob = ({
         renderItem={renderShift}
       />
     );
-  };
+  }, [job, renderShift, shifts]);
 
   if (!job) {
     return <Loading />;
@@ -91,12 +95,12 @@ const VolunteerJob = ({
       <View style={styles.homeChef}>
         <View style={styles.jobHeader}>
           <Text style={[styles.jobName]}>{job.name}</Text>
-          {!job.active && <Text>Out of Service</Text>}
         </View>
         <View>
-          <Text style={styles.location}>Location: {job.location}</Text>
-
-          {renderShifts()}
+          {!!job.location && (
+            <Text style={styles.location}>Location: {job.location}</Text>
+          )}
+          {job.active ? renderShifts : <Text>Out of Service</Text>}
         </View>
       </View>
     </View>

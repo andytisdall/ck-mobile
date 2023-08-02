@@ -106,8 +106,9 @@ export default StyleSheet.create({
     fontSize: 20,
     width: '30%',
   },
-  jobInactive: {
-    color: 'grey',
+
+  jobInactiveText: {
+    color: 'rgb(100,100,100)',
   },
   arrowRotated: {
     transform: [{rotate: '90deg'}],

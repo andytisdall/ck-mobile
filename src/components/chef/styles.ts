@@ -56,4 +56,7 @@ export default StyleSheet.create({
     backgroundColor: colors.beige,
   },
   mealCountInput: {width: 75, backgroundColor: 'white'},
+  chefNoShifts: {
+    marginLeft: 60,
+  },
 });
