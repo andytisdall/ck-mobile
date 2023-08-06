@@ -43,6 +43,8 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-ckapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ckapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ckapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-ckapp-ckappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ckapp-ckappTests.release.xcconfig"; path = "Target Support Files/Pods-ckapp-ckappTests/Pods-ckapp-ckappTests.release.xcconfig"; sourceTree = "<group>"; };
+		8AC330F92A7B1F60002B7D56 /* ckappRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ckappRelease.entitlements; path = ckapp/ckappRelease.entitlements; sourceTree = "<group>"; };
+		8AC330FA2A7B2886002B7D56 /* ckappDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ckappDebug.entitlements; path = ckapp/ckappDebug.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -86,6 +88,8 @@
 		13B07FAE1A68108700A75B9A /* ckapp */ = {
 			isa = PBXGroup;
 			children = (
+				8AC330FA2A7B2886002B7D56 /* ckappDebug.entitlements */,
+				8AC330F92A7B1F60002B7D56 /* ckappRelease.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -488,8 +492,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ckapp/ckappDebug.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YS9Y4K23V;
+				DEVELOPMENT_TEAM = F2APTT7PN6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ckapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -502,7 +507,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.ckapp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.ckoakland.ckhomechef;
 				PRODUCT_NAME = ckapp;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -517,8 +522,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ckapp/ckappRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6YS9Y4K23V;
+				DEVELOPMENT_TEAM = F2APTT7PN6;
 				INFOPLIST_FILE = ckapp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -530,7 +536,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.ckoakland.homechef;
+				PRODUCT_BUNDLE_IDENTIFIER = org.ckoakland.ckhomechef;
 				PRODUCT_NAME = ckapp;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -5,7 +5,7 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PaperProvider} from 'react-native-paper';
@@ -24,12 +24,11 @@ import {RootState} from './src/state/Root';
 import {navigationRef} from './src/RootNavigation';
 import Chef from './src/components/chef/Chef';
 import Text from './src/components/text/Text';
+import Notifications from './src/NotificationService';
 
 const mapStateToProps = (state: RootState) => {
   return {user: state.auth.user};
 };
-
-// 385802469502-io10rqtrh1lqh4vanoppuevn0abqnc0a.apps.googleusercontent.com
 
 GoogleSignin.configure({
   iosClientId:
@@ -96,6 +95,11 @@ const AppContainer = ({user}: {user: {username: string}}) => {
 const ConnectedAppContainer = connect(mapStateToProps)(AppContainer);
 
 function App(): JSX.Element {
+  useEffect(() => {
+    Notifications.listen((notification: string) => console.log(notification));
+    return () => Notifications.delete();
+  });
+
   return (
     <Root initialState={{}}>
       <PaperProvider>

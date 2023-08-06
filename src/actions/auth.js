@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
+import Notifications from '../NotificationService';
 import server from './api';
 import {SIGN_IN, SIGN_OUT, GET_USER_INFO} from './types';
 
