@@ -43,7 +43,10 @@ export const getUser = () => async dispatch => {
     if (response.data?.username) {
       dispatch({
         type: 'SIGN_IN',
-        payload: {username: response.data.username},
+        payload: {
+          username: response.data.username,
+          busDriver: response.data.busDriver,
+        },
       });
     }
   }

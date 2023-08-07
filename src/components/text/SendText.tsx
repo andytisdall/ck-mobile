@@ -24,6 +24,7 @@ import Loading from '../reusable/Loading';
 import {SentMessage} from './TextSuccess';
 import {PhotoFile} from '../reusable/AddPhoto';
 import Btn from '../reusable/Btn';
+import EnterRestaurants from './EnterRestaurants';
 
 export type townFridgeList =
   | {
@@ -38,6 +39,7 @@ interface SendTextProps {
   setError: (message: string) => void;
   townFridges: townFridgeList;
   sent: SentMessage | null;
+  user: {busDriver: boolean};
 }
 type ScreenProps = NativeStackScreenProps<TextStackParamList, 'SendText'>;
 
@@ -45,12 +47,15 @@ const SendText = ({
   townFridges,
   sendText,
   setError,
+  user,
 }: SendTextProps & ScreenProps) => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [fridge, setFridge] = useState<number | undefined>();
   const [mealCount, setMealCount] = useState('');
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState<PhotoFile | undefined>();
+  const [restaurants, setRestaurants] = useState('');
+
   const [fieldValid, setFieldValid] = useState(false);
 
   const [loading, setLoading] = useLoading();
@@ -100,11 +105,18 @@ const SendText = ({
     return '';
   };
 
+  const getChef = () => {
+    if (!user.busDriver) {
+      return 'CK Home Chef volunteers';
+    }
+    return restaurants;
+  };
+
   const message =
     fridge !== undefined && townFridges
       ? `Hello! ${
           townFridges[fridge].name
-        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by CK Home Chef volunteers! Please take only what you need, and leave the rest to share. The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by ${getChef()}! Please take only what you need, and leave the rest to share. The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
       : '';
 
   const prevPage = () => {
@@ -127,6 +139,18 @@ const SendText = ({
 
   const renderPage = () => {
     switch (page) {
+      case 0:
+        if (!user.busDriver) {
+          setPage(1);
+        }
+        validateField(!!restaurants);
+        return (
+          <EnterRestaurants
+            next={nextPage}
+            restaurants={restaurants}
+            setRestaurants={setRestaurants}
+          />
+        );
       case 1:
         validateField(!!name);
         return <EnterName setName={setName} name={name} next={nextPage} />;
@@ -175,7 +199,7 @@ const SendText = ({
           />
         );
       default:
-        return <Text>Oops</Text>;
+        return <Text>An Error Occurred. Restart the App.</Text>;
     }
   };
 
@@ -198,12 +222,16 @@ const SendText = ({
       </Btn>
     );
 
-    const firstPageStyle = page === 1 ? styles.sendTextNavEnd : {};
+    const isFirstPage =
+      (user.busDriver && page === 0) || (!user.busDriver && page === 1);
+    const isLastPage = page === 6;
+
+    const firstPageStyle = isFirstPage ? styles.sendTextNavEnd : {};
 
     return (
       <View style={[styles.sendTextNav, firstPageStyle]}>
-        {page !== 1 && backBtn}
-        {page !== 5 && nextBtn}
+        {!isFirstPage && backBtn}
+        {!isLastPage && nextBtn}
       </View>
     );
   };
@@ -235,7 +263,11 @@ const SendText = ({
 };
 
 const mapStateToProps = (state: RootState) => {
-  return {townFridges: state.text.townFridges, sent: state.text.sent};
+  return {
+    townFridges: state.text.townFridges,
+    sent: state.text.sent,
+    user: state.auth.user,
+  };
 };
 
 export default connect(mapStateToProps, {

@@ -24,6 +24,7 @@ const Home = ({
     firstName?: string;
     lastName?: string;
     homeChefStatus?: string;
+    busDriver?: boolean;
   };
   signOut: () => void;
   getUserInfo: () => void;
@@ -33,7 +34,11 @@ const Home = ({
     if (!user.firstName) {
       getUserInfo();
     }
-    if (user.homeChefStatus && user.homeChefStatus !== 'Active') {
+    if (
+      !user.busDriver &&
+      user.homeChefStatus &&
+      user.homeChefStatus !== 'Active'
+    ) {
       signOut();
       setError(
         'You must be an active home chef to use this app. Please complete the onboarding process at portal.ckoakland.org',
