@@ -27,11 +27,7 @@ const regionNames = {
   WEST_OAKLAND: 'West Oakland',
 };
 
-const TextSuccess = ({
-  message,
-  navigation,
-}: // clearText,
-TextSuccessProps & ScreenProps) => {
+const TextSuccess = ({message, navigation}: TextSuccessProps & ScreenProps) => {
   const [photoLoading, setPhotoLoading] = useState(true);
 
   if (message) {

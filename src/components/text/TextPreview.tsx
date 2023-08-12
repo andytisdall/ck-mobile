@@ -2,7 +2,9 @@
 // import {useState, useEffect} from 'react';
 import {View, Text, Image} from 'react-native';
 import React from 'react';
+import {connect} from 'react-redux';
 
+import {RootState} from '../../state/Root';
 import Btn from '../reusable/Btn';
 import styles from './styles';
 import photoStyles from '../reusable/styles';
@@ -15,6 +17,7 @@ interface TextPreviewProps {
   region: string;
   photo: PhotoFile | undefined;
   onCancel: () => void;
+  stored: {photoUrl: string};
 }
 
 const TextPreview = ({
@@ -23,6 +26,7 @@ const TextPreview = ({
   region,
   photo,
   onCancel,
+  stored,
 }: TextPreviewProps) => {
   // const [image, setImage] = useState(photo);
 
@@ -45,11 +49,11 @@ const TextPreview = ({
       <Text style={styles.textPreviewTitle}>Confirm Your Message:</Text>
       <Text style={styles.textPreviewText}>{message}</Text>
       {/* {photo && !image && <Loading />} */}
-      {photo && (
+      {(!!photo || !!stored?.photoUrl) && (
         <View style={photoStyles.photoPreview}>
           <Image
             style={photoStyles.photoPreviewPhoto}
-            source={{uri: photo.uri}}
+            source={{uri: photo?.uri || stored.photoUrl}}
             alt="preview"
           />
         </View>
@@ -69,4 +73,8 @@ const TextPreview = ({
   );
 };
 
-export default TextPreview;
+const mapStateToProps = (state: RootState) => {
+  return {stored: state.text.stored};
+};
+
+export default connect(mapStateToProps)(TextPreview);

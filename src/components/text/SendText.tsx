@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {connect} from 'react-redux';
 import {Text, View, ScrollView, Platform} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -11,6 +11,7 @@ import {
   sendText as sendTextAction,
   getFridges as getFridgesAction,
   setError as setErrorAction,
+  getStoredText as getStoredTextAction,
 } from '../../actions';
 import Arrow from '../../assets/right-arrow.svg';
 import TextPreview from './TextPreview';
@@ -25,6 +26,7 @@ import {SentMessage} from './TextSuccess';
 import {PhotoFile} from '../reusable/AddPhoto';
 import Btn from '../reusable/Btn';
 import EnterRestaurants from './EnterRestaurants';
+import UseStoredText from './UseStoredText';
 
 export type townFridgeList =
   | {
@@ -35,11 +37,19 @@ export type townFridgeList =
   | null;
 
 interface SendTextProps {
-  sendText: (message: string, region: string, photo: any) => Promise<void>;
+  sendText: (
+    message: string,
+    region: string,
+    photo?: any,
+    name?: string,
+    restaurants?: string,
+  ) => Promise<void>;
   setError: (message: string) => void;
   townFridges: townFridgeList;
   sent: SentMessage | null;
   user: {busDriver: boolean};
+  getStoredText: () => void;
+  storedText: {name: string; restaurants: string; photoUrl: string};
 }
 type ScreenProps = NativeStackScreenProps<TextStackParamList, 'SendText'>;
 
@@ -48,6 +58,9 @@ const SendText = ({
   sendText,
   setError,
   user,
+  sent,
+  getStoredText,
+  storedText,
 }: SendTextProps & ScreenProps) => {
   const [page, setPage] = useState(0);
   const [fridge, setFridge] = useState<number | undefined>();
@@ -55,6 +68,7 @@ const SendText = ({
   const [name, setName] = useState('');
   const [photo, setPhoto] = useState<PhotoFile | undefined>();
   const [restaurants, setRestaurants] = useState('');
+  const [usingStoredText, setUsingStoredText] = useState(false);
 
   const [fieldValid, setFieldValid] = useState(false);
 
@@ -70,19 +84,32 @@ const SendText = ({
   };
 
   const clearState = () => {
-    setPage(1);
+    setPage(0);
+    setRestaurants('');
     setFridge(undefined);
     setMealCount('');
     setName('');
     setPhoto(undefined);
     setFieldValid(false);
+    setUsingStoredText(false);
   };
 
-  // useEffect(() => {
-  //   if (sent) {
-  //     navigation.navigate('TextSuccess');
-  //   }
-  // }, [sent, navigation, setLoading]);
+  useEffect(() => {
+    if (user.busDriver) {
+      if (storedText === undefined) {
+        setLoading(true);
+        getStoredText();
+      } else {
+        setLoading(false);
+      }
+    }
+  }, [getStoredText, storedText, user, setLoading]);
+
+  useEffect(() => {
+    if (sent) {
+      setLoading(false);
+    }
+  }, [sent, setLoading]);
 
   const getAddress = () => {
     if (fridge !== undefined && townFridges && townFridges[fridge].address) {
@@ -120,6 +147,10 @@ const SendText = ({
       : '';
 
   const prevPage = () => {
+    // fix this
+    if (storedText?.photoUrl && page === 5) {
+      return setPage(3);
+    }
     setPage(p => p - 1);
   };
 
@@ -143,6 +174,14 @@ const SendText = ({
         if (!user.busDriver) {
           setPage(1);
         }
+        if (usingStoredText) {
+          setRestaurants(storedText.restaurants);
+          setName(storedText.name);
+          setPage(2);
+        }
+        if (storedText) {
+          return <UseStoredText setUsingStoredText={setUsingStoredText} />;
+        }
         validateField(!!restaurants);
         return (
           <EnterRestaurants
@@ -152,6 +191,10 @@ const SendText = ({
           />
         );
       case 1:
+        if (usingStoredText) {
+          setUsingStoredText(false);
+          setPage(0);
+        }
         validateField(!!name);
         return <EnterName setName={setName} name={name} next={nextPage} />;
       case 2:
@@ -176,6 +219,9 @@ const SendText = ({
           />
         );
       case 4:
+        if (storedText?.photoUrl) {
+          nextPage();
+        }
         validateField(true);
         return <EnterPhoto photo={photo} setPhoto={setPhoto} />;
       case 5:
@@ -192,7 +238,14 @@ const SendText = ({
                   photoToSend.uri = photo.uri?.replace('file://', '');
                 }
                 setLoading(true);
-                sendText(message, townFridges[fridge].region, photoToSend);
+                sendText(
+                  message,
+                  townFridges[fridge].region,
+                  photoToSend,
+                  name,
+                  restaurants,
+                );
+                clearState();
               }
             }}
             onCancel={clearState}
@@ -224,8 +277,7 @@ const SendText = ({
 
     const isFirstPage =
       (user.busDriver && page === 0) || (!user.busDriver && page === 1);
-    const isLastPage = page === 6;
-
+    const isLastPage = page === 5;
     const firstPageStyle = isFirstPage ? styles.sendTextNavEnd : {};
 
     return (
@@ -267,6 +319,7 @@ const mapStateToProps = (state: RootState) => {
     townFridges: state.text.townFridges,
     sent: state.text.sent,
     user: state.auth.user,
+    storedText: state.text.stored,
   };
 };
 
@@ -274,4 +327,5 @@ export default connect(mapStateToProps, {
   sendText: sendTextAction,
   getFridges: getFridgesAction,
   setError: setErrorAction,
+  getStoredText: getStoredTextAction,
 })(SendText);

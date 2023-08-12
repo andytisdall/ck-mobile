@@ -2,7 +2,7 @@ import {View, StyleSheet, Pressable} from 'react-native';
 import React, {ReactNode} from 'react';
 
 interface BtnProps {
-  style: Record<string, any> | Record<string, any>[];
+  style?: Record<string, any> | Record<string, any>[];
   children: ReactNode;
   onPress: () => void;
   onError?: () => void;

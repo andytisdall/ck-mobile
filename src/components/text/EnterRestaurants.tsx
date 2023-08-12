@@ -32,6 +32,7 @@ const EnterRestaurants = ({
         returnKeyType="next"
         blurOnSubmit
         autoFocus
+        autoCorrect={false}
       />
     </View>
   );
