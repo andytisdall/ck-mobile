@@ -93,7 +93,7 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.ckapp"
+    namespace "com.ckhomechefapp"
     defaultConfig {
         applicationId "com.ckhomechefapp"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -162,8 +162,12 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
+    implementation project(':react-native-push-notification')
+
 
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+
+
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

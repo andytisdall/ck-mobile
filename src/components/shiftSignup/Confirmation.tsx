@@ -112,7 +112,7 @@ const Confirmation = ({
             <Text style={styles.signupBtnText}>Sign Up for More Shifts</Text>
           </Btn>
           <Btn
-            onPress={() => navigation.navigate('Chef')}
+            onPress={() => navigation.navigate('Deliveries')}
             style={styles.navBtn}>
             <Text style={styles.signupBtnText}>
               See your future and past shifts

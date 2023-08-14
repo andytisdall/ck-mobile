@@ -233,9 +233,9 @@ const SendText = ({
             photo={photo}
             onSubmit={() => {
               if (fridge !== undefined && townFridges) {
-                const photoToSend = {...photo};
-                if (photo && Platform.OS === 'ios') {
-                  photoToSend.uri = photo.uri?.replace('file://', '');
+                const photoToSend = photo ? {...photo} : null;
+                if (photoToSend && Platform.OS === 'ios') {
+                  photoToSend.uri = photo!.uri?.replace('file://', '');
                 }
                 setLoading(true);
                 sendText(

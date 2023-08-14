@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {addDays} from 'date-fns';
 
 import {setAlert} from './popup';
 import {SEND_TEXT, GET_FRIDGES, GET_STORED_TEXT} from './types';
@@ -15,7 +16,7 @@ export const sendText =
     const storedText = getState().text.stored;
     let photoAlreadySentToThisRegion = false;
     if (user.busDriver && storedText) {
-      photoAlreadySentToThisRegion = storedText?.sentTo.includes(region);
+      photoAlreadySentToThisRegion = storedText.sentTo.includes(region);
     }
 
     if (photo) {
@@ -25,7 +26,6 @@ export const sendText =
     if (storedText?.photoUrl && !photoAlreadySentToThisRegion) {
       postBody.append('photo', storedText.photoUrl);
     }
-
     const res = await server.post('/text/outgoing/mobile', postBody, {
       headers: {'Content-Type': 'multipart/form-data'},
     });
@@ -33,13 +33,15 @@ export const sendText =
     if (user.busDriver) {
       if (storedText) {
         if (!photoAlreadySentToThisRegion) {
+          const modifiedStoredText = {
+            ...storedText,
+            sentTo: [...storedText.sentTo, res.data.region],
+          };
           await AsyncStorage.setItem(
             'ck-text',
-            JSON.stringify({
-              ...storedText,
-              sentTo: [...storedText.sentTo, res.data.region],
-            }),
+            JSON.stringify(modifiedStoredText),
           );
+          dispatch({type: GET_STORED_TEXT, payload: modifiedStoredText});
         }
       } else {
         const newStoredText = {
@@ -47,6 +49,7 @@ export const sendText =
           sentTo: [res.data.region],
           name,
           restaurants,
+          date: new Date(),
         };
         await AsyncStorage.setItem('ck-text', JSON.stringify(newStoredText));
         dispatch({type: GET_STORED_TEXT, payload: newStoredText});
@@ -61,10 +64,15 @@ export const sendText =
 export const getStoredText = () => async dispatch => {
   const existingText = await AsyncStorage.getItem('ck-text');
   if (existingText) {
-    dispatch({
-      type: GET_STORED_TEXT,
-      payload: JSON.parse(existingText),
-    });
+    const storedText = JSON.parse(existingText);
+    if (addDays(new Date(storedText.date), 1) > new Date()) {
+      dispatch({
+        type: GET_STORED_TEXT,
+        payload: storedText,
+      });
+    } else {
+      dispatch(deleteStoredText());
+    }
   } else {
     dispatch({
       type: GET_STORED_TEXT,
@@ -77,7 +85,7 @@ export const deleteStoredText = () => async dispatch => {
   await AsyncStorage.removeItem('ck-text');
   dispatch({
     type: GET_STORED_TEXT,
-    payload: undefined,
+    payload: null,
   });
 };
 

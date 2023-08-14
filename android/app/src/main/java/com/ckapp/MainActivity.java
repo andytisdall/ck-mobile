@@ -1,4 +1,4 @@
-package com.ckapp;
+package com.ckhomechefapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

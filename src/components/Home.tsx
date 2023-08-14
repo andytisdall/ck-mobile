@@ -60,13 +60,13 @@ const Home = ({
             </View>
             <View style={styles.homeInfoItems}>
               <Text style={styles.homeInfoText}>
-                Send a Text Alert about your Town Fridge delivery
+                {'\u2022 Send a Text Alert about your Town Fridge delivery'}
               </Text>
               <Text style={styles.homeInfoText}>
-                Sign Up for Town Fridge Deliveries
+                {'\u2022 Sign Up for Town Fridge Deliveries'}
               </Text>
               <Text style={styles.homeInfoText}>
-                See and edit your upcoming and past deliveries
+                {'\u2022 See and edit your upcoming and past deliveries'}
               </Text>
             </View>
           </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   homeInfoText: {
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'left',
   },
   homeInfoTitle: {

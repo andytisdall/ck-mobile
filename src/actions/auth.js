@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import Notifications from '../NotificationService';
 import server from './api';
 import {SIGN_IN, SIGN_OUT, GET_USER_INFO} from './types';
 
@@ -11,6 +10,7 @@ export const signIn = (username, password) => async dispatch => {
     password,
   });
   await AsyncStorage.setItem('ck-token', res.data.token);
+  await registerDeviceToken(res.data.user);
   dispatch({type: SIGN_IN, payload: res.data.user});
 };
 
@@ -33,6 +33,7 @@ export const googleSignIn =
       googleId: user.id,
     });
     await AsyncStorage.setItem('ck-token', data.token);
+    await registerDeviceToken(data.user);
     dispatch({type: SIGN_IN, payload: data.user});
   };
 
@@ -57,4 +58,14 @@ export const getUserInfo = () => async dispatch => {
   // check for active home chef status
   // and check on the routes too (new middleware)
   dispatch({type: GET_USER_INFO, payload: res.data});
+};
+
+export const registerDeviceToken = async user => {
+  const deviceToken = await AsyncStorage.getItem('ck-push-notification-token');
+  if (deviceToken) {
+    if (deviceToken !== user.homeChefNotificationToken) {
+      await server.post('/user/save-token', {token: deviceToken});
+    }
+    await AsyncStorage.removeItem('ck-push-notification-token');
+  }
 };

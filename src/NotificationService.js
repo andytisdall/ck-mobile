@@ -2,8 +2,7 @@ import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {AppState, Platform} from 'react-native';
 import {checkNotifications, RESULTS} from 'react-native-permissions';
-
-import server from './actions/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // BIIIIG WARNING: in iOS you'll get a token ONLY if you request permission for it.
 // Therefore, a call for PushNotification.requestPermissions() is required.
@@ -67,7 +66,7 @@ class NotificationService {
   handleRegister = async ({token}) => {
     if (token) {
       try {
-        await server.post('/user/save-token', {token});
+        await AsyncStorage.setItem('ck-push-notification-token', token);
       } catch (err) {
         console.log('Could not register device token', err);
       }

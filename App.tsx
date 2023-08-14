@@ -44,7 +44,7 @@ export type RootTabParamsList = {
   Signup: undefined;
   Home: undefined;
   Text: undefined;
-  Chef: undefined;
+  Deliveries: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -64,7 +64,7 @@ const Main = () => {
       <Tab.Screen name="Home" component={Home} options={{}} />
       <Tab.Screen name="Text" component={Text} />
       <Tab.Screen name="Signup" component={Signup} />
-      <Tab.Screen name="Chef" component={Chef} />
+      <Tab.Screen name="Deliveries" component={Chef} />
     </Tab.Navigator>
   );
 };
