@@ -18,7 +18,7 @@ export const sendText =
     if (user.busDriver && storedText) {
       photoAlreadySentToThisRegion = storedText.sentTo.includes(region);
     }
-
+    console.log(photo);
     if (photo) {
       postBody.append('photo', photo);
     }

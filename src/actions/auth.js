@@ -66,6 +66,7 @@ export const registerDeviceToken = async user => {
     if (deviceToken !== user.homeChefNotificationToken) {
       await server.post('/user/save-token', {token: deviceToken});
     }
+
     await AsyncStorage.removeItem('ck-push-notification-token');
   }
 };
