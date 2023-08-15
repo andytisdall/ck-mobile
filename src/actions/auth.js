@@ -55,7 +55,7 @@ export const getUser = () => async dispatch => {
   if (token) {
     try {
       const {data} = await server.get('/user');
-      authFlow(dispatch, data);
+      authFlow(dispatch, {user: data});
     } catch (err) {
       await AsyncStorage.removeItem('ck-token');
     }
