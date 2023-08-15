@@ -5,12 +5,12 @@ import server from './api';
 import {SIGN_IN, SIGN_OUT} from './types';
 import {setError} from './popup';
 
-const authFlow = async (dispatch, token) => {
+const authFlow = async (dispatch, {user, token}) => {
   if (token) {
     await AsyncStorage.setItem('ck-token', token);
   }
   const {data} = await server.get('/user/userInfo');
-  if (!data.busDriver && data.homeChefStatus !== 'Active') {
+  if (!user.busDriver && data.homeChefStatus !== 'Active') {
     return dispatch(
       setError(
         'You must be an active home chef to use this app. Please complete the onboarding process at portal.ckoakland.org',
@@ -18,7 +18,7 @@ const authFlow = async (dispatch, token) => {
     );
   }
   registerDeviceToken(data);
-  dispatch({type: SIGN_IN, payload: data});
+  dispatch({type: SIGN_IN, payload: {...user, ...data}});
 };
 
 export const signIn = (username, password) => async dispatch => {
@@ -26,7 +26,7 @@ export const signIn = (username, password) => async dispatch => {
     username,
     password,
   });
-  authFlow(dispatch, data.token);
+  authFlow(dispatch, data);
 };
 
 export const googleSignIn =
@@ -38,7 +38,7 @@ export const googleSignIn =
       givenName: user.givenName,
       googleId: user.id,
     });
-    authFlow(dispatch, data.token);
+    authFlow(dispatch, data);
   };
 
 export const signOut = () => async dispatch => {
@@ -54,7 +54,8 @@ export const getUser = () => async dispatch => {
   const token = await AsyncStorage.getItem('ck-token');
   if (token) {
     try {
-      authFlow(dispatch);
+      const {data} = await server.get('/user');
+      authFlow(dispatch, data);
     } catch (err) {
       await AsyncStorage.removeItem('ck-token');
     }
