@@ -5,11 +5,15 @@ export default StyleSheet.create({
     minHeight: '100%',
   },
   appTitleContainer: {
-    paddingVertical: 20,
+    width: '100%',
   },
-  appTitle: {
-    fontSize: 40,
-    textAlign: 'center',
+  appTitleImageContainer: {
+    height: 100,
+    justifyContent: 'center',
+  },
+  appTitleImage: {
+    resizeMode: 'contain',
+    width: '100%',
   },
   appSubTitle: {
     paddingTop: 10,

@@ -87,13 +87,16 @@ const SignIn = ({
       const userInfo = await GoogleSignin.signIn();
       googleSignIn(userInfo);
     } catch (err) {
-      setError('Google signin failed');
-      setLoading(false);
+      setError('Google Sign In Failed');
     }
   };
 
   if (loading) {
-    return <Loading />;
+    return (
+      <View style={styles.signin}>
+        <Loading />
+      </View>
+    );
   }
 
   return (

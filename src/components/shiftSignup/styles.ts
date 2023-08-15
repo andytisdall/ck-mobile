@@ -28,7 +28,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   signupTitle: {fontSize: 25, textAlign: 'center'},
-  switch: {marginVertical: 15, width: '80%'},
+  switch: {marginVertical: 15, width: '100%'},
   switchRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -40,7 +40,7 @@ export default StyleSheet.create({
     color: 'grey',
   },
   switchBtn: {flex: 1, paddingHorizontal: 20},
-  switchText: {textAlign: 'center'},
+  switchText: {textAlign: 'center', padding: 10},
   navBtn: {
     backgroundColor: colors.dark,
     marginBottom: 30,

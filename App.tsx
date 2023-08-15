@@ -54,7 +54,7 @@ const header = () => {
   return <Popup />;
 };
 
-const Main = () => {
+const Main = ({user}: {user: {homeChefStatus: string}}) => {
   return (
     <Tab.Navigator
       screenOptions={{
@@ -63,11 +63,17 @@ const Main = () => {
       detachInactiveScreens={false}>
       <Tab.Screen name="Home" component={Home} options={{}} />
       <Tab.Screen name="Text" component={Text} />
-      <Tab.Screen name="Signup" component={Signup} />
-      <Tab.Screen name="Deliveries" component={Chef} />
+      {user.homeChefStatus === 'Active' && (
+        <>
+          <Tab.Screen name="Signup" component={Signup} />
+          <Tab.Screen name="Deliveries" component={Chef} />
+        </>
+      )}
     </Tab.Navigator>
   );
 };
+
+const ConnectedMain = connect(mapStateToProps)(Main);
 
 const AppContainer = ({user}: {user: {username: string}}) => {
   return (
@@ -84,7 +90,7 @@ const AppContainer = ({user}: {user: {username: string}}) => {
               options={{title: 'Sign in to the CK Home Chef App'}}
             />
           ) : (
-            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name="Main" component={ConnectedMain} />
           )}
         </Stack.Navigator>
       </NavigationContainer>
@@ -97,7 +103,11 @@ const ConnectedAppContainer = connect(mapStateToProps)(AppContainer);
 function App(): JSX.Element {
   useEffect(() => {
     Notifications.listen((notification: string) => console.log(notification));
-    return () => Notifications.delete();
+    return () => {
+      try {
+        Notifications.delete();
+      } catch {}
+    };
   });
 
   return (
@@ -108,5 +118,7 @@ function App(): JSX.Element {
     </Root>
   );
 }
+
+Notifications.init();
 
 export default App;

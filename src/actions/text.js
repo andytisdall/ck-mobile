@@ -18,7 +18,7 @@ export const sendText =
     if (user.busDriver && storedText) {
       photoAlreadySentToThisRegion = storedText.sentTo.includes(region);
     }
-    console.log(photo);
+
     if (photo) {
       postBody.append('photo', photo);
     }
@@ -29,6 +29,9 @@ export const sendText =
     const res = await server.post('/text/outgoing/mobile', postBody, {
       headers: {'Content-Type': 'multipart/form-data'},
     });
+
+    navigate('TextSuccess');
+    dispatch(setAlert('Message Sent'));
 
     if (user.busDriver) {
       if (storedText) {
@@ -57,8 +60,6 @@ export const sendText =
     }
 
     dispatch({type: SEND_TEXT, payload: res.data});
-    dispatch(setAlert('Message Sent'));
-    navigate('TextSuccess');
   };
 
 export const getStoredText = () => async dispatch => {

@@ -1,22 +1,16 @@
 import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import Btn from './reusable/Btn';
 import {colors} from './shiftSignup/styles';
-import {
-  getUserInfo as getUserInfoAction,
-  signOut as signOutAction,
-  setError as setErrorAction,
-} from '../actions';
+import {signOut as signOutAction, setError as setErrorAction} from '../actions';
 import Title from './reusable/Title';
 import {RootState} from '../state/Root';
 
 const Home = ({
   user,
   signOut,
-  getUserInfo,
-  setError,
 }: {
   navigation: {push: (name: string) => void};
   user: {
@@ -27,34 +21,19 @@ const Home = ({
     busDriver?: boolean;
   };
   signOut: () => void;
-  getUserInfo: () => void;
-  setError: (err: any) => void;
 }) => {
-  useEffect(() => {
-    if (!user.firstName) {
-      getUserInfo();
-    }
-    if (
-      !user.busDriver &&
-      user.homeChefStatus &&
-      user.homeChefStatus !== 'Active'
-    ) {
-      signOut();
-      setError(
-        'You must be an active home chef to use this app. Please complete the onboarding process at portal.ckoakland.org',
-      );
-    }
-  }, [user, getUserInfo, signOut, setError]);
-
+  let headerText = 'Home Chef App';
+  if (user.busDriver) {
+    headerText = 'Mobile Oasis Delivery';
+  }
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.home}>
-        <Title />
+        <Title headerText={headerText} />
         <View style={styles.homeContent}>
           <View style={styles.homeInfo}>
             <View style={styles.homeInfoTitle}>
-              <Text style={styles.homeTitleText}>Welcome to the App!</Text>
-              <Text style={styles.homeTitleText}>
+              <Text style={styles.homeInfoText}>
                 Use the navigation buttons at the bottom of the screen to:
               </Text>
             </View>
@@ -62,18 +41,22 @@ const Home = ({
               <Text style={styles.homeInfoText}>
                 {'\u2022 Send a Text Alert about your Town Fridge delivery'}
               </Text>
-              <Text style={styles.homeInfoText}>
-                {'\u2022 Sign Up for Town Fridge Deliveries'}
-              </Text>
-              <Text style={styles.homeInfoText}>
-                {'\u2022 See and edit your upcoming and past deliveries'}
-              </Text>
+              {user.homeChefStatus === 'Active' && (
+                <>
+                  <Text style={styles.homeInfoText}>
+                    {'\u2022 Sign Up for Town Fridge Deliveries'}
+                  </Text>
+                  <Text style={styles.homeInfoText}>
+                    {'\u2022 See and edit your upcoming and past deliveries'}
+                  </Text>
+                </>
+              )}
             </View>
           </View>
           <View>
             <Text style={styles.homeTitleText}>Signed in as</Text>
             <Text style={styles.homeTitleText}>
-              {user?.firstName} {user?.lastName}
+              {user.firstName} {user.lastName}
             </Text>
             <Btn style={styles.signOutBtn} onPress={signOut}>
               <Text style={styles.signOutBtnText}>Sign Out</Text>
@@ -146,6 +129,5 @@ const mapStateToProps = (state: RootState) => {
 
 export default connect(mapStateToProps, {
   signOut: signOutAction,
-  getUserInfo: getUserInfoAction,
   setError: setErrorAction,
 })(Home);

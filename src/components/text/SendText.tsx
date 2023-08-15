@@ -139,11 +139,19 @@ const SendText = ({
     return restaurants;
   };
 
+  const getMealName = () => {
+    if (!user.busDriver) {
+      return `The meal today is ${name}`;
+    } else {
+      return `The meals today are ${name}`;
+    }
+  };
+
   const message =
     fridge !== undefined && townFridges
       ? `Hello! ${
           townFridges[fridge].name
-        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by ${getChef()}! Please take only what you need, and leave the rest to share. The meal today is ${name}. Please respond to this message with any feedback. Enjoy!`
+        } Town Fridge${getAddress()} has been stocked with ${mealCount} meals, made with love by ${getChef()}! Please take only what you need, and leave the rest to share. ${getMealName()}. Please respond to this message with any feedback. Enjoy!`
       : '';
 
   const prevPage = () => {
@@ -294,7 +302,11 @@ const SendText = ({
     parseInt(format(new Date(), 'H'), 10) < 8;
 
   if (loading) {
-    return <Loading />;
+    return (
+      <View style={styles.sendText}>
+        <Loading />
+      </View>
+    );
   }
 
   if (outsideAllowableHours) {

@@ -51,7 +51,17 @@ const ShiftSignup = ({
             <Pressable
               onPress={() => (viewType !== 'list' ? switchViewType() : null)}
               style={styles.switchBtn}>
-              <Text style={styles.switchText}>Town Fridge List</Text>
+              {({pressed}) => {
+                let extraStyle;
+                if (pressed) {
+                  extraStyle = styles.highlight;
+                }
+                return (
+                  <Text style={[styles.switchText, extraStyle]}>
+                    Town Fridge List
+                  </Text>
+                );
+              }}
             </Pressable>
             <Switch
               thumbColor="blue"
@@ -64,7 +74,15 @@ const ShiftSignup = ({
                 viewType !== 'calendar' ? switchViewType() : null
               }
               style={styles.switchBtn}>
-              <Text style={styles.switchText}>Calendar</Text>
+              {({pressed}) => {
+                let extraStyle;
+                if (pressed) {
+                  extraStyle = styles.highlight;
+                }
+                return (
+                  <Text style={[styles.switchText, extraStyle]}>Calendar</Text>
+                );
+              }}
             </Pressable>
           </View>
         </View>

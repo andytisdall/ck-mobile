@@ -136,10 +136,6 @@ const ChefShifts = ({
     }
   };
 
-  if (!hours || !jobs) {
-    return <Loading />;
-  }
-
   const upcomingArrowStyle = upcomingExpand ? chefStyles.arrowDown : undefined;
   const pastArrowStyle = pastExpand ? chefStyles.arrowDown : undefined;
 
@@ -242,6 +238,14 @@ const ChefShifts = ({
       </View>
     );
   };
+
+  if (!hours || !jobs) {
+    return (
+      <View style={styles.homeChef}>
+        <Loading />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.scrollView}>
