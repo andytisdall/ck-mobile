@@ -47,4 +47,9 @@ export default StyleSheet.create({
     flex: 1,
     resizeMode: 'contain',
   },
+  appleSignIn: {
+    marginTop: 20,
+    width: '75%',
+    height: 60,
+  },
 });

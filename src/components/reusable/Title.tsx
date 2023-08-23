@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from './styles';
 
-const Title = ({headerText}: {headerText: string}) => {
+const Title = ({headerText}: {headerText?: string}) => {
   return (
     <View style={styles.appTitleContainer}>
       {/* <Text style={styles.appTitle}>Community Kitchens</Text> */}
