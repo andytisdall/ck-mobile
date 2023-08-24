@@ -88,6 +88,7 @@ export default StyleSheet.create({
   shiftSignupBtnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     width: '30%',
   },
   shiftList: {
@@ -140,7 +141,7 @@ export default StyleSheet.create({
   signupFields: {borderBottomWidth: 1, borderTopWidth: 1, marginTop: 20},
   signupFieldText: {paddingLeft: 10},
   fullShift: {
-    marginHorizontal: 30,
+    // marginHorizontal: 30,
     paddingRight: 15,
   },
   signupSubmitText: {
@@ -179,5 +180,8 @@ export default StyleSheet.create({
   highlight: {backgroundColor: colors.highlight},
   invalidDate: {
     backgroundColor: 'rgb(150,150,150)',
+  },
+  calendarContainer: {
+    paddingBottom: 150,
   },
 });

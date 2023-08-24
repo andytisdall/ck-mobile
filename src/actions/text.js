@@ -26,7 +26,7 @@ export const sendText =
     if (storedText?.photoUrl && !photoAlreadySentToThisRegion) {
       postBody.append('photo', storedText.photoUrl);
     }
-    const res = await server.post('/text/outgoing', postBody, {
+    const res = await server.post('/text/outgoing/mobile', postBody, {
       headers: {'Content-Type': 'multipart/form-data'},
     });
 
