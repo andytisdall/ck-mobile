@@ -7,6 +7,7 @@ import {
   TextInput as NativeTextInput,
   Image,
   ScrollView,
+  Platform,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -192,14 +193,14 @@ const SignIn = ({
             }}
           </Pressable>
         </View>
-        {/* <View style={styles.googleSignIn}> */}
-        <AppleButton
-          buttonStyle={AppleButton.Style.BLACK}
-          buttonType={AppleButton.Type.SIGN_IN}
-          style={styles.appleSignIn}
-          onPress={onAppleButtonPress}
-        />
-        {/* </View> */}
+        {Platform.OS === 'ios' && (
+          <AppleButton
+            buttonStyle={AppleButton.Style.BLACK}
+            buttonType={AppleButton.Type.SIGN_IN}
+            style={styles.appleSignIn}
+            onPress={onAppleButtonPress}
+          />
+        )}
       </View>
     </ScrollView>
   );
