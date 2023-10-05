@@ -6,8 +6,8 @@ export default StyleSheet.create({
   },
   sendText: {
     paddingBottom: 75,
-    paddingHorizontal: 30,
-    backgroundColor: 'rgb(120, 20, 70)',
+    paddingHorizontal: 20,
+    backgroundColor: 'rgb(30, 10, 70)',
     flex: 1,
     paddingTop: 30,
   },
@@ -26,7 +26,7 @@ export default StyleSheet.create({
     zIndex: 100,
   },
   sendTextLabel: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'rgb(270,270,270)',
     marginHorizontal: 25,
     letterSpacing: 1.5,
@@ -138,6 +138,15 @@ export default StyleSheet.create({
   backBtnText: {
     textAlign: 'center',
     fontSize: 15,
+  },
+  dropdownContainer: {
+    padding: 10,
+    borderWidth: 1,
+    height: 'fit-content',
+  },
+  dropdownText: {
+    fontWeight: '600',
+    fontSize: 20,
   },
 });
 

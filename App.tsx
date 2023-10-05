@@ -61,6 +61,7 @@ const Main = ({user}: {user: {homeChefStatus: string}}) => {
     <Tab.Navigator
       screenOptions={{
         header,
+        tabBarHideOnKeyboard: true,
       }}
       detachInactiveScreens={false}>
       <Tab.Screen

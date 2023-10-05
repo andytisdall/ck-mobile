@@ -52,10 +52,12 @@ const EnterFridge = ({
           items={renderFridgeOptions()}
           setOpen={setFridgeMenuOpen}
           setValue={setFridge}
-          listMode="SCROLLVIEW"
+          listMode="MODAL"
           placeholder="Select a Town Fridge"
           maxHeight={Math.round(height) / 2}
           zIndex={100}
+          listItemContainerStyle={styles.dropdownContainer}
+          textStyle={styles.dropdownText}
         />
 
         {fridge !== undefined && townFridges && (

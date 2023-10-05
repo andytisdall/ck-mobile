@@ -20,7 +20,7 @@ export default StyleSheet.create({
   homeChef: {
     backgroundColor: colors.light,
     flex: 1,
-    paddingVertical: 25,
+    paddingTop: 30,
     paddingBottom: 100,
     paddingHorizontal: 10,
   },
@@ -89,10 +89,10 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '30%',
+    width: '35%',
   },
   shiftList: {
-    padding: 20,
+    padding: 10,
   },
   location: {
     marginBottom: 20,
@@ -102,10 +102,11 @@ export default StyleSheet.create({
   },
   signupBtnText: {
     color: 'white',
+    textAlign: 'center',
   },
   jobDate: {
-    fontSize: 20,
-    width: '30%',
+    fontSize: 17,
+    width: '35%',
   },
 
   jobInactiveText: {
@@ -138,11 +139,21 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
-  signupFields: {borderBottomWidth: 1, borderTopWidth: 1, marginTop: 20},
+  signupFields: {
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    marginTop: 20,
+    maxWidth: '90%',
+  },
   signupFieldText: {paddingLeft: 10},
   fullShift: {
-    // marginHorizontal: 30,
-    paddingRight: 15,
+    marginRight: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    backgroundColor: 'rgb(150,150,150)',
+    borderWidth: 1,
+    borderRadius: 25,
+    textAlign: 'center',
   },
   signupSubmitText: {
     textAlign: 'center',

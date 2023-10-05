@@ -12,12 +12,14 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 5,
-    justifyContent: 'space-between',
     borderBottomColor: 'grey',
     borderBottomWidth: 1,
   },
-
-  chefSubRow: {flexDirection: 'row', alignItems: 'center'},
+  chefSubRow: {
+    justifyContent: 'center',
+    flexGrow: 1,
+    alignItems: 'center',
+  },
   arrow: {width: 20, height: 20, marginRight: 10},
   arrowDown: {transform: [{rotate: '90deg'}]},
   chefTitle: {

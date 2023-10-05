@@ -72,14 +72,14 @@ const ChefShifts = ({
     }
     return (
       <View key={item.id} style={chefStyles.chefRow}>
+        <Btn
+          style={chefStyles.editBtn}
+          onPress={() => {
+            navigation.navigate('EditShift', {hoursId: item.id});
+          }}>
+          <Text>edit</Text>
+        </Btn>
         <View style={chefStyles.chefSubRow}>
-          <Btn
-            style={chefStyles.editBtn}
-            onPress={() => {
-              navigation.navigate('EditShift', {hoursId: item.id});
-            }}>
-            <Text>edit</Text>
-          </Btn>
           <Text>
             {format(
               utcToZonedTime(new Date(item.time), 'America/Los_Angeles'),
@@ -87,8 +87,8 @@ const ChefShifts = ({
             )}{' '}
             - {job.name}
           </Text>
+          <Text> {item.mealCount || 0} Meals</Text>
         </View>
-        <Text>{item.mealCount || 0} Meals</Text>
       </View>
     );
   };
@@ -248,13 +248,17 @@ const ChefShifts = ({
   }
 
   return (
-    <View style={styles.scrollView}>
-      <FlatList
-        style={styles.homeChef}
-        data={[header(), upcomingDeliveries(), pastDeliveries()]}
-        renderItem={({item}) => item}
-      />
-    </View>
+    <FlatList
+      style={styles.scrollView}
+      data={[
+        <FlatList
+          style={[styles.homeChef]}
+          data={[header(), upcomingDeliveries(), pastDeliveries()]}
+          renderItem={({item}) => item}
+        />,
+      ]}
+      renderItem={({item}) => item}
+    />
   );
 };
 
