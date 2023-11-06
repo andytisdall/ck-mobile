@@ -17,12 +17,15 @@ export default StyleSheet.create({
   scrollView: {
     minHeight: '100%',
   },
+  flatList: {flex: 1},
   homeChef: {
     backgroundColor: colors.light,
     flex: 1,
-    paddingTop: 30,
-    paddingBottom: 100,
     paddingHorizontal: 10,
+    marginBottom: '17%',
+  },
+  signupMain: {
+    paddingTop: 30,
   },
   signupHeader: {
     alignItems: 'center',
@@ -54,7 +57,7 @@ export default StyleSheet.create({
   viewActive: {
     transform: [{scale: 1.1}],
   },
-  jobList: {paddingHorizontal: 10},
+  jobList: {paddingHorizontal: 10, paddingBottom: '20%'},
 
   jobContainer: {
     borderBottomColor: colors.grey,
@@ -65,6 +68,7 @@ export default StyleSheet.create({
   },
   jobHeader: {
     flexDirection: 'row',
+    paddingHorizontal: 5,
   },
   jobName: {
     fontSize: 20,
@@ -96,6 +100,8 @@ export default StyleSheet.create({
   },
   location: {
     marginBottom: 20,
+    marginLeft: 5,
+    fontSize: 15,
   },
   signupBtn: {
     backgroundColor: colors.dark,
@@ -103,6 +109,7 @@ export default StyleSheet.create({
   signupBtnText: {
     color: 'white',
     textAlign: 'center',
+    fontSize: 17,
   },
   jobDate: {
     fontSize: 17,
@@ -130,9 +137,7 @@ export default StyleSheet.create({
   signupDetailInfo: {
     paddingHorizontal: 5,
     marginBottom: 25,
-  },
-  signupDetailAddress: {
-    paddingLeft: 55,
+    paddingVertical: 10,
   },
   signupField: {
     flexDirection: 'row',
@@ -145,15 +150,14 @@ export default StyleSheet.create({
     marginTop: 20,
     maxWidth: '90%',
   },
-  signupFieldText: {paddingLeft: 10},
+  signupFieldText: {paddingLeft: 10, flexShrink: 1},
   fullShift: {
-    marginRight: 15,
     paddingVertical: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     backgroundColor: 'rgb(150,150,150)',
     borderWidth: 1,
-    borderRadius: 25,
-    textAlign: 'center',
+    borderRadius: 15,
+    overflow: 'hidden',
   },
   signupSubmitText: {
     textAlign: 'center',
@@ -162,7 +166,6 @@ export default StyleSheet.create({
   checkbox: {
     paddingLeft: 15,
   },
-  shiftDetailHeader: {fontSize: 20, marginLeft: 10},
   submitContainer: {
     marginTop: 40,
     height: 100,
@@ -183,7 +186,9 @@ export default StyleSheet.create({
   confirmLabel: {
     fontWeight: '600',
     marginRight: 20,
+    fontSize: 20,
   },
+  confirmText: {fontSize: 20, flexShrink: 1},
   confirmLine: {
     flexDirection: 'row',
     marginVertical: 5,

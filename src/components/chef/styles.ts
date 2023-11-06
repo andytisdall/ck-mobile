@@ -22,9 +22,7 @@ export default StyleSheet.create({
   },
   arrow: {width: 20, height: 20, marginRight: 10},
   arrowDown: {transform: [{rotate: '90deg'}]},
-  chefTitle: {
-    fontSize: 20,
-  },
+
   chefListHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -34,7 +32,6 @@ export default StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10,
-    paddingBottom: 5,
     marginBottom: 20,
   },
   editBtn: {

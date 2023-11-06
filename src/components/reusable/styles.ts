@@ -54,7 +54,7 @@ export default StyleSheet.create({
   },
   btnText: {
     paddingVertical: 10,
-    fontSize: 15,
+    fontSize: 17,
     textAlign: 'center',
     color: 'white',
     paddingHorizontal: 10,

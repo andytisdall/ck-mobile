@@ -79,7 +79,7 @@ const VolunteerJob = ({
 
     return (
       <FlatList
-        style={styles.shiftList}
+        style={[styles.shiftList, styles.flatList]}
         data={jobShifts}
         renderItem={renderShift}
       />
@@ -94,14 +94,14 @@ const VolunteerJob = ({
     <View style={styles.scrollView}>
       <View style={styles.homeChef}>
         <View style={styles.jobHeader}>
-          <Text style={[styles.jobName]}>{job.name}</Text>
+          <Text style={[styles.signupTitle, styles.signupMain]}>
+            {job.name}
+          </Text>
         </View>
-        <View>
-          {!!job.location && (
-            <Text style={styles.location}>Location: {job.location}</Text>
-          )}
-          {job.active ? renderShifts : <Text>Out of Service</Text>}
-        </View>
+        {!!job.location && (
+          <Text style={styles.location}>Location: {job.location}</Text>
+        )}
+        {job.active ? renderShifts : <Text>Out of Service</Text>}
       </View>
     </View>
   );

@@ -67,11 +67,13 @@ const Confirmation = ({
     if (hour && job) {
       return (
         <View style={[styles.confirmDetail]}>
-          <Text>You have successfully signed up for this shift:</Text>
+          <Text style={styles.confirmText}>
+            You have successfully signed up for this shift:
+          </Text>
           <View style={[styles.signupDetailInfo, styles.signupFields]}>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Date:</Text>
-              <Text>
+              <Text style={styles.confirmText}>
                 {format(
                   utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
                   'eeee, M/d/yy',
@@ -80,29 +82,37 @@ const Confirmation = ({
             </View>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Fridge:</Text>
-              <Text>{job.name}</Text>
+              <Text style={styles.confirmText}>{job.name}</Text>
             </View>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Location:</Text>
-              <Text>{job.location}</Text>
+              <Text style={styles.confirmText}>{job.location}</Text>
             </View>
             <View style={styles.confirmLine}>
               <Text style={styles.confirmLabel}>Number of Meals:</Text>
-              <Text>{hour.mealCount}</Text>
+              <Text style={styles.confirmText}>{hour.mealCount}</Text>
             </View>
           </View>
-          <Text>You have been sent an email with this information.</Text>
+          <Text style={styles.confirmText}>
+            You have been sent an email with this information.
+          </Text>
         </View>
       );
     } else {
-      return <Text>Could not find the details of this shift.</Text>;
+      return (
+        <Text style={styles.confirmText}>
+          Could not find the details of this shift.
+        </Text>
+      );
     }
   };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.homeChef}>
-        <Text style={styles.signupTitle}>Home Chef Sign Up Confirmation</Text>
+        <Text style={[styles.signupTitle, styles.signupMain]}>
+          Home Chef Sign Up Confirmation
+        </Text>
 
         {!jobs || !hours ? <Loading /> : renderShiftDetails()}
         <View style={styles.confirmNav}>

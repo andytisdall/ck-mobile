@@ -75,11 +75,11 @@ const ShiftDetail = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.homeChef}>
-        <View style={styles.signupDetail}>
+        <View style={[styles.signupDetail, styles.signupMain]}>
           <View style={styles.signupDetailInfo}>
             <View style={styles.signupField}>
-              <Text>Date:</Text>
-              <Text style={styles.shiftDetailHeader}>
+              <Text style={styles.confirmLabel}>Date:</Text>
+              <Text style={styles.confirmText}>
                 {format(
                   zonedTimeToUtc(shift.startTime, 'America/Los_Angeles'),
                   'eeee, M/d/yy',
@@ -88,10 +88,10 @@ const ShiftDetail = ({
             </View>
 
             <View style={styles.signupField}>
-              <Text>Fridge:</Text>
-              <Text style={styles.shiftDetailHeader}>{job.name}</Text>
+              <Text style={styles.confirmLabel}>Fridge:</Text>
+              <Text style={styles.confirmText}>{job.name}</Text>
             </View>
-            <Text style={styles.signupDetailAddress}>{job.location}</Text>
+            <Text>{job.location}</Text>
 
             <View style={styles.signupFields}>
               <View style={styles.signupField}>
@@ -106,7 +106,9 @@ const ShiftDetail = ({
                   textColor="black"
                 />
                 <View style={styles.signupFieldText}>
-                  <Text>Number of Meals You Plan to Deliver</Text>
+                  <Text style={styles.confirmText}>
+                    Number of Meals You Plan to Deliver
+                  </Text>
                   <Text>(You can change this later)</Text>
                 </View>
               </View>
@@ -117,7 +119,7 @@ const ShiftDetail = ({
                   unfillColor="white"
                   style={styles.checkbox}
                 />
-                <Text>This meal is soup</Text>
+                <Text style={styles.confirmText}>This meal is soup</Text>
               </View>
             </View>
           </View>

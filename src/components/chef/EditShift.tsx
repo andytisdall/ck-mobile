@@ -18,7 +18,6 @@ import {
 import Loading from '../reusable/Loading';
 import useLoading from '../../hooks/useLoading';
 import styles from '../shiftSignup/styles';
-import chefStyles from './styles';
 import reusableStyles from '../reusable/styles';
 
 type ScreenProps = NativeStackScreenProps<ChefStackParamsList, 'EditShift'>;
@@ -79,7 +78,9 @@ const EditShift = ({
           unfillColor="white"
           style={styles.checkbox}
         />
-        <Text>{text}</Text>
+        <View style={styles.signupFieldText}>
+          <Text style={styles.confirmText}>{text}</Text>
+        </View>
       </View>
     );
   };
@@ -94,14 +95,14 @@ const EditShift = ({
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
       <View style={styles.homeChef}>
-        <View style={styles.signupDetail}>
-          <Text style={chefStyles.chefTitle}>
+        <View style={[styles.signupDetail, styles.signupMain]}>
+          <Text style={styles.signupTitle}>
             Edit Home Chef Delivery Details
           </Text>
           <View style={styles.signupFields}>
             <View style={styles.signupField}>
-              <Text>Date:</Text>
-              <Text style={styles.shiftDetailHeader}>
+              <Text style={styles.confirmLabel}>Date:</Text>
+              <Text style={styles.confirmText}>
                 {format(
                   utcToZonedTime(new Date(hour.time), 'America/Los_Angeles'),
                   'M/d/yy',
@@ -117,7 +118,9 @@ const EditShift = ({
                 textColor="black"
                 autoFocus
               />
-              <Text style={styles.signupFieldText}>Number of Meals</Text>
+              <View style={styles.signupFieldText}>
+                <Text style={styles.confirmText}>Number of Meals</Text>
+              </View>
             </View>
             {renderCancel()}
           </View>

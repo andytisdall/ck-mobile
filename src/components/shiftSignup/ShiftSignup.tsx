@@ -106,18 +106,18 @@ const ShiftSignup = ({
   };
 
   return (
-    <FlatList
-      style={styles.scrollView}
-      data={[
-        <View style={styles.homeChef}>
+    <View style={styles.homeChef}>
+      <FlatList
+        style={[styles.flatList, styles.signupMain]}
+        data={[
           <View style={styles.signupHeader}>
             <Text style={styles.signupTitle}>Town Fridge Sign Up</Text>
             {renderSignup()}
-          </View>
-        </View>,
-      ]}
-      renderItem={({item}) => item}
-    />
+          </View>,
+        ]}
+        renderItem={({item}) => item}
+      />
+    </View>
   );
 };
 

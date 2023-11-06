@@ -77,7 +77,7 @@ const ChefShifts = ({
           onPress={() => {
             navigation.navigate('EditShift', {hoursId: item.id});
           }}>
-          <Text>edit</Text>
+          <Text style={styles.confirmText}>edit</Text>
         </Btn>
         <View style={chefStyles.chefSubRow}>
           <Text>
@@ -144,7 +144,7 @@ const ChefShifts = ({
       <View>
         <View style={chefStyles.chefHeader}>
           {user.firstName ? (
-            <Text style={chefStyles.chefHeaderText}>
+            <Text style={styles.signupTitle}>
               {user.firstName}'s Town Fridge Deliveries
             </Text>
           ) : null}
@@ -158,17 +158,23 @@ const ChefShifts = ({
         <View style={chefStyles.chefInfo}>
           <View style={chefStyles.chefPhotos}>
             <Image
-              source={require('../../assets/chef-shifts-1.jpg')}
+              source={{
+                uri: 'https://portal.ckoakland.org/images/home-chef/chef-shifts.jpeg',
+              }}
               alt="Home Chef meals ready to go"
               style={chefStyles.chefPhoto}
             />
             <Image
-              source={require('../../assets/chef-shifts-2.jpg')}
+              source={{
+                uri: 'https://portal.ckoakland.org/images/home-chef/town-fridge.jpg',
+              }}
               alt="Home Chef meals ready to go"
               style={chefStyles.chefPhoto}
             />
             <Image
-              source={require('../../assets/chef-shifts-3.jpg')}
+              source={{
+                uri: 'https://storage.googleapis.com/coherent-vision-368820.appspot.com/chef-shifts-3.jpg',
+              }}
               alt="Home Chef meals ready to go"
               style={chefStyles.chefPhoto}
             />
@@ -176,7 +182,7 @@ const ChefShifts = ({
           <Btn
             style={chefStyles.signupBtn}
             onPress={() => navigation.navigate('Signup')}>
-            <Text>Sign Up to Deliver Meals</Text>
+            <Text style={styles.confirmText}>Sign Up to Deliver Meals</Text>
           </Btn>
         </View>
       </View>
@@ -201,7 +207,7 @@ const ChefShifts = ({
                 <View style={chefStyles.arrow}>
                   <Arrow style={upcomingArrowStyle} />
                 </View>
-                <Text style={chefStyles.chefTitle}>Upcoming Deliveries</Text>
+                <Text style={styles.signupTitle}>Upcoming Deliveries</Text>
               </View>
             );
           }}
@@ -229,7 +235,7 @@ const ChefShifts = ({
                 <View style={chefStyles.arrow}>
                   <Arrow style={pastArrowStyle} />
                 </View>
-                <Text style={chefStyles.chefTitle}>Past Deliveries</Text>
+                <Text style={styles.signupTitle}>Past Deliveries</Text>
               </View>
             );
           }}
@@ -248,17 +254,19 @@ const ChefShifts = ({
   }
 
   return (
-    <FlatList
-      style={styles.scrollView}
-      data={[
-        <FlatList
-          style={[styles.homeChef]}
-          data={[header(), upcomingDeliveries(), pastDeliveries()]}
-          renderItem={({item}) => item}
-        />,
-      ]}
-      renderItem={({item}) => item}
-    />
+    <View style={styles.homeChef}>
+      <FlatList
+        style={styles.flatList}
+        data={[
+          <FlatList
+            data={[header(), upcomingDeliveries(), pastDeliveries()]}
+            renderItem={({item}) => item}
+            style={styles.jobList}
+          />,
+        ]}
+        renderItem={({item}) => item}
+      />
+    </View>
   );
 };
 
