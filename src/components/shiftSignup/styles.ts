@@ -20,6 +20,8 @@ export default StyleSheet.create({
   flatList: {flex: 1},
   homeChef: {
     backgroundColor: colors.light,
+    minHeight: '100%',
+
     flex: 1,
     paddingHorizontal: 10,
     marginBottom: '17%',
